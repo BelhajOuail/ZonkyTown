@@ -4,50 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZonkyTown's </title>
+    <title>ZonkyTown's Favorites</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="./script/getProfilePicture.js" defer></script>
 
 
 </head>
 
-<body>
-    <header>
-        <section class="profile-picture">
-            <img src="./img/questionpf.webp" alt="profile-picture">
-        </section>
-
-
-        <h1>ZonkyTown</h1>
-
-        <nav>
-            <ul>
-                <a href="#">Landingspage</a>
-                <a href="./homePagina.html">Home</a>
-                <a href="#" class="active">Favorieten</a>
-                <a href="#">Blacklist</a>
-            </ul>
-
-        </nav>
-    </header>
+    <body>
+        <header>
+            <nav>
+                <ul class="navbarpart1">
+                    <a href="./homePagina.html" class="bigname">ZonkyTown</a>
+                    <a href="#">Landingspage</a>
+                    <a href="./homePagina.html" >Home</a>
+                    <a href="./favoritepage.html"class="active">Favorieten</a>
+                    <a href="#">Blacklist</a>
+                </ul>
+    
+                <ul class="navbarpart2">
+                    <section class="profile-picture"> 
+                        <img src="./img/questionpf.webp" alt="profile-picture">
+                    </section>
+                </ul>
+    
+            </nav>
+        </header>
 
 
     <h1 class="bio">Explore Your Fortnite Avatars: Get a Closer Look Before Battle!</h1>
 
-    <section class="favorite-cardlist">
-        <ul>
-            <li>
-                <img src="./img/renegaderaider.webp" alt="Renegade raider">
-                <section class="favorite-randomitems">
+    <ul class="container">
+        <li id="deel1" class="section">
+        <img src="./img/renegaderaider.webp" alt="">
+        <h2>Renegade raider</h2>
+        <h3>Rare renegade raider outfit.</h3></li>
 
-                </section>
-                <h2>Renegade raider</h2>
-                <h3>Rare renegade raider outfit.</h3>
-                
-            </li>
-            
-        </ul>
-    </section>
+
+        <li id="deel2" class="section">
+            <img src="./img/emote.webp" alt="emote">
+            <img src="./img/pump.jpg" alt="pump">
+        </li>
+        <li id="deel3" class="section">
+            <form class="comment-form">  
+                <textarea name="comment" placeholder="Add comment to your favorite skin..."></textarea> <br>
+                <button type="submit">Submit</button>
+              </form>
+              
+        </li>
+    </ul>
 
 
 </body>
