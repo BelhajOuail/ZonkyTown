@@ -20,6 +20,103 @@ body {
     /* knippende cursor */
 }
 
+/* Landingspagina */
+
+/* .landingspagina-header {
+    background-color: #1E1E1E;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    color: white;
+} */
+
+.landingspagina-header h1 {
+    font-size: 3rem;
+    margin: 0;
+    padding: 0;
+}
+
+.landingspagina-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.landingspagina-main ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 0;
+    list-style: none;
+}
+
+.landingspagina-main ul li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 10px 10px 10px;
+    padding: 10px;
+    background-color: #1E1E1E;
+    border-radius: 10px;
+    color: white;
+    font-size: 1.8rem;
+    transition: background-color 0.3s ease;
+
+}
+
+.landingspagina-main ul li:hover {
+    background-color: #333333;
+}
+
+.landingspagina-main ul li a img {
+    height: 350px;
+    width: 580px;
+}
+
+
+.login_button {
+    display: none;
+    position: absolute;
+    background-color: #1E1E1E;
+    border: none;
+    border-radius: 1.5rem;
+    padding: 20px;
+}
+
+.landingspagina-main ul li:hover .login_button {
+    display: flex;
+    background-color: yellow;
+    border-color: yellow;
+}
+
+
+.landingspagina-main ul li a {
+    font-family: FortniteFont;
+    font-size: 25px;
+    text-decoration: none;
+    color: black;
+    text-transform: uppercase;
+}
+
+.name-onderwerpen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    margin: 0;
+    padding: 0;
+}
 
 
 
@@ -92,7 +189,7 @@ h1,
     background-position: 20rem;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0)), url('../img/fortnite.jpg');
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0)), url('../images/fortnite.jpg');
 
 }
 
