@@ -160,13 +160,14 @@ header nav a:hover {
     margin-right: 2rem;
 
 }
-.navbarpart2  a {
+
+.navbarpart2 a {
     margin: 0 1rem;
 
 }
 
 .profile-picture img {
-    width: 3rem;
+    width: 2rem;
     height: auto;
 
 }
@@ -223,7 +224,7 @@ h1,
     cursor: pointer;
     transition: background-color 0.3s ease;
     text-transform: uppercase;
-    /* All caps */
+
 
 }
 
@@ -333,18 +334,21 @@ footer {
 .container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    /* Verdeelt de container in drie gelijke delen */
     grid-gap: 1rem;
-    /* Ruimte tussen de delen */
-    padding: 20px;
+    padding: 2rem;
     list-style-type: none;
+
+
+    box-sizing: border-box;
+    background-position: 20rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0)), url('../images/kevinbackgr.png');
+
+
 }
 
-.section {
 
-    padding: 20px;
-
-}
 
 /* Stijlen voor elk afzonderlijk deel */
 #deel1 {
@@ -357,7 +361,9 @@ footer {
 }
 
 #deel1 img {
-    width: 40rem;
+    width: 30rem;
+    margin: 0;
+    padding: 0;
 }
 
 #deel2 {
@@ -367,8 +373,23 @@ footer {
     align-items: center;
 }
 
+#deel2 button,
+.container button {
+    background-color: yellow;
+    color: black;
+    font-family: FortniteFont;
+    font-size: larger;
+    border-radius: 1.5rem;
+    padding: 15px 30px;
+    border: none;
+
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+}
+
 #deel2 img {
-    width: 25rem;
+    width: 13rem;
     padding: 1rem 0;
 }
 
@@ -377,29 +398,63 @@ footer {
 
 }
 
+.avatardetails {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0 0 5rem 0;
+    align-items: center;
+}
+.avatardetails h2{
+    font-size: 7rem;
+    padding: 0;
+    margin: 1rem;
+    text-align: center;
+    
+}
+
+
+.avatardetails h3 span{
+    text-transform:uppercase;
+    color: #1B90DD
+}
+
+.avatardetails h3, .avatardetails img{
+    font-size: 1.5rem;
+    margin: 0.5rem;
+    display: flex;
+    align-items: center;
+    
+}
+
 .comment-form {
+    /* margin-top: 17rem; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     max-width: 600px;
-    margin: 0 auto;
+    
 }
 
 .comment-form input,
 .comment-form textarea {
+    font-family: FortniteFont;
+    font-weight: lighter;
+    font-size: larger;
     width: 100%;
-    padding: 15px;
+    padding-top: 1.5rem;
+    text-align: center;
     margin-bottom: 20px;
     border: 1px solid #ccc;
-}
+    border-radius: 2rem;
 
-.comment-form button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 15px 20px;
-    border: none;
-    cursor: pointer;
-    max-width: 600px;
+    caret-color: auto
 }
 
 .comment-form button:hover {
     opacity: 0.8;
+    border: none;
+    cursor: pointer;
+    max-width: 600px;
 }
