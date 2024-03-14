@@ -36,7 +36,7 @@ function createSkinContainer(skin) {
 
 
     const setProfileButton = document.createElement('button');
-    setProfileButton.textContent = 'Set as Profile';
+    setProfileButton.textContent = 'Stel in als profielfoto';
     setProfileButton.classList.add('set-profile-button');
     
     

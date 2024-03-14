@@ -471,7 +471,6 @@ footer {
     align-items: center;
     width: 100%;
     max-width: 600px;
-    
 }
 
 .comment-form input,
@@ -485,6 +484,5 @@ footer {
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 2rem;
-
-    caret-color: auto
+    caret-color: auto;
 }
