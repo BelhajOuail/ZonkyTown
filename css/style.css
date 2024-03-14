@@ -224,13 +224,10 @@ h1,
     cursor: pointer;
     transition: background-color 0.3s ease;
     text-transform: uppercase;
-
-
 }
 
-.frontpageh1 button:hover {
+.frontpageh1 button:hover, #deel2 button:hover, .comment-form button:hover  {
     border: 1.5px solid white;
-
 }
 
 .skins-list {
@@ -345,10 +342,7 @@ footer {
     background-size: cover;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0)), url('../images/kevinbackgr.png');
 
-
 }
-
-
 
 /* Stijlen voor elk afzonderlijk deel */
 #deel1 {
@@ -356,8 +350,6 @@ footer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-
 }
 
 #deel1 img {
@@ -369,8 +361,32 @@ footer {
 #deel2 {
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+}
+#deel2 h1{
+    font-size: 2.3rem;
+}
+
+.generate-items {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-between;
+    align-items: end;
+}
+
+.generate-emote{
+    display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+.generate-weapon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 #deel2 button,
@@ -380,6 +396,7 @@ footer {
     font-family: FortniteFont;
     font-size: larger;
     border-radius: 1.5rem;
+    margin-top: 1rem;
     padding: 15px 30px;
     border: none;
 
@@ -388,9 +405,29 @@ footer {
     text-transform: uppercase;
 }
 
-#deel2 img {
+.generate-items img {
     width: 13rem;
     padding: 1rem 0;
+}
+
+.adjustscoreboard{
+    display: flex;
+    justify-content: space-around;
+}
+
+.scoreboard-counter{
+    font-size: 5rem;
+    margin: 1rem;
+}
+
+.scoreboard img{
+    height: 3.3rem;
+    width: auto;
+}
+.scoreboard img:hover{
+    height: 3.5rem;
+    width: auto;
+    cursor: pointer;
 }
 
 #deel3 {
@@ -450,11 +487,4 @@ footer {
     border-radius: 2rem;
 
     caret-color: auto
-}
-
-.comment-form button:hover {
-    opacity: 0.8;
-    border: none;
-    cursor: pointer;
-    max-width: 600px;
 }
