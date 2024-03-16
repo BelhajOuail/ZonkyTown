@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZonkyTown's Homepagina</title>
-    <link rel="stylesheet" href="css/style.css">
-
-    <script src="script/getSkins.js" defer></script>
-
+    <title>ZonkyTown's Login</title>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
-
 <body>
     <header>
         <nav>
@@ -38,25 +33,18 @@
 
         </nav>
     </header>
-
-
-    <section class="frontpageh1">
-        <h1>Fortnite</h1>
-        <h2>De toekomst van Fortnite is hier.</h2> <br>
-        <button>Ontdek nu!</button>
-    </section>
-
-
-    <h1 class="bio">Bereid je voor op de strijd door een van deze avatars te kiezen!</h1>
-
-    <section class="skins-list" id="skins-list"></section>
-
-
-
-
+    <form class="login-form">
+        <img class="login-image" src="./images/questionpf.png" alt="not-logged-in">
+        <h1 class="login-h1">Login</h1>
+        <label class="label-username" for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        
+        <label class="label-password" for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        
+        <input class="login-button" type="submit" value="Login">
+        <a href="">Wachtwoord vergeten?</a>
+        <a href="">Nog geen account?</a>
+    </form>
 </body>
-<footer>
-    <p>&copy;AP Hogeschool | Belhaj Ouail en Benacher Ali</p> <br>
-</footer>
-
 </html>

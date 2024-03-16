@@ -399,10 +399,9 @@ footer {
 }
 
 /* Stijlen voor elk afzonderlijk deel */
-#deel1 {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+
+#deel1 a {
+    display: flex
 }
 
 .skin-avatar {
@@ -539,3 +538,100 @@ footer {
     caret-color: auto;
    
 }
+
+
+/* Login stijl */
+
+/* .login_button {
+    display: none;
+    position: absolute;
+    background-color: #1E1E1E;
+    border: none;
+    border-radius: 1.5rem;
+    padding: 20px;
+} */
+
+/* .login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: black;
+    color: white;
+} */
+
+/* .login-image img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+} */
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 25%;
+    padding: 5rem 4rem;
+    background-color: #18181C;
+    border-radius: 1rem;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* .login-form h1 {
+    color: white;
+    font-family: FortniteFont;
+} */
+
+.login-form input {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.login-form input[type="submit"] {
+    background-color: yellow;
+    color: black;
+    font-family: FortniteFont;
+    font-size: larger;
+    border-radius: 1.5rem;
+    margin-top: 1rem;
+    padding: 15px 30px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+}
+
+.login-form input[type="submit"]:hover {
+    border: 1.5px solid white;
+}
+
+.label-username,
+.label-password {
+    margin-bottom: 10px;
+    color: white;
+}
+
+/* .login-form button {
+    padding: 10px;
+    color: #1B90DD;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+} */
+
+.login-form a{
+    color: white;
+    margin: 1rem;
+    text-decoration: underline;
+}
+
+
+
