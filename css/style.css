@@ -296,14 +296,23 @@ h1,
     width: 20rem;
     height: auto;
     perspective: 60rem;
-    margin: 1rem;
+    margin: 2rem;
+}
+.skins-list a{
+    position: relative;
+    width: 20rem;
+    height: auto;
+    perspective: 60rem;
+    margin: 2rem;
 }
 
 .skin-container img {
     width: 100%;
     height: auto;
     transition: transform 0.5s ease;
+    cursor: pointer;
 }
+
 
 
 .skin-details {
@@ -392,13 +401,12 @@ footer {
 /* Stijlen voor elk afzonderlijk deel */
 #deel1 {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
-    align-items: center;
 }
 
-#deel1 img {
-    width: 30rem;
+.skin-avatar {
+     width: 30rem;
     margin: 0;
     padding: 0;
 }
@@ -416,7 +424,6 @@ footer {
 
 .generate-items {
     display: flex;
-    /* flex-direction: column; */
     justify-content: space-between;
     align-items: end;
 }
@@ -530,4 +537,5 @@ footer {
     border: 1px solid #ccc;
     border-radius: 2rem;
     caret-color: auto;
+   
 }
