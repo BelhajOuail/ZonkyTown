@@ -400,6 +400,7 @@ footer {
 
 /* Stijlen voor elk afzonderlijk deel */
 
+
 #deel1 a {
     display: flex
 }
@@ -482,8 +483,11 @@ footer {
 }
 
 #deel3 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin: 2.25rem;
-
 }
 
 .avatardetails {
