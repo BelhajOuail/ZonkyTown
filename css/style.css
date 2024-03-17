@@ -80,8 +80,24 @@ body {
     width: 580px;
 }
 
+.login__button {
+    display: none;
+    position: absolute;
+    background-color: #1E1E1E;
+    border: none;
+    border-radius: 1.5rem;
+    padding: 20px;
+}
+
+.landingspagina-main ul li:hover .login__button {
+    display: flex;
+    background-color: yellow;
+    border-color: yellow;
+}
+
 
 .login_button {
+    margin: 1rem 0;
     display: none;
     position: absolute;
     background-color: #1E1E1E;
@@ -181,7 +197,7 @@ header nav a:hover {
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
     right: 0;
     top: 100%;
@@ -205,7 +221,7 @@ header nav a:hover {
     display: block;
     right: 0;
     top: 100%;
-    transform: translateX(calc(100% - 160px)); 
+    transform: translateX(calc(100% - 160px));
 }
 
 .dropbtn {
@@ -270,7 +286,9 @@ h1,
     text-transform: uppercase;
 }
 
-.frontpageh1 button:hover, #deel2 button:hover, .comment-form button:hover  {
+.frontpageh1 button:hover,
+#deel2 button:hover,
+.comment-form button:hover {
     border: 1.5px solid white;
 }
 
@@ -288,8 +306,6 @@ h1,
     padding: 1rem;
 }
 
-
-
 .skin-container {
     position: relative;
     width: 20rem;
@@ -297,7 +313,8 @@ h1,
     perspective: 60rem;
     margin: 2rem;
 }
-.skins-list a{
+
+.skins-list a {
     position: relative;
     width: 20rem;
     height: auto;
@@ -311,8 +328,6 @@ h1,
     transition: transform 0.5s ease;
     cursor: pointer;
 }
-
-
 
 .skin-details {
     position: absolute;
@@ -346,8 +361,6 @@ footer {
     text-align: center;
     margin: 1rem;
 }
-
-
 
 .set-profile-button,
 .favorite-button,
@@ -405,7 +418,7 @@ footer {
 }
 
 .skin-avatar {
-     width: 30rem;
+    width: 30rem;
     margin: 0;
     padding: 0;
 }
@@ -417,7 +430,8 @@ footer {
     align-items: center;
     text-align: center;
 }
-#deel2 h1{
+
+#deel2 h1 {
     font-size: 2.3rem;
 }
 
@@ -427,13 +441,14 @@ footer {
     align-items: end;
 }
 
-.generate-emote{
+.generate-emote {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
-.generate-weapon{
+
+.generate-weapon {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -461,21 +476,22 @@ footer {
     padding: 1rem 0;
 }
 
-.adjustscoreboard{
+.adjustscoreboard {
     display: flex;
     justify-content: space-around;
 }
 
-.scoreboard-counter{
+.scoreboard-counter {
     font-size: 5rem;
     margin: 1rem;
 }
 
-.scoreboard img{
+.scoreboard img {
     height: 3.3rem;
     width: auto;
 }
-.scoreboard img:hover{
+
+.scoreboard img:hover {
     height: 3.5rem;
     width: auto;
     cursor: pointer;
@@ -496,26 +512,28 @@ footer {
     margin: 0 0 5rem 0;
     align-items: center;
 }
-.avatardetails h2{
+
+.avatardetails h2 {
     font-size: 7rem;
     padding: 0;
     margin: 1rem;
     text-align: center;
-    
+
 }
 
 
-.avatardetails h3 span{
-    text-transform:uppercase;
+.avatardetails h3 span {
+    text-transform: uppercase;
     color: #1B90DD
 }
 
-.avatardetails h3, .avatardetails img{
+.avatardetails h3,
+.avatardetails img {
     font-size: 1.5rem;
     margin: 0.5rem;
     display: flex;
     align-items: center;
-    
+
 }
 
 .comment-form {
@@ -539,7 +557,7 @@ footer {
     border: 1px solid #ccc;
     border-radius: 2rem;
     caret-color: auto;
-   
+
 }
 
 
@@ -577,7 +595,8 @@ footer {
     justify-content: center;
     position: absolute;
     width: 25%;
-    padding: 5rem 4rem;
+    padding-top: 50px;
+    padding-bottom: 50px;
     background-color: #18181C;
     border-radius: 1rem;
     left: 50%;
@@ -630,7 +649,7 @@ footer {
     cursor: pointer;
 } */
 
-.login-form a{
+.login-form a {
     color: white;
     margin: 1rem;
     text-decoration: underline;
@@ -638,3 +657,94 @@ footer {
 
 
 
+/* Register styling */
+
+.registreer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: black;
+    color: white;
+}
+
+.registreer-image img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.registreer-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 25%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: #18181C;
+    border-radius: 1rem;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.registreer-form h1 {
+    color: white;
+    font-family: FortniteFont;
+}
+
+.registreer-form input {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.registreer-form input[type="submit"] {
+    background-color: yellow;
+    color: black;
+    font-family: FortniteFont;
+    font-size: larger;
+    border-radius: 1.5rem;
+    margin-top: 1rem;
+    padding: 15px 30px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+}
+
+.registreer-form input[type="submit"]:hover {
+    border: 1.5px solid white;
+}
+
+.label-username,
+.label-password {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: white;
+}
+
+
+.registreer-button {
+    margin: 1rem 0;
+    padding: 10px;
+    color: black;
+    border: none;
+    border-radius: 1.5rem;
+    cursor: pointer;
+    background-color: yellow;
+    font-family: FortniteFont;
+    font-size: larger;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    width: 70%; /* Added width property */
+}
+
+.registreer-button:hover {
+    border: 1.5px solid white;
+}
