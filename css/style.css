@@ -14,7 +14,6 @@ body {
     box-sizing: border-box;
     background-color: black;
     color: white;
-    caret-color: transparent;
     letter-spacing: 1px;
     font-size: 1.15rem;
     /* knippende cursor */
@@ -556,7 +555,6 @@ footer {
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 2rem;
-    caret-color: auto;
 
 }
 
@@ -720,6 +718,12 @@ footer {
 
 .registreer-form input[type="submit"]:hover {
     border: 1.5px solid white;
+}
+
+.registreer-form p {
+   text-decoration: underline;
+   padding: 0;
+   margin-top: 3.5rem;
 }
 
 .label-username,
