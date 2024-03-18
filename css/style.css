@@ -633,6 +633,26 @@ footer {
     border: 1.5px solid white;
 }
 
+.login-button {
+    display: flex;
+    background-color: yellow;
+    color: black;
+    font-family: FortniteFont;
+    font-size: larger;
+    border-radius: 1.5rem;
+    margin-top: 1rem;
+    padding: 15px 30px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+}
+
+.login-button:hover {
+    border: 1.5px solid white;
+}
+
+
 .label-username,
 .label-password {
     margin-bottom: 10px;
@@ -680,6 +700,7 @@ footer {
     justify-content: center;
     position: absolute;
     width: 25%;
+    margin-top: 80px;
     padding-top: 50px;
     padding-bottom: 50px;
     background-color: #18181C;
@@ -721,9 +742,9 @@ footer {
 }
 
 .registreer-form p {
-   text-decoration: underline;
-   padding: 0;
-   margin-top: 3.5rem;
+    text-decoration: underline;
+    padding: 0;
+    margin-top: 3.5rem;
 }
 
 .label-username,
@@ -746,9 +767,16 @@ footer {
     font-size: larger;
     transition: background-color 0.3s ease;
     text-transform: uppercase;
-    width: 70%; /* Added width property */
+    width: 70%;
+    /* Added width property */
 }
 
 .registreer-button:hover {
     border: 1.5px solid white;
+}
+
+.tochAanmelden {
+    color: white;
+    margin: 1rem;
+    text-decoration: underline;
 }

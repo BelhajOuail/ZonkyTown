@@ -14,7 +14,7 @@ function selectRandomSkins(skins, count) {
 async function getFortniteSkins() {
     const response = await fetch('https://fortnite-api.com/v2/cosmetics/br');
     const data = await response.json();
-    return data.data.filter(item => item.type.value === 'outfit'); 
+    return data.data.filter(item => item.type.value === 'outfit');
 }
 
 // Functie om een skincontainer te maken
@@ -37,7 +37,7 @@ function createSkinContainer(skin) {
     const setProfileButton = document.createElement('button');
     setProfileButton.textContent = 'Stel in als profielfoto';
     setProfileButton.classList.add('set-profile-button');
-    
+
     const favoriteButton = document.createElement('span');
     favoriteButton.classList.add('favorite-button');
     favoriteButton.innerHTML = '&#10084;'; // Unicode voor een hart
@@ -47,15 +47,15 @@ function createSkinContainer(skin) {
     blacklistButton.innerHTML = '&#10060;'; // Unicode voor een kruisje
     blacklistButton.style.cursor = 'pointer';
 
-    setProfileButton.addEventListener('click', function(event) {
+    setProfileButton.addEventListener('click', function (event) {
         event.stopPropagation();
     });
 
-    favoriteButton.addEventListener('click', function(event) {
+    favoriteButton.addEventListener('click', function (event) {
         event.stopPropagation();
     });
 
-    blacklistButton.addEventListener('click', function(event) {
+    blacklistButton.addEventListener('click', function (event) {
         event.stopPropagation();
     });
 
@@ -78,12 +78,12 @@ function createSkinContainer(skin) {
 function displaySkins(skins) {
     const skinsList = document.getElementById('skins-list');
     skins.forEach(skin => {
-        
+
         if (skin.images.featured) {
             const skinContainer = createSkinContainer(skin);
             skinsList.appendChild(skinContainer);
 
-            
+
             skinContainer.addEventListener('click', () => {
                 skinContainer.classList.toggle('flipped');
             });
@@ -99,7 +99,7 @@ function displaySkins(skins) {
         const skins = await getFortniteSkins();
         const randomSkins = selectRandomSkins(skins, 10);
         displaySkins(randomSkins);
-        
+
     } catch (error) {
         console.error('Er is een fout opgetreden:', error);
     }
