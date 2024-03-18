@@ -6,7 +6,7 @@ function selectRandomSkins(skins, count) {
     for (let i = 0; i < maxCount; i++) {
         const randomIndex = Math.floor(Math.random() * skins.length);
         selectedSkins.push(skins[randomIndex]);
-        skins.splice(randomIndex, 1);
+        skins.splice(randomIndex, 1); // Voorkomen dat dezelfde skin twee keer wordt geselecteerd
     }
     return selectedSkins;
 }
@@ -26,15 +26,49 @@ function createSkinContainer(skin) {
     skinImage.src = skin.images.featured;
     skinImage.alt = skin.name;
 
+    const skinDetails = document.createElement('div');
+    skinDetails.classList.add('skin-details');
+    skinDetails.innerHTML = `
+        <h2>${skin.name}</h2>
+        <p>Reden: </p>
+        <p>Slechte aim.</p>
+        <br></br>
+    `;
+
+
+    const setProfileButton = document.createElement('button');
+    setProfileButton.textContent = 'Wijzig/Verwijder reden';
+    setProfileButton.classList.add('set-blacklist-reason');
+
+
+    const blacklistButton = document.createElement('span');
+    blacklistButton.classList.add('removeblacklist-button');
+    blacklistButton.innerHTML = '&#10060;'; // Unicode voor een kruisje
+    blacklistButton.style.cursor = 'pointer';
+
+    setProfileButton.addEventListener('click', function (event) {
+        event.stopPropagation();
+    });
+
+    blacklistButton.addEventListener('click', function (event) {
+        event.stopPropagation();
+    });
+
+    
+
+
+
+
+
+    skinDetails.appendChild(setProfileButton);
+    skinDetails.appendChild(blacklistButton);
+
     skinContainer.appendChild(skinImage);
+    skinContainer.appendChild(skinDetails);
 
-    const anchor = document.createElement('a');
-    anchor.href = './detailpagina.html'; 
-    anchor.appendChild(skinContainer);
 
-    return anchor;
+    return skinContainer;
 }
-
 
 // Functie om skins weer te geven
 function displaySkins(skins) {
@@ -44,8 +78,12 @@ function displaySkins(skins) {
         if (skin.images.featured) {
             const skinContainer = createSkinContainer(skin);
             skinsList.appendChild(skinContainer);
-        }
-        else{
+
+
+            skinContainer.addEventListener('click', () => {
+                skinContainer.classList.toggle('flipped');
+            });
+        } else {
             console.warn(`Skin '${skin.name}' heeft geen geldige afbeeldings-URL en wordt overgeslagen.`);
         }
     });
@@ -53,12 +91,8 @@ function displaySkins(skins) {
 
 // Roep de functies aan in de volgorde van uitvoering
 (async function () {
-    try {
-        const skins = await getFortniteSkins();
-        const randomSkins = selectRandomSkins(skins, 10);
-        displaySkins(randomSkins);
 
-    } catch (error) {
-        console.error('Er is een fout opgetreden:', error);
-    }
+    const skins = await getFortniteSkins();
+    const randomSkins = selectRandomSkins(skins, 15);
+    displaySkins(randomSkins);
 })();

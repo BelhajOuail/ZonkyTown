@@ -16,8 +16,9 @@ body {
     color: white;
     letter-spacing: 1px;
     font-size: 1.15rem;
-    /* knippende cursor */
+
 }
+
 
 /* Landingspagina */
 
@@ -363,7 +364,9 @@ footer {
 
 .set-profile-button,
 .favorite-button,
-.blacklist-button {
+.blacklist-button,
+.set-blacklist-reason,
+.removeblacklist-button {
     margin: 0.5rem;
     border: none;
     border-radius: 5px;
@@ -377,17 +380,20 @@ footer {
 
 }
 
-.set-profile-button {
+.set-profile-button,
+.set-blacklist-reason {
     padding: 8px 15px;
 }
 
-.set-profile-button:hover {
+.set-profile-button:hover,
+.set-blacklist-reason:hover {
     transform: scale(1.12);
 }
 
 
 .favorite-button:hover,
-.blacklist-button:hover {
+.blacklist-button:hover,
+.removeblacklist-button:hover {
     transform: scale(1.23);
 }
 
@@ -561,51 +567,27 @@ footer {
 
 /* Login stijl */
 
-/* .login_button {
-    display: none;
-    position: absolute;
-    background-color: #1E1E1E;
-    border: none;
-    border-radius: 1.5rem;
-    padding: 20px;
-} */
 
-/* .login-container {
+
+.login-section {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    height: 100vh;
-    background-color: black;
-    color: white;
-} */
-
-/* .login-image img {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 20px;
-} */
+}
 
 .login-form {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: absolute;
     width: 25%;
+    margin-top: 3rem;
     padding-top: 50px;
     padding-bottom: 50px;
     background-color: #18181C;
     border-radius: 1rem;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+
 }
 
-/* .login-form h1 {
-    color: white;
-    font-family: FortniteFont;
-} */
 
 .login-form input {
     width: 80%;
@@ -677,37 +659,24 @@ footer {
 
 /* Register styling */
 
-.registreer-container {
+.registreer-section {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    height: 100vh;
-    background-color: black;
-    color: white;
 }
 
-.registreer-image img {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 20px;
-}
 
 .registreer-form {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: absolute;
     width: 25%;
-    margin-top: 80px;
+    margin-top: 3rem;
     padding-top: 50px;
     padding-bottom: 50px;
     background-color: #18181C;
     border-radius: 1rem;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+
 }
 
 .registreer-form h1 {
@@ -768,7 +737,7 @@ footer {
     transition: background-color 0.3s ease;
     text-transform: uppercase;
     width: 70%;
-    /* Added width property */
+
 }
 
 .registreer-button:hover {
@@ -779,4 +748,102 @@ footer {
     color: white;
     margin: 1rem;
     text-decoration: underline;
+}
+
+
+/* Mediaqueries */
+
+@media screen and  (max-width: 1700px){
+    .container{
+        grid-template-columns: 1fr;
+    }
+
+    #deel1{
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+    }
+
+    
+
+@media screen and (max-width: 1200px) {
+
+
+    .navbarpart1 {
+        flex-direction: column;
+    }
+
+
+    .frontpageh1 {
+        height: 45vh;
+    }
+
+    .frontpageh1 h1 {
+        font-size: 5rem;
+    }
+
+    .frontpageh1 h2 {
+        font-size: 2rem;
+    }
+
+    .frontpageh1 button {
+        font-size: 1.5rem;
+        margin-top: 0.5rem;
+        margin-left: 5rem;
+    }
+
+    .bio {
+        font-size: 2rem;
+        margin: 2rem 1rem;
+    }
+
+
+
+    @media screen and (max-width: 750px) {
+
+
+        .frontpageh1 {
+            height: 35vh;
+        }
+
+        .frontpageh1 h1 {
+            font-size: 3rem;
+        }
+
+        .frontpageh1 h2 {
+            font-size: 1.5rem;
+        }
+
+        .frontpageh1 button {
+            font-size: 1.5rem;
+            margin-top: 0.5rem;
+            margin-left: 5rem;
+            padding: 10px 20px;
+        }
+
+        .bio {
+            font-size: 1.5rem;
+        }
+
+        .avatardetails h2{
+            font-size: 5rem;
+        }
+
+    }
+
+    @media screen and (max-width: 550px) {
+
+        header nav {
+            flex-direction: column;
+        }
+
+        .frontpageh1 {
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 1) 1%, rgba(0, 0, 0, 0)), url('../images/fortnite.jpg');
+        }
+
+    }
+
+}
+
 }
