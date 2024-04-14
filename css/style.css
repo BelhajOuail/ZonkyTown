@@ -797,6 +797,12 @@ footer {
         font-size: 2rem;
         margin: 2rem 1rem;
     }
+    .login-form{
+        padding: 20px;
+    }
+    .registreer-form{
+        padding: 20px;
+    }
 
 
 
@@ -829,7 +835,20 @@ footer {
         .avatardetails h2{
             font-size: 5rem;
         }
-
+        .skin-avatar{
+            height: 300px;
+            width: 250px;
+            align-items: center;
+        }
+        .login-form{
+            padding: 20px;
+        }
+        .registreer-form{
+            padding: 20px;
+        }
+        .registreer-button{
+            width: 130px;
+        }
     }
 
     @media screen and (max-width: 550px) {
@@ -842,8 +861,9 @@ footer {
             background-image: linear-gradient(to right, rgba(0, 0, 0, 1) 1%, rgba(0, 0, 0, 0)), url('../images/fortnite.jpg');
         }
 
+ 
     }
-
+    
 }
 
 }
