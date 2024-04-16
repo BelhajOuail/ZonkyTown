@@ -1,51 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZonkyTown's Projecten</title>
-    <link rel="stylesheet" href="./css/style.css">
-</head>
-
-<body>
-
-    <header>
-        <nav>
-            <ul class="navbarpart1">
-                <a href="./homepagina.html" class="bigname">ZonkyTown</a>
-                <a href="./landingspagina.html" class="active">Landingspage</a>
-                <a href="./homepagina.html">Home</a>
-                <a href="./favoritepagina.html">Favorieten</a>
-                <a href="./blacklist.html">Blacklist</a>
-            </ul>
-
-            <ul class="navbarpart2">
-                <section class="profile-picture">
-                    <a href="#"><img src="./images/iconsearch.png" alt="search-picture"></a>
-
-                    <section class="dropdown">
-                        <button class="dropbtn"><img src="./images/questionpf.png" alt="profile-picture"></button>
-                        <section class="dropdown-content">
-                            <a href="./login.html">Login</a>
-                            <a href="./registreer.html">Registreer</a>
-                        </section>
-                    </section>
-                </section>
-            </ul>
-
-        </nav>
-    </header>
-    <!-- <header class="landingspagina-header">
-        <h1>ZonkyTown</h1>
-    </header> -->
-
-    <section class="landingspagina-main">
+<%- include('header.ejs') %>
+<script src="js/alertPopUp.js"></script>
+   <section class="landingspagina-main">
         <main>
             <ul class="onderwerpen">
                 <li>
                     <a href="#" class="name-onderwerpen">
-                        <img src="./images/fortniteL.jpg" alt="fortnite">
+                        <img src="assets/images/fortniteL.jpg" alt="fortnite">
                     </a>
                     <button class="login_button"><a href="login.html">Login</a></button>
                     <p>Fortnite</p>
@@ -53,7 +13,7 @@
 
                 <li>
                     <a href="#" class="name-onderwerpen">
-                        <img src="./images/magic the gathering.jpg" alt="magic the gathering">
+                        <img src="assets/images/magic the gathering.jpg" alt="magic the gathering">
                     </a>
                     <button class="login_button"><a href="#">Login</a></button>
                     <p>Magic: The Gathering</p>
@@ -61,7 +21,7 @@
 
                 <li>
                     <a href="#" class="name-onderwerpen">
-                        <img src="./images/lordoftherings.jpg" alt="lord of the rings">
+                        <img src="assets/images/lordoftherings.jpg" alt="lord of the rings">
                     </a>
                     <button class="login_button"><a href="#">Login</a></button>
                     <p>Lord Of The Rings</p>
@@ -69,7 +29,7 @@
 
                 <li>
                     <a href="#" class="name-onderwerpen">
-                        <img src="./images/pokemon.jpg" alt="pokemon">
+                        <img src="assets/images/pokemon.jpg" alt="pokemon">
                     </a>
                     <button class="login_button"><a href="#">Login</a></button>
                     <p>Pokémon</p>
@@ -77,7 +37,7 @@
 
                 <li>
                     <a href="#" class="name-onderwerpen">
-                        <img src="./images/lego.jpg" alt="lego">
+                        <img src="assets/images/lego.jpg" alt="lego">
                     </a>
                     <button class="login_button"><a href="#">Login</a></button>
                     <p>Lego</p>
@@ -85,7 +45,7 @@
 
                 <li>
                     <a href="#" class="name-onderwerpen">
-                        <img src="./images/fifa.jpeg" alt="fifa">
+                        <img src="assets/images/fifa.jpeg" alt="fifa">
                     </a>
                     <button class="login_button"><a href="#">Login</a></button>
                     <p>FIFA</p>
@@ -93,11 +53,4 @@
             </ul>
         </main>
     </section>
-
-    <footer>
-        <p>&copy;AP Hogeschool | Belhaj Ouail en Benacher Ali</p> <br>
-    </footer>
-    <script src="./script/alertPopUp.js"></script>
-</body>
-
-</html>
+    <%- include('footer.ejs') %>

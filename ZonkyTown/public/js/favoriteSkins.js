@@ -29,7 +29,7 @@ function createSkinContainer(skin) {
     skinContainer.appendChild(skinImage);
 
     const anchor = document.createElement('a');
-    anchor.href = './detailpagina.html'; 
+    anchor.href = '/detailpagina'; 
     anchor.appendChild(skinContainer);
 
     return anchor;

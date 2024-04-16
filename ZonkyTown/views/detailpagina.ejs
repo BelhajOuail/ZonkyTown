@@ -1,46 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZonkyTown's Skins</title>
-    <link rel="stylesheet" href="css/style.css">
 
 
-
-</head>
-
-<body>
-    <header>
-        <nav>
-            <ul class="navbarpart1">
-                <a href="./homepagina.html" class="bigname">ZonkyTown</a>
-                <a href="./landingspagina.html" class="active">Landingspage</a>
-                <a href="./homepagina.html">Home</a>
-                <a href="./favoritepagina.html">Favorieten</a>
-                <a href="./blacklist.html">Blacklist</a>
-            </ul>
-
-            <ul class="navbarpart2">
-                <section class="profile-picture">
-                    <a href="#"><img src="./images/iconsearch.png" alt="search-picture"></a>
-
-                    <section class="dropdown">
-                        <button class="dropbtn"><img src="./images/questionpf.png" alt="profile-picture"></button>
-                        <section class="dropdown-content">
-                            <a href="./login.html">Login</a>
-                            <a href="./registreer.html">Registreer</a>
-                        </section>
-                    </section>
-                </section>
-            </ul>
-
-        </nav>
-    </header>
-
-
-
+<%- include('header.ejs') %>
     <h1 class="bio">Verken je Fortnite-avatars: bekijk ze van dichterbij voordat je gaat vechten!</h1>
 
     <ul class="container">
@@ -93,11 +53,4 @@
 
         </li>
     </ul>
-
-
-</body>
-<footer>
-    <p>&copy;AP Hogeschool | Belhaj Ouail en Benacher Ali</p> <br>
-</footer>
-
-</html>
+<%- include('footer.ejs') %>

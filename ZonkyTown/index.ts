@@ -1,26 +1,67 @@
-import express, { Express } from "express";
-import dotenv from "dotenv";
-import path from "path";
+import express from "express";
+fetchData()
+async function fetchData() {
+    try {
+        const response = await fetch("https://fortnite-api.com/v2/cosmetics/br");
+        
+        if (!response.ok) {
+            throw new Error("could not fetch resource");
+            
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
 
-dotenv.config();
+const app = express();
+app.set("port", 3000);
+app.set("view engine", "ejs")
+app.use(express.static("public"))
 
-const app : Express = express();
-
-app.set("view engine", "ejs");
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "public")));
-app.set('views', path.join(__dirname, "views"));
-
-app.set("port", process.env.PORT || 3000);
-
-app.get("/", (req, res) => {
-    res.render("index", {
-        title: "Hello World",
-        message: "Hello World"
-    })
+app.get("/", async (req, res) => {
+    const data = await fetchData();
+    res.render("landingspagina", { 
+        fortnite : data
+    }); 
 });
-
-app.listen(app.get("port"), () => {
-    console.log("Server started on http://localhost:" + app.get('port'));
+app.get("/index", async (req, res) => {
+    const data = await fetchData();
+    res.render("index", { 
+        fortnite : data
+    }); 
 });
+app.get("/login", async (req, res) => {
+    const data = await fetchData();
+    res.render("login", { 
+        fortnite : data
+    }); 
+});
+app.get("/favoritepagina", async (req, res) => {
+    const data = await fetchData();
+    res.render("favoritepagina", { 
+        fortnite : data
+    }); 
+});
+app.get("/blacklist", async (req, res) => {
+    const data = await fetchData();
+    res.render("blacklist", { 
+        fortnite : data
+    }); 
+});
+app.get("/registreerspagina", async (req, res) => {
+    const data = await fetchData();
+    res.render("registreerspagina", { 
+        fortnite : data
+    }); 
+});
+app.get("/detailpagina", async (req, res) => {
+    const data = await fetchData();
+    res.render("detailpagina", { 
+        fortnite : data
+    }); 
+});
+app.listen(app.get("port"), async()=>{
+    console.log("server http://localhost:" + app.get("port"))
+})

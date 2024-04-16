@@ -1,6 +1,7 @@
+
 @font-face {
     font-family: 'FortniteFont';
-    src: url('fortnite.otf');
+    src: url('../assets/fonts/fortnite.otf');
     /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
 }
 
