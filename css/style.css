@@ -3,6 +3,9 @@
     src: url('fortnite.otf');
     /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
 }
+header #smallSize {
+    display: none;
+}
 
 html,
 body {
@@ -135,7 +138,7 @@ body {
 
 
 
-header nav {
+header #bigSize nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -146,7 +149,7 @@ header nav {
 
 
 
-header nav a:hover {
+header #bigSize a:hover {
     color: yellow;
     transition: 0.5s;
 }
@@ -850,7 +853,75 @@ footer {
             width: 130px;
         }
     }
-
+    @media screen and (max-width: 750px) {
+        /*header*/
+        header #bigSize {
+            display: none;
+        }
+        header #smallSize {
+            display: contents;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 28%;
+            margin: 0 1rem;
+        }
+        
+        .menu-icon {
+            display: block;
+            width: 30px;
+            height: 22px;
+            cursor: pointer;
+        }
+        
+        .menu-icon div {
+            background-color: white;
+            height: 4px;
+            margin: 5px 0;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        #smallSize nav {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 200px;
+            background-color: black;
+            box-shadow: white;
+        }
+        
+        #smallSize nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        #smallSize nav li {
+            border-bottom: 1px solid white;
+        }
+        
+        #smallSize nav li a {
+            display: block;
+            padding: 10px;
+            color: white;
+            text-decoration: none;
+        }
+        
+        #smallSize nav li a:hover {
+            background-color: yellow;
+        }
+        #menuToggle {
+            display: none;
+        }
+        
+        #menuToggle:checked + .menu-icon + nav {
+            display: block;
+        }
+        /*contact*/
+        .contact {
+            flex-direction: column;
+        }
+    }
     @media screen and (max-width: 550px) {
 
         header nav {
