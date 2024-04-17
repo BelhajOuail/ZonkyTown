@@ -3,54 +3,51 @@
 <%- include('partials/header.ejs') %>
     <h1 class="bio">Verken je Fortnite-avatars: bekijk ze van dichterbij voordat je gaat vechten!</h1>
 
-    <ul class="container">
-        <li id="deel1" class="section">
+    <section class="container">
+        <article>
             <a href="/favoritepagina"><img src="/assets/icons/goback.png" alt="goback"></a>
-            <img src="/assets/images/renegaderaider.webp" class="skin-avatar" alt="Skinfoto">
-        </li>
-
-
-        <li id="deel2" class="section">
-            <section>
-                <h1>Scoreboard</h1>
-                <section class="scoreboard">
-                    <h2 class="scoreboard-counter">9 <span style="color: #319236;">W</span> - 5 <span
-                            style="color: red;">L</span></h2>
-                    <section class="adjustscoreboard">
-                        <img src="/assets/icons/plus.png" alt="AddWin">
-                        <img src="/assets/icons/minus.png" alt="AddLoss">
-                    </section>
-                </section>
-
-            </section>
-            <section class="generate-items">
-                <section class="generate-weapon">
+            <h2>Renegade raider</h2>
+            <img src="/assets/images/renegaderaider.webp" alt="Skinfoto">
+            <h3>Rare renegade raider outfit.</h3>
+            <h3><span>Rare</span>&nbsp; outfit</h3>
+            <h3>Geïntroduceerd in: Seizoen 1</h3>
+            <h3><img src="/assets/images/vbucks.webp" alt="vbucks"> 1,200</h3>
+        <form class="comment-form">
+            <textarea name="comment" placeholder="Voeg commentaar toe aan je favoriete skin..."></textarea>
+            <button type="submit">Verstuur</button>
+        </form>
+        </article>
+        <article>
+            <h2>Scoreboard</h2>
+            <div class="row scoreboard">
+                <div class="score">
+                    <p>Aantal gewonnen</p>
+                    <p>9</p>
+                    <div class="row">
+                        <img src="/assets/icons/circle-plus-solid.svg" alt="AddWin">
+                        <img src="assets/icons/circle-minus-solid.svg" alt="AddLoss">
+                    </div>
+                </div>
+                <div class="score">
+                    <p>Aantal verloren</p>
+                    <p>5</p>
+                    <div class="row">
+                        <img src="/assets/icons/circle-plus-solid.svg" alt="AddWin">
+                        <img src="assets/icons/circle-minus-solid.svg" alt="AddLoss">
+                    </div>
+                </div>
+            </div>
+            <h2>Kies je uitrustingen</h2>
+            <div class="row">   
+                <div class="score">
                     <img src="/assets/images/mysteryitem.webp" alt="emote">
-                    <button>Genereer wapen</button>
-                </section>
-                <section class="generate-emote">
+                    <button>Kies wapens</button>
+                </div>
+                <div class="score">
                     <img src="/assets/images/mysteryitem.webp" alt="pump">
-                    <button>Genereer emote</button>
-                </section>
-            </section>
-
-
-        </li>
-        <li id="deel3" class="section">
-            <section class="avatardetails">
-                <h2>Renegade raider</h2>
-                <h3>Rare renegade raider outfit.</h3>
-                <h3><span>Rare</span>&nbsp; outfit</h3>
-                <h3>Geïntroduceerd in: Seizoen 1</h3>
-                <h3><img src="/assets/images/vbucks.webp" alt="vbucks"> 1,200</h3>
-            </section>
-
-
-            <form class="comment-form">
-                <textarea name="comment" placeholder="Voeg commentaar toe aan je favoriete skin..."></textarea>
-                <button type="submit">Verstuur</button>
-            </form>
-
-        </li>
-    </ul>
+                    <button>kies emoticons</button>
+                </div>
+            </div>
+        </article>
+    </section>
 <%- include('partials/footer.ejs') %>

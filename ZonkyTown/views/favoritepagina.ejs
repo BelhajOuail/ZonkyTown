@@ -1,6 +1,18 @@
 <%- include('partials/header.ejs') %>
-<script src="js/favoriteSkins.js"></script>
+<main>
+    <script src="js/favoriteSkins.js"></script>
     <h1 class="bio">Verken je Fortnite-avatars: bekijk ze van dichterbij voordat je gaat vechten!</h1>
-
-    <section class="skins-list" id="skins-list"></section>
-    <%- include('partials/footer.ejs') %>
+    <section class="characters">
+        <% for (let index = 0; index < 30; index++) {%>
+        <article class="cards-list">
+            <div class="card 1">
+              <div class="card_image"><img src="<%= fortnite[index].images.icon %>" /></div>
+              <div class="card_title title-white">
+                <p><%= fortnite[index].name %></p>
+              </div>
+            </div>
+            </article>
+        <% } %>
+    </section>
+</main>
+<%- include('partials/footer.ejs') %>

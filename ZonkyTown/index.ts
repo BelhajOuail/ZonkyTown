@@ -1,17 +1,16 @@
 import express from "express";
-fetchData()
+
 async function fetchData() {
     try {
-        const response = await fetch("https://fortnite-api.com/v2/cosmetics/br");
-        
+        const response = await fetch('https://fortnite-api.com/v2/cosmetics/br');
         if (!response.ok) {
-            throw new Error("could not fetch resource");
-            
+            throw new Error("Could not fetch resource");
         }
         const data = await response.json();
-        return data;
+        return data.data.filter((item:any) => item.type.value === 'outfit');
     } catch (error) {
         console.log(error);
+        return [];
     }
 }
 
@@ -22,8 +21,9 @@ app.use(express.static("public"))
 
 app.get("/", async (req, res) => {
     const data = await fetchData();
+    const fortnite = data.data;
     res.render("landingspagina", { 
-        fortnite : data
+        fortnite : fortnite
     }); 
 });
 app.get("/index", async (req, res) => {
@@ -43,6 +43,15 @@ app.get("/favoritepagina", async (req, res) => {
     res.render("favoritepagina", { 
         fortnite : data
     }); 
+});
+app.get("/characters/:id", async (req, res) => {
+    const data = await fetchData();
+    const fortniteId = req.params.id;
+    const characters = data.filter((character:any) => character.id === fortniteId);
+    if (!characters) {
+        return res.status(404).send("Character not found");
+    }
+        res.render("cards", { fortnite: characters });
 });
 app.get("/blacklist", async (req, res) => {
     const data = await fetchData();
