@@ -1,9 +1,9 @@
-<%- include('header.ejs') %>
+<%- include('partials/header.ejs') %>
 
 
     <section class="login-section">
         <form class="login-form">
-            <img class="login-image" src="./images/questionpf.png" alt="not-logged-in">
+            <img class="login-image" src="/assets/icons/questionpf.png" alt="not-logged-in">
             <h1 class="login-h1">Login</h1>
             <label class="label-username" for="username">Gebruikersnaam:</label>
             <input type="text" id="username" name="username" required>
@@ -13,8 +13,8 @@
 
             <button class="login-button" type="submit">Aanmelden</button>
             <a href="">Wachtwoord vergeten?</a>
-            <a href="./registreer.html">Nog geen account?</a>
+            <a href="/registreer">Nog geen account?</a>
         </form>
     </section>
  
-    <%- include('footer.ejs') %>
+    <%- include('partials/footer.ejs') %>

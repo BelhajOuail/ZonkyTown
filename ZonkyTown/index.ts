@@ -50,9 +50,9 @@ app.get("/blacklist", async (req, res) => {
         fortnite : data
     }); 
 });
-app.get("/registreerspagina", async (req, res) => {
+app.get("/registreer", async (req, res) => {
     const data = await fetchData();
-    res.render("registreerspagina", { 
+    res.render("registreer", { 
         fortnite : data
     }); 
 });

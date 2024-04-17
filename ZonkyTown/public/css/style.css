@@ -251,7 +251,7 @@ h1,
     background-position: 20rem;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0)), url('../images/fortnite.jpg');
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0)), url('../assets/images/fortnite.jpg');
 
 }
 
@@ -412,7 +412,7 @@ footer {
     background-position: 20rem;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0)), url('../images/kevinbackgr.png');
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0)), url('../assets/images/kevinbackgr.png');
 
 }
 
@@ -840,7 +840,7 @@ footer {
         }
 
         .frontpageh1 {
-            background-image: linear-gradient(to right, rgba(0, 0, 0, 1) 1%, rgba(0, 0, 0, 0)), url('../images/fortnite.jpg');
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 1) 1%, rgba(0, 0, 0, 0)), url('../assets/images/fortnite.jpg');
         }
 
     }

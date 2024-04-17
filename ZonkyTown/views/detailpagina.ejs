@@ -1,12 +1,12 @@
 
 
-<%- include('header.ejs') %>
+<%- include('partials/header.ejs') %>
     <h1 class="bio">Verken je Fortnite-avatars: bekijk ze van dichterbij voordat je gaat vechten!</h1>
 
     <ul class="container">
         <li id="deel1" class="section">
-            <a href="./favoritepagina.html"><img src="./images/goback.png" alt="goback"></a>
-            <img src="./images/renegaderaider.webp" class="skin-avatar" alt="Skinfoto">
+            <a href="/favoritepagina"><img src="/assets/icons/goback.png" alt="goback"></a>
+            <img src="/assets/images/renegaderaider.webp" class="skin-avatar" alt="Skinfoto">
         </li>
 
 
@@ -17,19 +17,19 @@
                     <h2 class="scoreboard-counter">9 <span style="color: #319236;">W</span> - 5 <span
                             style="color: red;">L</span></h2>
                     <section class="adjustscoreboard">
-                        <img src="./images/plus.png" alt="AddWin">
-                        <img src="./images/minus.png" alt="AddLoss">
+                        <img src="/assets/icons/plus.png" alt="AddWin">
+                        <img src="/assets/icons/minus.png" alt="AddLoss">
                     </section>
                 </section>
 
             </section>
             <section class="generate-items">
                 <section class="generate-weapon">
-                    <img src="./images/mysteryitem.webp" alt="emote">
+                    <img src="/assets/images/mysteryitem.webp" alt="emote">
                     <button>Genereer wapen</button>
                 </section>
                 <section class="generate-emote">
-                    <img src="./images/mysteryitem.webp" alt="pump">
+                    <img src="/assets/images/mysteryitem.webp" alt="pump">
                     <button>Genereer emote</button>
                 </section>
             </section>
@@ -42,7 +42,7 @@
                 <h3>Rare renegade raider outfit.</h3>
                 <h3><span>Rare</span>&nbsp; outfit</h3>
                 <h3>Geïntroduceerd in: Seizoen 1</h3>
-                <h3><img src="./images/vbucks.webp" alt="vbucks"> 1,200</h3>
+                <h3><img src="/assets/images/vbucks.webp" alt="vbucks"> 1,200</h3>
             </section>
 
 
@@ -53,4 +53,4 @@
 
         </li>
     </ul>
-<%- include('footer.ejs') %>
+<%- include('partials/footer.ejs') %>

@@ -1,7 +1,7 @@
-<%- include('header.ejs') %>
+<%- include('partials/header.ejs') %>
     <section class="registreer-section">
         <form class="registreer-form">
-            <img class="registreer-image" src="./images/questionpf.png" alt="niet-geregistreerd">
+            <img class="registreer-image" src="/assets/icons/questionpf.png" alt="niet-geregistreerd">
             <h1 class="registreer-h1">Registreer</h1>
             <label class="label-username" for="username">Gebruikersnaam:</label>
             <input type="text" id="username" name="username" required>
@@ -13,7 +13,7 @@
             <input type="password" id="password" name="password" required>
 
             <button class="registreer-button" type="submit">Registreer</button>
-            <a class="tochAanmelden" href="./login.html">Toch aanmelden?</a>
+            <a class="tochAanmelden" href="/login">Toch aanmelden?</a>
         </form>
     </section>
-    <%- include('footer.ejs') %>
+    <%- include('partials/footer.ejs') %>
