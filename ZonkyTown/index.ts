@@ -38,8 +38,9 @@ app.get("/", async (req, res) => {
 });
 app.get("/index", async (req, res) => {
     const data = await fetchData();
+    const randomSkins = selectRandomSkins(data, 50);
     res.render("index", { 
-        fortnite : data
+        fortnite : randomSkins
     }); 
 });
 app.get("/login", async (req, res) => {
