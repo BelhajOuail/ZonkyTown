@@ -7,6 +7,42 @@
 
     <h1 class="bio">Bereid je voor op de strijd door een van deze avatars te kiezen!</h1>
 
+    <section class="searchoptions">
+        <input
+         type="text" id="quicksearch" class="quicksearch" placeholder="Zoeken...">
+
+        <section>
+
+            <select class="sortoption" placeholder="Filter">
+                <option>Filter</option>
+                <option>Common</option>
+                <option>Uncommon</option>
+                <option>Rare</option>
+                <option>Epic</option>
+                <option>Legendary</option>
+                <option>----------</option>
+                <option>Dark</option>
+                <option>DC</option>
+                <option>Frozen</option>
+                <option>GamingLegends</option>
+                <option>Icon</option>
+                <option>Lava</option>
+                <option>Marvel</option>
+                <option>Shadow</option>
+                <option>Slurp</option>
+                <option>Starwars</option>
+            </select>
+
+            <select class="sortoption" placeholder="Sort">
+                <option>Sort</option>
+                <option>Name</option>
+                <option>Date</option>
+                <option>Price</option>
+                <option>Rarity</option>
+            </select>
+        </section>
+    </section>
+
     <section class="characters-list">
         <% for (let character of fortnite) {%>
             <% if (character.name !=="TBD" && character.name !==null && character.name !=="NPC" && character.name
@@ -21,9 +57,6 @@
                             <p>
                                 <%= character.name %>
                             </p>
-                        </div>
-                        <div>
-                            <button class="fave" aria-label="Favourite"></button>
                         </div>
                     </div>
                     </a>
