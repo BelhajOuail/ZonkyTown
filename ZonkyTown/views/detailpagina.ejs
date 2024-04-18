@@ -6,13 +6,12 @@
             <a href="/favoritepagina"><img src="/assets/icons/goback.png" alt="goback"></a>
             <h2><%= character.name %></h2>
             <img src="<%= character.images.featured %>" alt="Skinfoto">
-            <h3>Rare renegade raider outfit.</h3>
-            <h3><span>Rare</span>&nbsp; outfit</h3>
-            <h3>Geïntroduceerd in: Seizoen 1</h3>
-            <h3><img src="/assets/images/vbucks.webp" alt="vbucks"> 1,200</h3>
+            <h3><%= character.description %></h3>
+            <h3>Ratity: <%= character.rarity.displayValue %></h3>
+            <h3><%= character.introduction.text %></h3>
         <form class="comment-form">
             <textarea name="comment" placeholder="Voeg commentaar toe aan je favoriete skin..."></textarea>
-            <button type="submit">Verstuur</button>
+            <button class="button-48" role="button"><span class="text">verzend</span></button>
         </form>
         </article>
         <article>
@@ -39,11 +38,11 @@
             <div class="row">   
                 <div class="score">
                     <img src="/assets/images/mysteryitem.webp" alt="emote">
-                    <button>Kies wapens</button>
+                    <button class="button-48" role="button"><span class="text">kies wapens</span></button>
                 </div>
                 <div class="score">
                     <img src="/assets/images/mysteryitem.webp" alt="pump">
-                    <button>kies emoticons</button>
+                    <button class="button-48" role="button"><span class="text">kies emoticons</span></button>
                 </div>
             </div>
         </article>
