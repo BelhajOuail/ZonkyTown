@@ -3,15 +3,19 @@
     <script src="js/favoriteSkins.js"></script>
     <h1 class="bio">Verken je Fortnite-avatars: bekijk ze van dichterbij voordat je gaat vechten!</h1>
     <section class="characters">
-        <% for (let index = 0; index < 30; index++) {%>
-        <article class="cards-list">
+        <% for (let character of fortnite) {%>
+          <% if (character.name !== "TBD" && character.name !== "null" && character.name !== "NPC" && character.name !== "Agent Jonesy") { %>
+          <article class="cards-list">
+            <a href="/detailpagina/<%=character.id%>">
             <div class="card 1">
-              <div class="card_image"><img src="<%= fortnite[index].images.icon %>" /></div>
+              <div class="card_image"><img src="<%= character.images.icon %>" /></div>
               <div class="card_title title-white">
-                <p><%= fortnite[index].name %></p>
+                <p><%= character.name %></p>
               </div>
             </div>
+          </a>
             </article>
+          <% } %>
         <% } %>
     </section>
 </main>

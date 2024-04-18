@@ -1,13 +1,11 @@
-
-
 <%- include('partials/header.ejs') %>
     <h1 class="bio">Verken je Fortnite-avatars: bekijk ze van dichterbij voordat je gaat vechten!</h1>
 
     <section class="container">
         <article>
             <a href="/favoritepagina"><img src="/assets/icons/goback.png" alt="goback"></a>
-            <h2>Renegade raider</h2>
-            <img src="/assets/images/renegaderaider.webp" alt="Skinfoto">
+            <h2><%= character.name %></h2>
+            <img src="<%= character.images.featured %>" alt="Skinfoto">
             <h3>Rare renegade raider outfit.</h3>
             <h3><span>Rare</span>&nbsp; outfit</h3>
             <h3>Geïntroduceerd in: Seizoen 1</h3>
@@ -25,7 +23,7 @@
                     <p>9</p>
                     <div class="row">
                         <img src="/assets/icons/circle-plus-solid.svg" alt="AddWin">
-                        <img src="assets/icons/circle-minus-solid.svg" alt="AddLoss">
+                        <img src="/assets/icons/circle-minus-solid.svg" alt="AddLoss">
                     </div>
                 </div>
                 <div class="score">
@@ -33,7 +31,7 @@
                     <p>5</p>
                     <div class="row">
                         <img src="/assets/icons/circle-plus-solid.svg" alt="AddWin">
-                        <img src="assets/icons/circle-minus-solid.svg" alt="AddLoss">
+                        <img src="/assets/icons/circle-minus-solid.svg" alt="AddLoss">
                     </div>
                 </div>
             </div>

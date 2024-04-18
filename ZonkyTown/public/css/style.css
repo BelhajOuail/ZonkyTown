@@ -416,7 +416,10 @@ footer {
     justify-content: space-around;
     flex-wrap: wrap;
   }
-  
+.cards-list a {
+    text-decoration: none;
+    color: yellow;
+}
   .card {
     margin: 30px auto;
     width: 300px;
@@ -462,7 +465,6 @@ footer {
     flex-wrap: wrap;
     gap: 1rem;
 }
-
 
 /* Stijlen voor elk afzonderlijk deel */
 .container article {

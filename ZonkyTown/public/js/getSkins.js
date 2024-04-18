@@ -6,7 +6,7 @@ function selectRandomSkins(skins, count) {
     for (let i = 0; i < maxCount; i++) {
         const randomIndex = Math.floor(Math.random() * skins.length);
         selectedSkins.push(skins[randomIndex]);
-        skins.splice(randomIndex, 1); // Voorkomen dat dezelfde skin twee keer wordt geselecteerd
+        skins.splice(randomIndex, 1);
     }
     return selectedSkins;
 }

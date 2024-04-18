@@ -13,7 +13,17 @@ async function fetchData() {
         return [];
     }
 }
-
+function selectRandomSkins(skins: any[], count: number): any[] {
+    const selectedSkins: any[] = [];
+    const totalSkins = skins.length;
+    const maxCount = Math.min(totalSkins, count);
+    for (let i = 0; i < maxCount; i++) {
+        const randomIndex = Math.floor(Math.random() * skins.length);
+        selectedSkins.push(skins[randomIndex]);
+        skins.splice(randomIndex, 1);
+    }
+    return selectedSkins;
+}
 const app = express();
 app.set("port", 3000);
 app.set("view engine", "ejs")
@@ -40,19 +50,22 @@ app.get("/login", async (req, res) => {
 });
 app.get("/favoritepagina", async (req, res) => {
     const data = await fetchData();
+    const randomSkins = selectRandomSkins(data, 50);
     res.render("favoritepagina", { 
-        fortnite : data
+        fortnite : randomSkins
     }); 
 });
-app.get("/characters/:id", async (req, res) => {
+app.get("/detailpagina/:id", async (req, res) => {
     const data = await fetchData();
     const fortniteId = req.params.id;
-    const characters = data.filter((character:any) => character.id === fortniteId);
-    if (!characters) {
+    const featured = data.find((fortnite:any) => fortnite.id === fortniteId);
+    
+    if (!featured) {
         return res.status(404).send("Character not found");
     }
-        res.render("cards", { fortnite: characters });
+    res.render("detailpagina", { character: featured });
 });
+
 app.get("/blacklist", async (req, res) => {
     const data = await fetchData();
     res.render("blacklist", { 
