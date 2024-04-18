@@ -439,6 +439,9 @@ footer {
     height: inherit;
     border-radius: 40px;
     object-fit: cover;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border-radius: 1rem;
   }
   
   .card .card_title {
@@ -477,14 +480,13 @@ footer {
 .container article:nth-child(2) {
     margin-top: 3rem;
 }
-.container article:nth-child(1) img:nth-child(3) {
+.container article:nth-child(2) img{
     width: 50%;
-    background-image: url("../assets/images/945n9bfo1xb61.webp");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     border-radius: 1rem;
 }
-.container article:nth-child(2) img {
+.container article:nth-child(3) img {
     width: 20%;
 }
 

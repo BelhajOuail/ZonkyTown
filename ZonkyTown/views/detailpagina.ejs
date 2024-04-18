@@ -2,10 +2,10 @@
     <h1 class="bio">Verken je Fortnite-avatars: bekijk ze van dichterbij voordat je gaat vechten!</h1>
 
     <section class="container">
+        <a href="/favoritepagina"><img src="/assets/icons/goback.png" alt="goback"></a>
         <article>
-            <a href="/favoritepagina"><img src="/assets/icons/goback.png" alt="goback"></a>
             <h2><%= character.name %></h2>
-            <img src="<%= character.images.featured %>" alt="Skinfoto">
+            <img src="<%= character.images.featured %>" alt="Skinfoto" style="background-image: url('../assets/images/<%=character.rarity.value%>.webp');">
             <h3><%= character.description %></h3>
             <h3>Ratity: <%= character.rarity.displayValue %></h3>
             <h3><%= character.introduction.text %></h3>

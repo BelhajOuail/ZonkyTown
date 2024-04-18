@@ -8,7 +8,9 @@
           <article class="cards-list">
             <a href="/detailpagina/<%=character.id%>">
             <div class="card 1">
-              <div class="card_image"><img src="<%= character.images.icon %>" /></div>
+              <div class="card_image">
+                <img src="<%= character.images.icon %>" alt="Skinfoto" style="background-image: url('../assets/images/<%=character.rarity.value%>.webp');">
+              </div>
               <div class="card_title title-white">
                 <p><%= character.name %></p>
               </div>
