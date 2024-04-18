@@ -9,23 +9,27 @@
 
     <section class="characters-list">
         <% for (let character of fortnite) {%>
-          <% if (character.name !== "TBD" && character.name !== null && character.name !== "NPC" && character.name !== "Agent Jonesy" && character.images.featured !== null) { %>
-          <article class="cards-list">
-            <div class="card-item">
-              <div class="card_photo">
-                <img src="<%= character.images.icon %>" alt="Skinfoto" style="background-image: url('../assets/images/<%=character.rarity.value%>.webp');">
-              </div>
-              <div class="card_name">
-                <p><%= character.name %></p>
-              </div>
-            </div>
-          </a>
-            </article>
-          <% } %>
-        <% } %>
+            <% if (character.name !=="TBD" && character.name !==null && character.name !=="NPC" && character.name
+                !=="Agent Jonesy" && character.images.featured !==null) { %>
+                <article class="cards-list">
+                    <div class="card-item">
+                        <div class="card_photo">
+                            <img src="<%= character.images.icon %>" alt="Skinfoto"
+                                style="background-image: url('../assets/images/<%=character.rarity.value%>.webp');">
+                        </div>
+                        <div class="card_name">
+                            <p>
+                                <%= character.name %>
+                            </p>
+                        </div>
+                        <div>
+                            <button class="fave" aria-label="Favourite"></button>
+                        </div>
+                    </div>
+                    </a>
+                </article>
+                <% } %>
+                    <% } %>
     </section>
 
     <%- include('partials/footer.ejs') %>
-
-
-
