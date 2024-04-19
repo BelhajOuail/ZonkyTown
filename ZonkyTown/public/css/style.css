@@ -421,6 +421,7 @@ footer {
 .searchoptions{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     margin: 0 5.7rem;
@@ -444,9 +445,18 @@ select{
     margin: 0;
 }
 
+.sortandfilter
+{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
 
 .characters-list {
     display: flex;
+    align-items: center;
     flex-direction: row;
     justify-content: space-evenly;
 

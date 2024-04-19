@@ -1,4 +1,7 @@
 <%- include('partials/header.ejs') %>
+<script src="js/searchSkin.js" defer></script>
+<script src="js/filterbyRarity.js" defer></script>
+<script src="js/sortOptions.js" defer></script>
     <section class="frontpageh1">
         <h1>Fortnite</h1>
         <h2>De toekomst van Fortnite is hier.</h2> <br>
@@ -8,50 +11,46 @@
     <h1 class="bio">Bereid je voor op de strijd door een van deze avatars te kiezen!</h1>
 
     <section class="searchoptions">
-        <input
-         type="text" id="quicksearch" class="quicksearch" placeholder="Zoeken...">
+        
+        <input type="text" id="quicksearch" class="quicksearch" placeholder="Zoeken...">
 
-        <section>
-
-            <select class="sortoption" placeholder="Filter">
-                <option>Filter</option>
-                <option>Common</option>
-                <option>Uncommon</option>
-                <option>Rare</option>
-                <option>Epic</option>
-                <option>Legendary</option>
-                <option>----------</option>
-                <option>Dark</option>
-                <option>DC</option>
-                <option>Frozen</option>
-                <option>GamingLegends</option>
-                <option>Icon</option>
-                <option>Lava</option>
-                <option>Marvel</option>
-                <option>Shadow</option>
-                <option>Slurp</option>
-                <option>Starwars</option>
+        <section class="sortandfilter">
+            <select class="sortoption" name="rarity" id="rarityFilter" placeholder="Filter">
+                <option value="">Filter</option>
+                <option value="uncommon">Uncommon</option>
+                <option value="rare">Rare</option>
+                <option value="epic">Epic</option>
+                <option value="legendary">Legendary</option>
+                <option value="gaminglegends">Gaming Legends</option>
+                <option value="dark">Dark</option>
+                <option value="icon">Icon</option>
+                <option value="frozen">Frozen</option>
+                <option value="dc">DC</option>
+                <option value="lava">Lava</option>
+                <option value="marvel">Marvel</option>
+                <option value="shadow">Shadow</option>
+                <option value="slurp">Slurp</option>
+                <option value="starwars">Starwars</option>
             </select>
 
-            <select class="sortoption" placeholder="Sort">
-                <option>Sort</option>
-                <option>Name</option>
-                <option>Date</option>
-                <option>Price</option>
-                <option>Rarity</option>
+            <select class="sortoption" id="sortBy" placeholder="Sort">
+                <option value="">Sort</option>
+                <option value="name">Naam</option>
+                <option value="date">Datum (Nieuwste eerst)</option>
+                <option value="rarity">Zeldzaamheid</option>
             </select>
         </section>
     </section>
 
     <section class="characters-list">
-        <% for (let character of fortnite) {%>
+        <% for (let character of fortnite) { %>
             <% if (character.name !=="TBD" && character.name !==null && character.name !=="NPC" && character.name
                 !=="Agent Jonesy" && character.images.featured !==null) { %>
-                <article class="cards-list">
+                <article class="cards-list" data-rarity="<%= character.rarity.value %>" data-added="<%= character.added %>">
                     <div class="card-item">
                         <div class="card_photo">
                             <img src="<%= character.images.icon %>" alt="Skinfoto"
-                                style="background-image: url('../assets/images/<%=character.rarity.value%>.webp');">
+                                style="background-image: url('../assets/images/<%= character.rarity.value %>.webp');">
                         </div>
                         <div class="card_name">
                             <p>
@@ -59,7 +58,6 @@
                             </p>
                         </div>
                     </div>
-                    </a>
                 </article>
                 <% } %>
                     <% } %>
