@@ -69,9 +69,10 @@ app.get("/detailpagina/:id", async (req, res) => {
 
 app.get("/blacklist", async (req, res) => {
     const data = await fetchData();
+    const randomSkins = selectRandomSkins(data, 15);
     res.render("blacklist", { 
-        fortnite : data
-    }); 
+        fortnite : randomSkins
+    });  
 });
 app.get("/registreer", async (req, res) => {
     const data = await fetchData();

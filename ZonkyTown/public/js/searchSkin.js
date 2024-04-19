@@ -20,3 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function changeColor(button) {
     button.style.color = (button.style.color === 'orange') ? '' : 'orange';
   }
+
+  function changeColorCross(button) {
+    button.style.color = (button.style.color === 'red') ? '' : 'red';
+  }

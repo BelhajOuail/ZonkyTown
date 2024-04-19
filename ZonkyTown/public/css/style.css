@@ -515,11 +515,11 @@ select {
     color: #2f3136;
 }
 
-.star{
+.star, .cross{
     display: none;
 }
 
-.card-item:hover .star {
+.card-item:hover .star, .card-item:hover .cross {
     display: inline-block;
     font-size: 1.6rem;
     cursor: pointer;

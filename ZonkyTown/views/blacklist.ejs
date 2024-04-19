@@ -1,6 +1,35 @@
 <%- include('partials/header.ejs') %>
-    <script src="js/blacklistSkins.js" defer></script>
+    <script src="js/searchSkin.js" defer></script>
+    <script src="js/filterbyRarity.js" defer></script>
+    <script src="js/sortOptions.js" defer></script>
+
     <h1 class="bio">Geheimen onthuld: De verborgen wereld van geblackliste avatars!</h1>
 
-    <section class="skins-list" id="skins-list"></section>
-<%- include('partials/footer.ejs') %>
+    <%- include('partials/sortfunctions.ejs') %>
+
+        <section class="characters-list">
+            <% for (let character of fortnite) { %>
+                <% if (character.name !=="TBD" && character.name !==null && character.name !=="NPC" && character.name
+                    !=="Agent Jonesy" && character.images.featured !==null) { %>
+                    <article class="cards-list" data-rarity="<%= character.rarity.value %>"
+                        data-added="<%= character.added %>">
+                        <div class="card-item">
+                            <div class="card_photo">
+                                <img src="<%= character.images.icon %>" alt="Skinfoto"
+                                    style="background-image: url('../assets/images/<%= character.rarity.value %>.webp');">
+                            </div>
+                            <div class="card_name">
+                                <p>
+                                    <%= character.name %> <br>
+                                        <button class="cross" style="color: red;"">
+                                            ✖
+                                        </button>
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                    <% } %>
+                        <% } %>
+        </section>
+
+        <%- include('partials/footer.ejs') %>
