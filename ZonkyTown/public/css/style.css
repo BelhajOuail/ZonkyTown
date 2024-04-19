@@ -67,7 +67,7 @@ body {
     border-radius: 10px;
     color: white;
     font-size: 1.8rem;
-    transition: background-color 0.5s ease;
+    transition: 0.5s ease;
 
 }
 
@@ -107,6 +107,10 @@ body {
     background-color: #1E1E1E;
     border: none;
     border-radius: 1.5rem;
+    cursor: pointer;
+}
+
+button a{
     padding: 20px;
 }
 
@@ -289,7 +293,7 @@ h1,
     border: none;
 
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: 0.3s ease;
     text-transform: uppercase;
 }
 
@@ -330,7 +334,7 @@ h1,
 .skin-container img {
     width: 100%;
     height: auto;
-    transition: transform 0.5s ease;
+    transition: 0.5s ease;
     cursor: pointer;
 }
 
@@ -698,7 +702,7 @@ select{
     padding: 15px 30px;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: 0.3s ease;
     text-transform: uppercase;
 }
 
@@ -717,7 +721,7 @@ select{
     padding: 15px 30px;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: 0.3s ease;
     text-transform: uppercase;
 }
 
