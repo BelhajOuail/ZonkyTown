@@ -411,16 +411,12 @@ footer {
     background-position: 20rem;
     background-repeat: no-repeat;
     background-size: cover;
+    background-color: black;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0)), url('../assets/images/kevinbackgr.png');
     max-width: 100%;
 }
 
-
-
-
-
 /* index */
-
 
 .searchoptions{
     display: flex;
