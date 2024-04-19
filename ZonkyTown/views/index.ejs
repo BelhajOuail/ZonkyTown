@@ -1,7 +1,7 @@
 <%- include('partials/header.ejs') %>
-<script src="js/searchSkin.js" defer></script>
-<script src="js/filterbyRarity.js" defer></script>
-<script src="js/sortOptions.js" defer></script>
+    <script src="js/searchSkin.js" defer></script>
+    <script src="js/filterbyRarity.js" defer></script>
+    <script src="js/sortOptions.js" defer></script>
     <section class="frontpageh1">
         <h1>Fortnite</h1>
         <h2>De toekomst van Fortnite is hier.</h2> <br>
@@ -11,7 +11,7 @@
     <h1 class="bio">Bereid je voor op de strijd door een van deze avatars te kiezen!</h1>
 
     <section class="searchoptions">
-        
+
         <input type="text" id="quicksearch" class="quicksearch" placeholder="Zoeken...">
 
         <section class="sortandfilter">
@@ -46,15 +46,19 @@
         <% for (let character of fortnite) { %>
             <% if (character.name !=="TBD" && character.name !==null && character.name !=="NPC" && character.name
                 !=="Agent Jonesy" && character.images.featured !==null) { %>
-                <article class="cards-list" data-rarity="<%= character.rarity.value %>" data-added="<%= character.added %>">
+                <article class="cards-list" data-rarity="<%= character.rarity.value %>"
+                    data-added="<%= character.added %>">
                     <div class="card-item">
                         <div class="card_photo">
-                            <img src="<%= character.images.icon %>" alt="Skinfoto"
+                            <img src="<%= character.images.icon %>" alt="Skinfoto" 
                                 style="background-image: url('../assets/images/<%= character.rarity.value %>.webp');">
                         </div>
                         <div class="card_name">
                             <p>
-                                <%= character.name %>
+                                <%= character.name %> <br>
+                                <button class="star" onclick="changeColor(this)">
+                                    ★
+                                </button>
                             </p>
                         </div>
                     </div>
