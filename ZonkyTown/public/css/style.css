@@ -189,9 +189,44 @@ header nav a:hover {
 
 }
 
+.profile-picture{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
 .profile-picture img {
-    width: 2rem;
+    margin-left: 1rem;
+    width: 2.5rem;
     height: auto;
+
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:#18181C;
+    border-bottom: 1px solid #2f3136;
+}
+
+.search-container img{
+    width: 1.5rem;
+    height: auto;
+}
+
+input#search-bar {
+    font-family: FortniteFont;
+    margin: 0 auto;
+    height: 2.5rem;
+    width: 6rem;
+    padding: 0 20px;
+    font-size: 1rem;
+    outline: none;
+    background-color:#18181C;
+    color: white;
+    border: none;
 
 }
 
@@ -515,11 +550,13 @@ select {
     color: #2f3136;
 }
 
-.star, .cross{
+.star,
+.cross {
     display: none;
 }
 
-.card-item:hover .star, .card-item:hover .cross {
+.card-item:hover .star,
+.card-item:hover .cross {
     display: inline-block;
     font-size: 1.6rem;
     cursor: pointer;
