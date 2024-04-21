@@ -1,24 +1,34 @@
 <%- include('partials/header.ejs') %>
-<main>
-    <script src="js/favoriteSkins.js"></script>
-    <h1 class="bio">Verken je Fortnite-avatars: bekijk ze van dichterbij voordat je gaat vechten!</h1>
-    <section class="characters">
-        <% for (let character of fortnite) {%>
-          <% if (character.name !== "TBD" && character.name !== null && character.name !== "NPC" && character.name !== "Agent Jonesy" && character.images.featured !== null) { %>
-          <article class="cards-list">
-            <a href="/detailpagina/<%=character.id%>">
-            <div class="card 1">
-              <div class="card_image">
-                <img src="<%= character.images.icon %>" alt="Skinfoto" style="background-image: url('../assets/images/<%=character.rarity.value%>.webp');">
-              </div>
-              <div class="card_title title-white">
-                <p><%= character.name %></p>
-              </div>
-            </div>
-          </a>
-            </article>
-          <% } %>
-        <% } %>
-    </section>
-</main>
-<%- include('partials/footer.ejs') %>
+  <script src="js/searchSkin.js" defer></script>
+  <script src="js/filterbyRarity.js" defer></script>
+  <script src="js/sortOptions.js" defer></script>
+
+  <h1 class="bio">Verken je Fortnite-avatars: bekijk ze van dichterbij voordat je gaat vechten!</h1>
+
+  <%- include('partials/sortfunctions.ejs') %>
+
+        <section class="characters-list">
+            <% for (let character of fortnite) { %>
+                    <article class="cards-list" data-rarity="<%= character.rarity.value %>"
+                        data-added="<%= character.added %>">
+                        <a href="/detailpagina/<%=character.id%>">
+                        <div class="card-item">
+                            <div class="card_photo">
+                                <img src="<%= character.images.icon %>" alt="Skinfoto"
+                                    style="background-image: url('../assets/images/<%= character.rarity.value %>.webp');">
+                            </div>
+                            <div class="card_name">
+                                <p>
+                                    <%= character.name %> <br>
+                                        <button class="cross" style="color: red;"">
+                                            ✖
+                                        </button>
+                                </p>
+                            </div>
+                        </div>
+                        </a>
+                    </article>
+                        <% } %>
+        </section>
+
+        <%- include('partials/footer.ejs') %>

@@ -1,17 +1,22 @@
 <%- include('partials/header.ejs') %>
     <h1 class="bio">Verken je Fortnite-avatars: bekijk ze van dichterbij voordat je gaat vechten!</h1>
 
+    
     <section class="container">
         <a href="/favoritepagina"><img src="/assets/icons/goback.png" alt="goback"></a>
         <article>
             <h2><%= character.name %></h2>
             <img src="<%= character.images.featured %>" alt="Skinfoto" style="background-image: url('../assets/images/<%=character.rarity.value%>.webp');">
             <h3><%= character.description %></h3>
-            <h3>Ratity: <%= character.rarity.displayValue %></h3>
-            <h3><%= character.introduction.text %></h3>
+            <div>
+                <h3 class="raritytext">Zeldzaamheid: </h3>
+            <h3 class="picturecolor" style="background-image: url('../assets/images/<%= character.rarity.value %>.webp') ;"><%= character.rarity.displayValue %></h3>
+            </div>
+
+            <h3>Geïntroduceerd in Chapter <%= character.introduction.chapter %>, Seizoen <%= character.introduction.season %>.</h3>
         <form class="comment-form">
             <textarea name="comment" placeholder="Voeg commentaar toe aan je favoriete skin..."></textarea>
-            <button class="button-48" role="button"><span class="text">verzend</span></button>
+            <button class="button-48" role="button"><span class="text">Voeg toe</span></button>
         </form>
         </article>
         <article>
@@ -38,11 +43,11 @@
             <div class="row">   
                 <div class="score">
                     <img src="/assets/images/mysteryitem.webp" alt="emote">
-                    <button class="button-48" role="button"><span class="text">kies wapens</span></button>
+                    <button class="button-48" role="button"><span class="text">Kies wapens</span></button>
                 </div>
                 <div class="score">
                     <img src="/assets/images/mysteryitem.webp" alt="pump">
-                    <button class="button-48" role="button"><span class="text">kies emoticons</span></button>
+                    <button class="button-48" role="button"><span class="text">Kies emoticons</span></button>
                 </div>
             </div>
         </article>

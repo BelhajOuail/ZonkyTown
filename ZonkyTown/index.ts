@@ -67,7 +67,7 @@ app.get("/login", async (req, res) => {
 });
 app.get("/favoritepagina", async (req, res) => {
     const data = await fetchData();
-    const randomSkins = selectRandomSkins(data, 50);
+    const randomSkins = selectRandomSkins(data, 15);
     res.render("favoritepagina", {
         fortnite: randomSkins
     });
