@@ -9,24 +9,26 @@
 
         <section class="characters-list">
             <% for (let character of fortnite) { %>
-                    <article class="cards-list" data-rarity="<%= character.rarity.value %>"
-                        data-added="<%= character.added %>">
-                        <div class="card-item">
-                            <div class="card_photo">
-                                <img src="<%= character.images.icon %>" alt="Skinfoto"
-                                    style="background-image: url('../assets/images/<%= character.rarity.value %>.webp');">
-                            </div>
-                            <div class="card_name">
-                                <p>
-                                    <%= character.name %> <br>
-                                        <button class="cross" style="color: red;"">
-                                            ✖
-                                        </button>
-                                </p>
-                            </div>
+                <article class="cards-list" data-rarity="<%= character.rarity.value %>"
+                    data-added="<%= character.added %>">
+                
+                        
+                    <div class="card-item">
+                        <p class="reason">Reason</p>
+                        <div class="card_photo">
+                            <img src="<%= character.images.icon %>" alt="Skinfoto"
+                                style="background-image: url('../assets/images/<%= character.rarity.value %>.webp');">
                         </div>
-                    </article>
-                        <% } %>
+                        <div class="card_name">
+                            <p>
+                                <%= character.name %> <br>
+                                <a href="#"> <button class="cross" style="color: red;"">✖</button></a>
+                                <a href=" #" class="edit"><img src=" /assets/icons/edit.svg" alt="edit" width="25px"></a>
+                            </p>
+                        </div>
+                    </div>
+                </article>
+                <% } %>
         </section>
 
         <%- include('partials/footer.ejs') %>

@@ -507,7 +507,9 @@ select {
 
 .cards-list {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    justify-content:space-between;
     flex-wrap: wrap;
 }
 
@@ -517,7 +519,7 @@ select {
     border-radius: 20px;
     box-shadow: 5px 5px 30px 7px rgba(0, 0, 0, 0.25), -5px -5px 30px 7px rgba(0, 0, 0, 0.22);
     cursor: pointer;
-    transition: 0.4s;
+    transition: 0.4s ease;
 }
 
 .card-item .card_photo {
@@ -552,12 +554,14 @@ select {
 }
 
 .star,
-.cross {
-    display: none;
+.cross,
+.edit {
+     display: none;
 }
 
 .card-item:hover .star,
-.card-item:hover .cross {
+.card-item:hover .cross,
+.card-item:hover .edit {
     display: inline-block;
     font-size: 1.6rem;
     cursor: pointer;
@@ -568,6 +572,35 @@ select {
     padding: 0;
     transition: 0.3s ease-in-out;
 }
+
+/* blacklist */
+
+.card-item .card_blphoto {
+    width: inherit;
+    height: inherit;
+    border-radius: 40px;
+}
+
+.card-item .card_blphoto img {
+    width: inherit;
+    height: inherit;
+    /* border-radius: 1rem 1rem 0 0; */
+    object-fit: cover;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.card-item .reason{
+    text-align: center;
+}
+
+
+.card_name .cross{
+    margin-right: 1rem;
+    padding: 1rem;
+}
+
+
 
 
 /*favoriet*/
@@ -656,9 +689,9 @@ select {
 
 
 .picturecolor {
-    font-size: 1.5rem;
+    font-size: 3rem;
     background-size: 100% 100%;
-    margin-top: 0.5rem;
+    margin: 1rem;
     background-clip: text;
     color: transparent;
 }
