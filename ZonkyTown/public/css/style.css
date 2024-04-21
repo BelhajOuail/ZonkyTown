@@ -654,18 +654,22 @@ select {
 
 }
 
-.raritytext {
-    margin-bottom: 0;
-}
 
 .picturecolor {
-
+    font-size: 1.5rem;
     background-size: 100% 100%;
-    margin-top: 0.2rem;
+    margin-top: 0.5rem;
     background-clip: text;
     color: transparent;
 }
 
+.description{
+    margin: 1rem 0 2rem 0;
+}
+
+.description h3{
+    margin: 1rem
+}
 /* Login stijl */
 
 
