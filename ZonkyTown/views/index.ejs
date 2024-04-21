@@ -15,8 +15,6 @@
 
     <section class="characters-list">
         <% for (let character of fortnite) { %>
-            <% if (character.name !=="TBD" && character.name !==null && character.name !=="NPC" && character.name
-                !=="Agent Jonesy" && character.images.featured !==null) { %>
                 <article class="cards-list" data-rarity="<%= character.rarity.value %>"
                     data-added="<%= character.added %>">
                     <div class="card-item">
@@ -34,7 +32,6 @@
                         </div>
                     </div>
                 </article>
-                <% } %>
                     <% } %>
     </section>
 
