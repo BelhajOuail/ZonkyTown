@@ -67,6 +67,8 @@ body {
     font-size: 1.8rem;
     transition: 0.5s ease;
 
+    box-shadow: 5px 5px 30px 7px rgba(0, 0, 0, 0.25), -5px -5px 30px 7px rgba(0, 0, 0, 0.22);
+
 }
 
 .landingspagina-main ul li:hover {
@@ -421,6 +423,7 @@ footer {
     justify-content: space-evenly;
     padding: 1rem;
 }
+
 .footerkleur {
     background-color: #18181C;
 }
@@ -994,6 +997,12 @@ select {
         margin: 2rem 1rem;
     }
 
+    .sortandfilter {
+        align-items: normal;
+        flex-direction: column;
+    }
+
+
 }
 
 @media screen and (max-width: 954px) {
@@ -1040,11 +1049,50 @@ select {
 
 }
 
-@media screen and (max-width: 550px) {
 
+@media screen and (max-width: 710px) {
     header nav {
         flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
+
+    .navbarpart1 {
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .profile-picture {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: center;
+    }
+ 
+    .navbarpart2 {
+        margin: 1rem;
+        padding: 0;
+    }
+
+    .dropbtn {
+       margin: 0 1.5rem 1.5rem 0;
+    }
+
+    .searchoptions {
+        /* flex-direction: column; */
+        margin: 0 3rem;
+    }
+
+    .quicksearch, select{
+       font-size: 16px; 
+       padding: 10px;
+       height: 2.6rem;
+
+    }
+}
+
+@media screen and (max-width: 550px) {
 
     .frontpageh1 {
         background-image: linear-gradient(to right, rgba(0, 0, 0, 1) 1%, rgba(0, 0, 0, 0)), url('../assets/images/fortnite.jpg');
