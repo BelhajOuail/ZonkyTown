@@ -6,7 +6,6 @@
 
 html,
 body {
-
     font-family: FortniteFont;
     height: 100vh;
     margin: 0;
@@ -16,7 +15,6 @@ body {
     color: white;
     letter-spacing: 1px;
     font-size: 1.15rem;
-
 }
 
 
@@ -188,6 +186,22 @@ header nav a:hover {
     margin: 0 1rem;
 
 }
+
+.navlandingspagina {
+    display: flex;
+    justify-content: center;
+}
+
+.navlandingspagina a {
+    text-decoration: none;
+    margin: 0 2rem;
+    color: white;
+}
+
+.bignamelandingspagina {
+    font-size: 3.7rem;
+}
+
 
 .profile-picture {
     display: flex;
@@ -401,10 +415,51 @@ h1,
     transform: rotateY(0deg);
 }
 
+
 footer {
-    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 1rem;
+}
+.footerkleur {
+    background-color: #18181C;
+}
+
+footer h3 {
+    text-transform: uppercase;
+}
+
+footer a {
+    text-decoration: none;
+    color: white;
+}
+
+footer a:hover {
+    color: yellow;
+}
+
+.footer-volgons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-volgons a {
+    text-decoration: none;
+    color: white;
+}
+
+
+.footer-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
     margin: 1rem;
 }
+
+
 
 .set-profile-button,
 .favorite-button,
@@ -444,7 +499,7 @@ footer {
 /* detail pagina */
 
 .container {
-    align-items:center;
+    align-items: center;
     display: flex;
     padding: 2rem;
     box-sizing: border-box;
@@ -509,7 +564,7 @@ select {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content:space-between;
+    justify-content: space-between;
     flex-wrap: wrap;
 }
 
@@ -556,7 +611,7 @@ select {
 .star,
 .cross,
 .edit {
-     display: none;
+    display: none;
 }
 
 .card-item:hover .star,
@@ -590,12 +645,12 @@ select {
     background-repeat: no-repeat;
 }
 
-.card-item .reason{
+.card-item .reason {
     text-align: center;
 }
 
 
-.card_name .cross{
+.card_name .cross {
     margin-right: 1rem;
     padding: 1rem;
 }
@@ -696,13 +751,14 @@ select {
     color: transparent;
 }
 
-.description{
+.description {
     margin: 1rem 0 2rem 0;
 }
 
-.description h3{
+.description h3 {
     margin: 1rem
 }
+
 /* Login stijl */
 
 
@@ -710,6 +766,7 @@ select {
 .login-section {
     display: flex;
     justify-content: center;
+    margin: 2rem;
 }
 
 .login-form {
@@ -717,7 +774,7 @@ select {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 25%;
+    width: 30%;
     margin-top: 3rem;
     padding-top: 50px;
     padding-bottom: 50px;
@@ -800,6 +857,7 @@ select {
 .registreer-section {
     display: flex;
     justify-content: center;
+    margin: 2rem;
 }
 
 
