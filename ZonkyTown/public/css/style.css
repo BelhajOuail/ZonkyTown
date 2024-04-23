@@ -853,11 +853,33 @@ select {
     width: 100%;
 }
 .containerCard {
-    padding: 2px 16px;
+    align-items: flex-start;
+    display: flex;
+    padding: 2rem;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0)), url('../assets/images/kevinbackgr.png');
+    max-width: 100%;
+}
+
+.containerCard article:nth-child(3) img {
+    width: 20%;
+}
+
+.containerCard article {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    text-align: center;
+    width: 50%;
+    justify-content: space-around;
+    align-items: center;
 }
+
+.containerCard p {
+    font-size: 150%;
+}
+
 /* Login stijl */
 
 
