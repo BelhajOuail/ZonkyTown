@@ -14,9 +14,9 @@
 
     <section class="characters-list">
         <% for (let character of fortnite) { %>
-            <a href="/characters/<%= character.id %>" class="cards-list" data-rarity="<%= character.rarity.value %>"
-                data-added="<%= character.added %>">
-                
+            <a href="/characters/<%= character.id %>">
+                <article class="cards-list" data-rarity="<%= character.rarity.value %>"
+                    data-added="<%= character.added %>">
                     <div class="card-item">
                         <div class="card_photo">
                             <img src="<%= character.images.icon %>" alt="Skinfoto" 
@@ -32,6 +32,7 @@
                             </button>
                         </div>
                     </div>
+                </article>
             </a>
                     <% } %>
     </section>
