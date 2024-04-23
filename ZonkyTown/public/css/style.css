@@ -1,7 +1,11 @@
 @font-face {
     font-family: 'FortniteFont';
     src: url('../assets/fonts/fortnite.otf');
-    /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
+
+@font-face {
+    font-family: 'FortniteMedium';
+    src: url('../assets/fonts/fortnitemedium.ttf');
 }
 
 html,
@@ -419,6 +423,7 @@ h1,
 
 
 footer {
+    font-family: FortniteMedium;
     display: flex;
     justify-content: space-evenly;
     padding: 1rem;
@@ -616,6 +621,42 @@ select {
 .card-item:hover .star {
     margin-top: 0;
 }
+
+
+/* detailpagina index */
+
+.descriptiondetail .name{
+    font-size: 5rem;
+    margin: 5rem 0 2.5rem 0;
+    text-transform: uppercase;
+}
+
+.descriptiondetail .outfitrarity{
+    font-size: 2.3rem;
+    background-size: 100% 100%;
+    margin: 0rem;
+    background-clip: text;
+    color: transparent;
+    text-transform: uppercase;
+}
+
+.descriptiondetail .descriptionofskin{
+    margin-bottom: 0;
+    font-family: FortniteMedium;
+    font-style: italic;
+}
+
+.descriptiondetail .introducedin{
+    margin-top: 0;
+    font-family: FortniteMedium;
+    font-style: italic;
+}
+
+.descriptiondetail .variants{
+    font-family: FortniteMedium;
+}
+
+
 /* blacklist */
 
 .card-item .card_blphoto {
@@ -668,7 +709,7 @@ select {
 }
 
 .rarity {
-    width: 50%;
+    width: 70%;
     background-size: 100% 100%;
     background-repeat: no-repeat;
     border-radius: 1rem;
@@ -681,7 +722,8 @@ select {
 .row {
     display: flex;
     max-width: 100%;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    margin: 3rem;
 }
 
 .row div {
@@ -740,8 +782,10 @@ select {
 }
 
 .description {
-    margin: 1rem 0 2rem 0;
+    font-family: FortniteMedium;
+    margin: 0 0 2rem 0;
 }
+
 
 .description h3 {
     margin: 1rem
@@ -831,9 +875,10 @@ select {
     width: 100%;
 }
 .containerCard {
-    align-items: flex-start;
+    align-items: center;
     display: flex;
-    padding: 2rem;
+    justify-content: center;
+    padding: 5rem;
     box-sizing: border-box;
     background-repeat: no-repeat;
     background-size: cover;
@@ -842,6 +887,7 @@ select {
 }
 
 .containerCard article:nth-child(3) img {
+    border-radius: 1rem;
     width: 20%;
 }
 
@@ -849,7 +895,7 @@ select {
     display: flex;
     flex-direction: column;
     text-align: center;
-    width: 50%;
+    width: 100%;
     justify-content: space-around;
     align-items: center;
 }
