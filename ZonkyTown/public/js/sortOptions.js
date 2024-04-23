@@ -8,7 +8,7 @@ document.querySelectorAll('.cards-list').forEach((card, index) => {
 
 document.getElementById('sortBy').addEventListener('change', function () {
     const sortBy = this.value.toLowerCase();
-    let cards = originalOrder.slice();  // Maak een kopie van de originele volgorde
+    let cards = originalOrder.slice();
 
     if (sortBy !== '') {
         cards = cards.sort((a, b) => {

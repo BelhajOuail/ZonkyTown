@@ -55,7 +55,7 @@ app.get("/", async (req, res) => {
     });
 });
 app.get("/index", async (req, res) => {
-    const randomSkins = selectRandomSkins(fortniteData, 50000);
+    const randomSkins = selectRandomSkins(fortniteData, 50);
     res.render("index", {
         fortnite: randomSkins
     });
