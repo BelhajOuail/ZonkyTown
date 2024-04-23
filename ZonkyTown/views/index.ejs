@@ -11,10 +11,10 @@
     <h1 class="bio">Bereid je voor op de strijd door een van deze avatars te kiezen!</h1>
 
     <%- include('partials/sortfunctions.ejs') %>
-   
 
     <section class="characters-list">
         <% for (let character of fortnite) { %>
+            <a href="/characters/<%= character.id %>">
                 <article class="cards-list" data-rarity="<%= character.rarity.value %>"
                     data-added="<%= character.added %>">
                     <div class="card-item">
@@ -25,13 +25,15 @@
                         <div class="card_name">
                             <p>
                                 <%= character.name %> <br>
-                                <button class="star" onclick="changeColor(this)">
-                                    ★
-                                </button>
+                               
                             </p>
+                            <button class="star" onclick="changeColor(this)">
+                                ★
+                            </button>
                         </div>
                     </div>
                 </article>
+            </a>
                     <% } %>
     </section>
 

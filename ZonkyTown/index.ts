@@ -59,6 +59,16 @@ app.get("/index", async (req, res) => {
         fortnite: randomSkins
     });
 });
+app.get("/characters/:id", async (req, res) => {
+    const data = await fetchData();
+    const characterId = req.params.id;
+
+    const characters = data.filter((character:any) => character.id === characterId);
+    if (!characters) {
+        return res.status(404).send("Character not found");
+    }
+        res.render("cards", { characters: characters });
+});
 app.get("/login", async (req, res) => {
     const data = await fetchData();
     res.render("login", {

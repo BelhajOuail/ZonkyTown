@@ -563,6 +563,11 @@ select {
     padding: 2rem;
 }
 
+.characters-list a {
+    text-decoration: none;
+    color: white;
+}
+
 .cards-list {
     display: flex;
     flex-direction: column;
@@ -630,7 +635,9 @@ select {
     padding: 0;
     transition: 0.3s ease-in-out;
 }
-
+.card-item:hover .star {
+    margin-top: 0;
+}
 /* blacklist */
 
 .card-item .card_blphoto {
@@ -682,7 +689,7 @@ select {
     font-size: 150%;
 }
 
-.container article:nth-child(2) img {
+.rarityDet {
     width: 50%;
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -762,6 +769,100 @@ select {
     margin: 1rem
 }
 
+/* CSS */
+.button-48 {
+    appearance: none;
+    background-color: rgb(220, 220, 0);
+    border-width: 0;
+    font-size: 120%;
+    font-weight: bolder;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 1rem;
+    opacity: 1;
+    outline: 0;
+    padding: 0.5rem 1rem;
+    position: relative;
+    text-align: center;
+    text-rendering: geometricprecision;
+    transition: opacity 300ms cubic-bezier(.694, 0, 0.335, 1), background-color 100ms cubic-bezier(.694, 0, 0.335, 1), color 100ms cubic-bezier(.694, 0, 0.335, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    white-space: nowrap;
+    border-radius: 2rem;
+    font-family: 'FortniteFont';
+
+}
+
+.button-48:before {
+    animation: opacityFallbackOut .5s step-end forwards;
+    backface-visibility: hidden;
+    background-color: yellow;
+    clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
+    content: "";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transform: translateZ(0);
+    transition: clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1), -webkit-clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1);
+    width: 100%;
+    border-radius: 2rem;
+
+}
+
+.button-48:hover:before {
+    animation: opacityFallbackIn 0s step-start forwards;
+    clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
+    border-radius: 2rem;
+}
+
+.button-48:after {
+    background-color: yellow;
+}
+
+.button-48 span {
+    z-index: 1;
+    position: relative;
+}
+
+/*cards*/
+
+.characters {
+    width: 100%;  
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.cardCharacter {
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 8px 0 var(--colorRed);
+    transition: 0.3s;
+    width: 61%;
+    padding-bottom: 2rem;
+    
+}
+.rarity {
+    width: 100%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border-radius: 1rem;
+}
+.cardCharacter:hover {
+    box-shadow: 0 8px 16px 0 var(--colorRed);
+}
+.head {
+    width: 100%;
+}
+.containerCard {
+    padding: 2px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
 /* Login stijl */
 
 
@@ -785,7 +886,6 @@ select {
     border-radius: 1rem;
 
 }
-
 
 .login-form input {
     width: 80%;
@@ -1109,62 +1209,3 @@ select {
 }
 
 
-/* CSS */
-.button-48 {
-    appearance: none;
-    background-color: rgb(220, 220, 0);
-    border-width: 0;
-    font-size: 120%;
-    font-weight: bolder;
-    box-sizing: border-box;
-    cursor: pointer;
-    display: inline-block;
-    margin-top: 1rem;
-    opacity: 1;
-    outline: 0;
-    padding: 0.5rem 1rem;
-    position: relative;
-    text-align: center;
-    text-rendering: geometricprecision;
-    transition: opacity 300ms cubic-bezier(.694, 0, 0.335, 1), background-color 100ms cubic-bezier(.694, 0, 0.335, 1), color 100ms cubic-bezier(.694, 0, 0.335, 1);
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    vertical-align: baseline;
-    white-space: nowrap;
-    border-radius: 2rem;
-    font-family: 'FortniteFont';
-
-}
-
-.button-48:before {
-    animation: opacityFallbackOut .5s step-end forwards;
-    backface-visibility: hidden;
-    background-color: yellow;
-    clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
-    content: "";
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    transform: translateZ(0);
-    transition: clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1), -webkit-clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1);
-    width: 100%;
-    border-radius: 2rem;
-
-}
-
-.button-48:hover:before {
-    animation: opacityFallbackIn 0s step-start forwards;
-    clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
-    border-radius: 2rem;
-}
-
-.button-48:after {
-    background-color: yellow;
-}
-
-.button-48 span {
-    z-index: 1;
-    position: relative;
-}

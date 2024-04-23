@@ -1,0 +1,38 @@
+<%-include("partials/header.ejs") %>
+<main>
+    <section class="container">
+        <% for (let character of characters) { %>
+        <a href="/index"><img src="/assets/icons/goback.png" alt="goback"></a>
+        <article>
+            <h2>
+                <%= character.name %>
+            </h2>
+            <img src="<%= character.images.featured %>" alt="Skinfoto"
+                style="background-image: url('../assets/images/<%=character.rarity.value%>.webp');" class="rarity">
+            <h3 class="picturecolor"
+                style="background-image: url('../assets/images/<%= character.rarity.value %>.webp') ;">
+                <%= character.rarity.displayValue %>
+            </h3>
+        </article>
+        <article>
+            <h2>Informatie</h2>
+            <div class="description">
+                <p>
+                    Naam <br> <%= character.name %>
+                </p>
+                <p>
+                    Zeldzaamheid <br> <%= character.rarity.displayValue %>
+                </p>
+                <p>
+                    Descriptie <br> <%= character.description %>
+                </p>
+                <p>
+                    Seizoen <br> Geïntroduceerd in Chapter <%= character.introduction.chapter %>, Seizoen <%= character.introduction.season %>.
+                </p>
+
+            </div>
+        </article>
+        <% }%>
+    </section>
+</main>
+<%- include("partials/footer.ejs") %>
