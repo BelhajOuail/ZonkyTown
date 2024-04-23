@@ -1,7 +1,7 @@
 import express from "express";
 import { Character } from "./public/types/character";
 
-
+let fortniteData : any;
 async function fetchData() {
     try {
         const response = await fetch('https://fortnite-api.com/v2/cosmetics/br');
@@ -15,7 +15,6 @@ async function fetchData() {
         return [];
     }
 }
-
 function selectRandomSkins(skins: Character[], count: number): Character[] {   
     
     const validSkins = skins.filter(character =>
@@ -43,49 +42,47 @@ function selectRandomSkins(skins: Character[], count: number): Character[] {
 const app = express();
 app.set("port", 3000);
 app.set("view engine", "ejs")
-app.use(express.static("public"))
+app.use(express.static("public"));
+
+(async () => {
+    fortniteData = await fetchData();
+})();
 
 app.get("/", async (req, res) => {
-    const data = await fetchData();
-    const fortnite = data.data;
+    const fortnite = fortniteData.data;
     res.render("landingspagina", {
         fortnite: fortnite
     });
 });
 app.get("/index", async (req, res) => {
-    const data = await fetchData();
-    const randomSkins = selectRandomSkins(data, 50);
+    const randomSkins = selectRandomSkins(fortniteData, 50000);
     res.render("index", {
         fortnite: randomSkins
     });
 });
 app.get("/characters/:id", async (req, res) => {
-    const data = await fetchData();
-    const characterId = req.params.id;
+    const fortniteId = req.params.id;
+    const featured = fortniteData.find((fortnite: any) => fortnite.id === fortniteId);
 
-    const characters = data.filter((character:any) => character.id === characterId);
-    if (!characters) {
+    if (!featured) {
         return res.status(404).send("Character not found");
     }
-        res.render("cards", { characters: characters });
+    res.render("cards", { character: featured });
 });
 app.get("/login", async (req, res) => {
-    const data = await fetchData();
     res.render("login", {
-        fortnite: data
+        fortnite: fortniteData
     });
 });
 app.get("/favoritepagina", async (req, res) => {
-    const data = await fetchData();
-    const randomSkins = selectRandomSkins(data, 15);
+    const randomSkins = selectRandomSkins(fortniteData, 15);
     res.render("favoritepagina", {
         fortnite: randomSkins
     });
 });
 app.get("/detailpagina/:id", async (req, res) => {
-    const data = await fetchData();
     const fortniteId = req.params.id;
-    const featured = data.find((fortnite: any) => fortnite.id === fortniteId);
+    const featured = fortniteData.find((fortnite: any) => fortnite.id === fortniteId);
 
     if (!featured) {
         return res.status(404).send("Character not found");
@@ -94,24 +91,21 @@ app.get("/detailpagina/:id", async (req, res) => {
 });
 
 app.get("/blacklist", async (req, res) => {
-    const data = await fetchData();
-    const randomSkins = selectRandomSkins(data, 15);
+    const randomSkins = selectRandomSkins(fortniteData, 15);
     res.render("blacklist", {
         fortnite: randomSkins
     });
 });
 app.get("/registreer", async (req, res) => {
-    const data = await fetchData();
     res.render("registreer", {
-        fortnite: data
+        fortnite: fortniteData
     });
 });
 app.get("/detailpagina", async (req, res) => {
-    const data = await fetchData();
     res.render("detailpagina", {
-        fortnite: data
+        fortnite: fortniteData
     });
 });
 app.listen(app.get("port"), async () => {
-    console.log("server http://localhost:" + app.get("port"))
+    console.log("server http://localhost:" + app.get("port"));
 })

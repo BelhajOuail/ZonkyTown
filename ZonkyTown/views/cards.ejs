@@ -1,7 +1,6 @@
 <%-include("partials/header.ejs") %>
 <main>
     <section class="container">
-        <% for (let character of characters) { %>
         <a href="/index"><img src="/assets/icons/goback.png" alt="goback"></a>
         <article>
             <h2>
@@ -13,6 +12,9 @@
                 style="background-image: url('../assets/images/<%= character.rarity.value %>.webp') ;">
                 <%= character.rarity.displayValue %>
             </h3>
+            <button class="button-48"><span class="text">gebruiken als avatar</span></button>
+            <button class="button-48"><span class="text">zet in favorieten</span></button>
+            <button class="button-48"><span class="text">zet in blacklist</span></button>
         </article>
         <article>
             <h2>Informatie</h2>
@@ -29,10 +31,25 @@
                 <p>
                     Seizoen <br> Geïntroduceerd in Chapter <%= character.introduction.chapter %>, Seizoen <%= character.introduction.season %>.
                 </p>
+                <div>
+                    <p>Varianten</p>
+                    <% if (character.variants && character.variants.length > 0) { %>
+                        <% character.variants.forEach(variant => { %>
+                            <% if (variant.options && variant.options.length > 0) { %>
+                                <% variant.options.forEach(option => { %>
+                                    <img src="<%= option.image %>" alt="variants">
+                                <% }); %>
+                            <% } %>
+                        <% }); %>
+                    <% } else { %>
+                        <p>Geen varianten beschikbaar</p>
+                    <% } %>
+                </div>
+                
+                
 
             </div>
         </article>
-        <% }%>
     </section>
 </main>
 <%- include("partials/footer.ejs") %>

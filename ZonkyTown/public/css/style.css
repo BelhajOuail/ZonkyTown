@@ -502,7 +502,7 @@ footer a:hover {
 /* detail pagina */
 
 .container {
-    align-items: center;
+    align-items: flex-start;
     display: flex;
     padding: 2rem;
     box-sizing: border-box;
@@ -689,7 +689,7 @@ select {
     font-size: 150%;
 }
 
-.rarityDet {
+.rarity {
     width: 50%;
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -845,12 +845,7 @@ select {
     padding-bottom: 2rem;
     
 }
-.rarity {
-    width: 100%;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    border-radius: 1rem;
-}
+
 .cardCharacter:hover {
     box-shadow: 0 8px 16px 0 var(--colorRed);
 }
