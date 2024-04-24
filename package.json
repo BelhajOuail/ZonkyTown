@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/node": "^20.11.20"
+    "@types/node": "^20.12.7",
+    "node": "^18.20.2",
+    "node-fetch": "^3.3.2"
   }
 }
