@@ -14,18 +14,16 @@
 
     <section class="characters-list">
         <% for (let character of fortnite) { %>
-            <a href="/characters/<%= character.id %>">
                 <article class="cards-list" data-rarity="<%= character.rarity.value %>"
                     data-added="<%= character.added %>">
                     <div class="card-item">
-                        <div class="card_photo">
-                            <img src="<%= character.images.icon %>" alt="Skinfoto" 
+                            <a href="/characters/<%= character.id %>" class="card_photo">
+                                <img src="<%= character.images.icon %>" alt="Skinfoto" 
                                 style="background-image: url('../assets/images/<%= character.rarity.value %>.webp');">
-                        </div>
+                            </a>
                         <div class="card_name">
                             <p>
                                 <%= character.name %> <br>
-                               
                             </p>
                             <button class="star" onclick="changeColor(this)">
                                 ★
@@ -33,7 +31,6 @@
                         </div>
                     </div>
                 </article>
-            </a>
                     <% } %>
     </section>
 

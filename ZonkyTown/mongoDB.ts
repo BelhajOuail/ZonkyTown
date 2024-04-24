@@ -1,19 +1,25 @@
-import { MongoClient } from "mongodb";
-
-const uri = "mongodb+srv://<denvenum>:<Alinaim+1>@projectwebontwikkeling.kwqzi3l.mongodb.net/?retryWrites=true&w=majority&appName=ProjectWebontwikkeling";
+import { Collection, MongoClient } from "mongodb";
+import { Character } from "./public/types/character";
+const uri: string = process.env.URI ?? "mongodb://localhost:27027";
 const client = new MongoClient(uri);
+const collection: Collection<Character> = client.db("ZonkyTown").collection<Character>("Characters");
 
-async function main() {
+async function exit() {
     try {
-        // Connect to the MongoDB cluster
-        await client.connect();
- 
-        // Make the appropriate DB calls
-        //...
- 
-    } catch (e) {
-        console.error(e);
-    } finally {
         await client.close();
+        console.log("Disconnected from database");
+    } catch (error) {
+        console.error(error);
+    }
+    process.exit(0);
+}
+
+export async function connect() {
+    try {
+        await client.connect();
+        console.log("Connected to database");
+        process.on("SIGINT", exit);
+    } catch (error) {
+        console.error(error);
     }
 }
