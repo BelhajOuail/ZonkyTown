@@ -2,6 +2,7 @@
 <main>
     <section class="containerCard" style="background-image: url('../assets/images/background.png');">
         <a href="/index"><img src="/assets/icons/goback.png" alt="goback"></a>
+        <div class="botharticles">
         <article>
             <img src="<%= character.images.featured %>" alt="Skinfoto"
                 style="background-image: url('../assets/images/<%=character.rarity.value%>.webp');" class="rarity">
@@ -48,6 +49,7 @@
 
             </div>
         </article>
+    </div>
     </section>
 </main>
 <%- include("partials/footer.ejs") %>

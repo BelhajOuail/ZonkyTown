@@ -10,10 +10,10 @@
             </h2>
             <img src="<%= character.images.featured %>" alt="Skinfoto"
                 style="background-image: url('../assets/images/<%=character.rarity.value%>.webp');" class="rarity">
-            <h3 class="picturecolor"
+            <h1 class="outfitrarity"
                 style="background-image: url('../assets/images/<%= character.rarity.value %>.webp') ;">
-                <%= character.rarity.displayValue %>
-            </h3>
+                <%= character.rarity.displayValue %> <span style="color: white;">outfit</span>
+            </h1>
             <div class="description">
                 <h3>
                     <%= character.description %>

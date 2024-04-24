@@ -625,19 +625,25 @@ select {
 
 /* detailpagina index */
 
+
+
 .descriptiondetail .name{
     font-size: 5rem;
     margin: 5rem 0 2.5rem 0;
     text-transform: uppercase;
 }
 
-.descriptiondetail .outfitrarity{
+.outfitrarity{
     font-size: 2.3rem;
     background-size: 100% 100%;
     margin: 0rem;
     background-clip: text;
     color: transparent;
     text-transform: uppercase;
+}
+
+.container .outfitrarity{
+    margin-top: 2rem;
 }
 
 .descriptiondetail .descriptionofskin{
@@ -655,6 +661,7 @@ select {
 .descriptiondetail .variants{
     font-family: FortniteMedium;
 }
+
 
 
 /* blacklist */
@@ -783,6 +790,7 @@ select {
 
 .description {
     font-family: FortniteMedium;
+    font-style: italic;
     margin: 0 0 2rem 0;
 }
 
@@ -878,7 +886,7 @@ select {
     align-items: center;
     display: flex;
     justify-content: center;
-    padding: 5rem;
+    padding: 4rem;
     box-sizing: border-box;
     background-repeat: no-repeat;
     background-size: cover;
@@ -895,6 +903,7 @@ select {
     display: flex;
     flex-direction: column;
     text-align: center;
+    align-items: center;
     width: 100%;
     justify-content: space-around;
     align-items: center;
@@ -902,6 +911,13 @@ select {
 
 .containerCard p {
     font-size: 150%;
+}
+
+.botharticles{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Login stijl */
@@ -1153,6 +1169,20 @@ select {
     }
 
     .container article {
+        width: 100%;
+    }
+
+    .containerCard{
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .botharticles{
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .botharticles article {
         width: 100%;
     }
 
