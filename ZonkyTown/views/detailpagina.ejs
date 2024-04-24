@@ -1,5 +1,5 @@
 <%- include('partials/header.ejs') %>
-    <h1 class="bio">Verken je Fortnite-avatars: bekijk ze van dichterbij voordat je gaat vechten!</h1>
+    <h1 class="bio">Verken je favoriete Fortnite-avatars. <br> Bekijk ze van dichtbij!</h1>
 
 
     <section class="container">
@@ -10,10 +10,10 @@
             </h2>
             <img src="<%= character.images.featured %>" alt="Skinfoto"
                 style="background-image: url('../assets/images/<%=character.rarity.value%>.webp');" class="rarity">
-            <h3 class="picturecolor"
+            <h1 class="outfitrarity"
                 style="background-image: url('../assets/images/<%= character.rarity.value %>.webp') ;">
-                <%= character.rarity.displayValue %>
-            </h3>
+                <%= character.rarity.displayValue %> <span style="color: white;">outfit</span>
+            </h1>
             <div class="description">
                 <h3>
                     <%= character.description %>
@@ -32,7 +32,7 @@
             <h2>Scoreboard</h2>
             <div class="row scoreboard">
                 <div class="score">
-                    <p>gewonnen</p>
+                    <p>Gewonnen</p>
                     <p>9</p>
                     <div class="row">
                         <img src="/assets/icons/circle-plus-solid.svg" alt="AddWin">
@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <div class="score">
-                    <p>verloren</p>
+                    <p>Verloren</p>
                     <p>5</p>
                     <div class="row">
                         <img src="/assets/icons/circle-plus-solid.svg" alt="AddWin">

@@ -5,33 +5,34 @@
     <section class="frontpageh1">
         <h1>Fortnite</h1>
         <h2>De toekomst van Fortnite is hier.</h2> <br>
-        <button>Ontdek nu!</button>
+        <button>Ontdek hier!</button>
     </section>
 
-    <h1 class="bio">Bereid je voor op de strijd door een van deze avatars te kiezen!</h1>
+    <h1 class="bio">Klaar voor de strijd? <br> Kies één van de avatars!</h1>
 
     <%- include('partials/sortfunctions.ejs') %>
 
-    <section class="characters-list">
-        <% for (let character of fortnite) { %>
-                <article class="cards-list" data-rarity="<%= character.rarity.value %>"
+        <section class="characters-list">
+            <% for (let character of fortnite) { %>
+                <a href="/characters/<%= character.id %>" class="cards-list" data-rarity="<%= character.rarity.value %>"
                     data-added="<%= character.added %>">
+
                     <div class="card-item">
-                            <a href="/characters/<%= character.id %>" class="card_photo">
-                                <img src="<%= character.images.icon %>" alt="Skinfoto" 
+                        <div class="card_photo">
+                            <img src="<%= character.images.icon %>" alt="Skinfoto"
                                 style="background-image: url('../assets/images/<%= character.rarity.value %>.webp');">
                             </a>
                         <div class="card_name">
                             <p>
-                                <%= character.name %> <br>
+                                <%= character.name %> <br> <br>
+                                <button class="star" onclick="changeColor(this)">
+                                    ★
+                                </button>
                             </p>
-                            <button class="star" onclick="changeColor(this)">
-                                ★
-                            </button>
                         </div>
                     </div>
-                </article>
-                    <% } %>
-    </section>
+                </a>
+                <% } %>
+        </section>
 
-    <%- include('partials/footer.ejs') %>
+        <%- include('partials/footer.ejs') %>

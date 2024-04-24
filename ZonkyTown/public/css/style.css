@@ -1,7 +1,11 @@
 @font-face {
     font-family: 'FortniteFont';
     src: url('../assets/fonts/fortnite.otf');
-    /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
+
+@font-face {
+    font-family: 'FortniteMedium';
+    src: url('../assets/fonts/fortnitemedium.ttf');
 }
 
 html,
@@ -419,6 +423,7 @@ h1,
 
 
 footer {
+    font-family: FortniteMedium;
     display: flex;
     justify-content: space-evenly;
     padding: 1rem;
@@ -616,6 +621,57 @@ select {
 .card-item:hover .star {
     margin-top: 0;
 }
+
+
+/* detailpagina index */
+
+
+
+.descriptiondetail .name{
+    font-size: 5rem;
+    margin: 5rem 0 2.5rem 0;
+    text-transform: uppercase;
+}
+
+.outfitrarity{
+    font-size: 2.3rem;
+    background-size: 100% 100%;
+    margin: 0rem;
+    background-clip: text;
+    color: transparent;
+    text-transform: uppercase;
+}
+
+.container .outfitrarity{
+    margin-top: 2rem;
+}
+
+.descriptiondetail .descriptionofskin{
+    margin-bottom: 0;
+    font-family: FortniteMedium;
+    font-style: italic;
+}
+
+.descriptiondetail .introducedin{
+    margin-top: 0;
+    font-family: FortniteMedium;
+    font-style: italic;
+}
+
+.descriptiondetail .variants{
+    font-family: FortniteMedium;
+}
+
+.variants img{
+    border-radius: 1rem;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 30px 15px rgba(0, 0, 0, 0.25),
+    -5px -5px 30px 15px rgba(0, 0, 0, 0.22);
+}
+
+
+
 /* blacklist */
 
 .card-item .card_blphoto {
@@ -668,10 +724,12 @@ select {
 }
 
 .rarity {
-    width: 50%;
+    width: 70%;
     background-size: 100% 100%;
     background-repeat: no-repeat;
     border-radius: 1rem;
+    box-shadow: 5px 5px 30px 15px rgba(0, 0, 0, 0.25),
+    -5px -5px 30px 15px rgba(0, 0, 0, 0.22);
 }
 
 .container article:nth-child(3) img {
@@ -681,7 +739,8 @@ select {
 .row {
     display: flex;
     max-width: 100%;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    margin: 3rem;
 }
 
 .row div {
@@ -740,8 +799,11 @@ select {
 }
 
 .description {
-    margin: 1rem 0 2rem 0;
+    font-family: FortniteMedium;
+    font-style: italic;
+    margin: 0 0 2rem 0;
 }
+
 
 .description h3 {
     margin: 1rem
@@ -831,9 +893,10 @@ select {
     width: 100%;
 }
 .containerCard {
-    align-items: flex-start;
+    align-items: center;
     display: flex;
-    padding: 2rem;
+    justify-content: center;
+    padding: 4rem;
     box-sizing: border-box;
     background-repeat: no-repeat;
     background-size: cover;
@@ -842,6 +905,7 @@ select {
 }
 
 .containerCard article:nth-child(3) img {
+    border-radius: 1rem;
     width: 20%;
 }
 
@@ -849,13 +913,21 @@ select {
     display: flex;
     flex-direction: column;
     text-align: center;
-    width: 50%;
+    align-items: center;
+    width: 100%;
     justify-content: space-around;
     align-items: center;
 }
 
 .containerCard p {
     font-size: 150%;
+}
+
+.botharticles{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Login stijl */
@@ -1107,6 +1179,20 @@ select {
     }
 
     .container article {
+        width: 100%;
+    }
+
+    .containerCard{
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .botharticles{
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .botharticles article {
         width: 100%;
     }
 

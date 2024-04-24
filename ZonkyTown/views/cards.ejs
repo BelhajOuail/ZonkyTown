@@ -2,54 +2,54 @@
 <main>
     <section class="containerCard" style="background-image: url('../assets/images/background.png');">
         <a href="/index"><img src="/assets/icons/goback.png" alt="goback"></a>
+        <div class="botharticles">
         <article>
-            <h2>
-                <%= character.name %>
-            </h2>
             <img src="<%= character.images.featured %>" alt="Skinfoto"
                 style="background-image: url('../assets/images/<%=character.rarity.value%>.webp');" class="rarity">
-            <h3 class="picturecolor"
-                style="background-image: url('../assets/images/<%= character.rarity.value %>.webp') ;">
-                <%= character.rarity.displayValue %>
-            </h3>
-            <button class="button-48"><span class="text">gebruiken als avatar</span></button>
-            <button class="button-48"><span class="text">zet in favorieten</span></button>
-            <button class="button-48"><span class="text">zet in blacklist</span></button>
+           
         </article>
         <article>
-            <h2>Informatie</h2>
-            <div class="description">
-                <p>
-                    Naam <br> <%= character.name %>
+            <div class="descriptiondetail">
+                <h1 class="name">
+                    <%= character.name %>
+                </h1>
+                <h1 class="outfitrarity"
+                style="background-image: url('../assets/images/<%= character.rarity.value %>.webp') ;">
+                <%= character.rarity.displayValue %> <span style="color: white;">outfit</span>
+            </h1>
+
+            <div>
+                <p class="descriptionofskin">
+                    <%= character.description %>
                 </p>
-                <p>
-                    Zeldzaamheid <br> <%= character.rarity.displayValue %>
+                <p class="introducedin">
+                  Geïntroduceerd in: Chapter
+                     <%= character.introduction.chapter %>, Seizoen <%= character.introduction.season %>.
                 </p>
-                <p>
-                    Descriptie <br> <%= character.description %>
-                </p>
-                <p>
-                    Seizoen <br> Geïntroduceerd in Chapter <%= character.introduction.chapter %>, Seizoen <%= character.introduction.season %>.
-                </p>
-                <div>
-                    <p>Varianten</p>
-                    <% if (character.variants && character.variants.length > 0) { %>
-                        <% character.variants.forEach(variant => { %>
-                            <% if (variant.options && variant.options.length > 0) { %>
-                                <% variant.options.forEach(option => { %>
-                                    <img src="<%= option.image %>" alt="variants">
-                                <% }); %>
-                            <% } %>
-                        <% }); %>
-                    <% } else { %>
-                        <p>Geen varianten beschikbaar</p>
-                    <% } %>
-                </div>
+            </div>
                 
-                
+             <button class="button-48"><span class="text">Gebruik als avatar</span></button>
+            <button class="button-48"><span class="text">Zet in favorieten</span></button>
+            <button class="button-48"><span class="text">Zet in blacklist</span></button>
+
+            <div class= "variants">
+                <p>Varianten</p>
+                <% if (character.variants && character.variants.length > 0) { %>
+                    <% character.variants.forEach(variant => { %>
+                        <% if (variant.options && variant.options.length > 0) { %>
+                            <% variant.options.forEach(option => { %>
+                                <img src="<%= option.image %>" style="background-image: url('../assets/images/<%=character.rarity.value%>.webp');" alt="variants">
+                            <% }); %>
+                        <% } %>
+                    <% }); %>
+                <% } else { %>
+                    <p>Geen varianten beschikbaar</p>
+                <% } %>
+            </div>
 
             </div>
         </article>
+    </div>
     </section>
 </main>
 <%- include("partials/footer.ejs") %>
