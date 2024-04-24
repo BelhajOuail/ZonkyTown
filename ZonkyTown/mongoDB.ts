@@ -1,6 +1,10 @@
 import { Collection, MongoClient } from "mongodb";
 import { Character } from "./public/types/character";
-const uri: string = process.env.URI ?? "mongodb://localhost:27027";
+
+import dotenv from "dotenv"; 
+dotenv.config(); // zorg dat je .evn kan uitlezen
+
+const uri= process.env.URI || "mongodb+srv://denvenum:Alinaim+1@projectwebontwikkeling.kwqzi3l.mongodb.net/?retryWrites=true&w=majority&appName=ProjectWebontwikkeling";
 const client = new MongoClient(uri);
 const collection: Collection<Character> = client.db("ZonkyTown").collection<Character>("Characters");
 
