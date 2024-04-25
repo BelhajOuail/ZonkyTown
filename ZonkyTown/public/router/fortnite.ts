@@ -1,29 +1,33 @@
 import { Router } from 'express';
-import fetch from 'node-fetch';
 import { Character } from '../types/character';
+import { Collection, MongoClient } from "mongodb";
+import { connect, getCharacters, loadCharactersFromApi } from '../../mongoDB';
+import dotenv from "dotenv";
+
+dotenv.config(); // zorg dat je .evn kan uitlezen
+
+const uri = process.env.URI || "mongodb+srv://ZonkyTown:123@zonkytown.iqttvfb.mongodb.net/";
+const client = new MongoClient(uri);
+const collection: Collection<Character> = client.db("ZonkyTown").collection<Character>("Fortnite");
 
 let fortniteData: Character[] = [];
 
-async function fetchData() {
+
+async function exit() {
     try {
-        const response = await fetch('https://fortnite-api.com/v2/cosmetics/br');
-        if (!response.ok) {
-            throw new Error("Could not fetch resource");
-        }
-        const data:any = await response.json();
-        fortniteData = data.data.filter((item: any) => item.type.value === 'outfit');
+        await client.close();
+        console.log("Disconnected from database");
     } catch (error) {
-        console.log(error);
-        fortniteData = [];
+        console.error(error);
     }
+    process.exit(0);
 }
 
-fetchData();
+async function selectRandomSkins(count: number): Promise<Character[]> {
 
-const router = Router();
+    const characters: Character[] = await getCharacters();
 
-function selectRandomSkins(count: number): Character[] {
-    const validSkins = fortniteData.filter(character =>
+    const validSkins = characters.filter(character =>
         character.name !== "TBD" &&
         character.name !== null &&
         character.name !== "NPC" &&
@@ -40,29 +44,52 @@ function selectRandomSkins(count: number): Character[] {
         selectedSkins.push(validSkins[randomIndex]);
         validSkins.splice(randomIndex, 1);
     }
-
     return selectedSkins;
 }
 
+
+
+const router = Router();
 router.get("/", (req, res) => {
     const fortnite = fortniteData;
     res.render("landingspagina", { fortnite });
 });
 
-router.get("/index", (req, res) => {
-    const randomSkins = selectRandomSkins(50);
-    res.render("index", { fortnite: randomSkins });
+
+router.get("/registreer", async (req, res) => {
+    res.render("registreer", { fortnite: fortniteData });
 });
 
-// Andere router handlers hier...
-router.get("/characters/:id", async (req, res) => {
-    const fortniteId = req.params.id;
-    const featured = fortniteData.find((fortnite: any) => fortnite.id === fortniteId);
+router.post('/registreer', async (req, res) => {
+    const client = new MongoClient(uri);
+    try {
+        await client.connect();
+        const userCollection = await client.db('ZonkyTown').collection('users');
+        const { name, password, confirmPassword } = req.body;
 
-    if (!featured) {
-        return res.status(404).send("Character not found");
+        if (password !== confirmPassword) {
+            res.render('registreer', {
+                message: 'Wachtwoorden komen niet overeen.'
+            });
+            return;
+        }
+
+        const user = await userCollection.findOne({ username: name });
+        if (user) {
+            res.render('registreer', {
+                message: 'Gebruikersnaam is al in gebruik.'
+            });
+            return;
+        }
+        await userCollection.insertOne({ username: name, password: password });
+        res.redirect('/login');
+
+    } catch (e) {
+        res.redirect('/registreer');
+
+    } finally {
+        await client.close();
     }
-    res.render("cards", { character: featured });
 });
 
 router.get("/login", async (req, res) => {
@@ -70,32 +97,72 @@ router.get("/login", async (req, res) => {
     res.render("login", { fortnite: fortniteData });
 });
 
+router.post('/login', async (req, res) => {
+    const client = new MongoClient(uri);
+    try {
+        await client.connect();
+        const userCollection = await client.db('ZonkyTown').collection('users');
+        const info = req.body;
+        const user = await userCollection.findOne({ username: info.name });
+        if (!user || info.name != user.username || info.password != user.password) {
+            res.render('login', {
+                message: 'Foute gebruikersnaam of wachtwoord!',
+            });
+            return;
+        }
+
+        res.redirect('/index');
+
+    } catch (e) {
+        res.redirect('/login');
+
+    } finally {
+        await client.close();
+    }
+});
+
+
+router.get("/index", async (req, res) => {
+    const randomSkins = await selectRandomSkins(50);
+    res.render("index", { fortnite: randomSkins });
+});
+
+router.get("/characters/:id", async (req, res) => {
+    const fortniteId = req.params.id;
+    const characters: Character[] = await getCharacters();
+
+    const featured = characters.find((character) => character.id === fortniteId);
+
+    if (!featured) {
+        return res.status(404).send("Character niet gevonden");
+    }
+    res.render("cards", { character: featured });
+});
+
 router.get("/favoritepagina", async (req, res) => {
-    const randomSkins = selectRandomSkins(15);
+    const randomSkins = await selectRandomSkins(5);
     res.render("favoritepagina", { fortnite: randomSkins });
 });
 
 router.get("/detailpagina/:id", async (req, res) => {
     const fortniteId = req.params.id;
-    const featured = fortniteData.find((fortnite: any) => fortnite.id === fortniteId);
+    const characters: Character[] = await getCharacters();
+
+    const featured = characters.find((character) => character.id === fortniteId);
 
     if (!featured) {
-        return res.status(404).send("Character not found");
+        return res.status(404).send("Character niet gevonden");
     }
     res.render("detailpagina", { character: featured });
 });
 
 router.get("/blacklist", async (req, res) => {
-    const randomSkins = selectRandomSkins(15);
+    const randomSkins = await selectRandomSkins(5);
     res.render("blacklist", { fortnite: randomSkins });
 });
 
-router.get("/registreer", async (req, res) => {
-    res.render("registreer", { fortnite: fortniteData });
-});
-
-router.get("/detailpagina", async (req, res) => {
-    res.render("detailpagina", { fortnite: fortniteData });
-});
+// router.get("/detailpagina", async (req, res) => {
+//     res.render("detailpagina", { fortnite: fortniteData });
+// });
 
 export default router;

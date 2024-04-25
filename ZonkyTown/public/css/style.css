@@ -945,7 +945,7 @@ select {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 30%;
+    width: 30rem;
     margin-top: 3rem;
     padding-top: 50px;
     padding-bottom: 50px;
@@ -1002,9 +1002,12 @@ select {
 
 .label-username,
 .label-password {
+    font-family: FortniteMedium;
     margin-bottom: 10px;
     color: white;
 }
+
+
 
 /* .login-form button {
     padding: 10px;
@@ -1036,7 +1039,7 @@ select {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 25%;
+    width: 30rem;
     margin-top: 3rem;
     padding-top: 50px;
     padding-bottom: 50px;
@@ -1076,10 +1079,13 @@ select {
     border: 1.5px solid white;
 }
 
-.registreer-form p {
+.error-message {
+    font-family: FortniteMedium;
+    color: red;
     text-decoration: underline;
     padding: 0;
-    margin-top: 3.5rem;
+    /* margin-top: 3rem; */
+    text-align: center;
 }
 
 .label-username,
@@ -1117,6 +1123,8 @@ select {
 }
 
 
+
+
 /* Mediaqueries */
 
 @media screen and (max-width: 1700px) {
@@ -1129,6 +1137,10 @@ select {
         flex-direction: row;
         align-items: flex-start;
         justify-content: center;
+    }
+
+    .registreer-button .login-section{
+        width: 50%;
     }
 
 }

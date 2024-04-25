@@ -1,11 +1,14 @@
 import express from "express";
-import { connect } from "./mongoDB";
 import router from "./public/router/fortnite";
+import { connect } from './mongoDB';
 
 const app = express();
 app.set("port", 3000);
 app.set("view engine", "ejs")
 app.use(express.static("public"));
+
+app.use(express.json({ limit: "2mb" }));
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/", router); 
 
