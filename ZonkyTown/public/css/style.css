@@ -427,6 +427,7 @@ footer {
     display: flex;
     justify-content: space-evenly;
     padding: 1rem;
+    text-align: center;
 }
 
 .footerkleur {
@@ -668,6 +669,7 @@ select {
     background-repeat: no-repeat;
     box-shadow: 5px 5px 30px 15px rgba(0, 0, 0, 0.25),
     -5px -5px 30px 15px rgba(0, 0, 0, 0.22);
+    transition: 0.3s ease-in-out;
 }
 
 
@@ -719,6 +721,12 @@ select {
     align-items: center;
 }
 
+.container article:nth-of-type(2){
+    display: flex;
+    align-self: center;
+    justify-content: space-between;
+}
+
 .container p {
     font-size: 150%;
 }
@@ -730,10 +738,17 @@ select {
     border-radius: 1rem;
     box-shadow: 5px 5px 30px 15px rgba(0, 0, 0, 0.25),
     -5px -5px 30px 15px rgba(0, 0, 0, 0.22);
+    transition: 0.3s ease-in-out;
 }
+
 
 .container article:nth-child(3) img {
     width: 20%;
+}
+.variants img:hover,
+.rarity:hover {
+    transform: scale(1.03);
+    transition: 0.3s ease-in-out;
 }
 
 .row {
@@ -946,9 +961,8 @@ select {
     align-items: center;
     justify-content: center;
     width: 30rem;
-    margin-top: 3rem;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    margin: 3rem 0;
+    padding: 50px 0;;
     background-color: #18181C;
     border-radius: 1rem;
 
@@ -1040,9 +1054,8 @@ select {
     align-items: center;
     justify-content: center;
     width: 30rem;
-    margin-top: 3rem;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    margin: 3rem 0;
+    padding: 50px 0;
     background-color: #18181C;
     border-radius: 1rem;
 
@@ -1184,7 +1197,7 @@ select {
 
 }
 
-@media screen and (max-width: 954px) {
+@media screen and (max-width: 1300px) {
     .container {
         flex-direction: column;
         align-items: stretch;
@@ -1196,17 +1209,20 @@ select {
 
     .containerCard{
         align-items: flex-start;
-        flex-direction: column;
     }
 
     .botharticles{
         flex-direction: column;
-        align-items: stretch;
+        align-items: center;
     }
 
     .botharticles article {
         width: 100%;
     }
+    .rarity{
+        width: 60%;
+    }
+    
 
 }
 

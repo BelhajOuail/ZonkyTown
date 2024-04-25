@@ -32,21 +32,30 @@
             <button class="button-48"><span class="text">Zet in favorieten</span></button>
             <button class="button-48"><span class="text">Zet in blacklist</span></button>
 
-            <div class= "variants">
+            <div class="variants">
                 <p>Varianten</p>
-                <% if (character.variants && character.variants.length > 0) { %>
-                    <% character.variants.forEach(variant => { %>
-                        <% if (variant.options && variant.options.length > 0) { %>
-                            <% variant.options.forEach(option => { %>
+                <% 
+                let counter = 0;
+                if (character.variants && character.variants.length > 0) { 
+                    character.variants.forEach(variant => { 
+                        if (counter >= 12) return;
+                        if (variant.options && variant.options.length > 0) { 
+                            variant.options.forEach(option => { 
+                                if (counter >= 12) return;
+                                %>
                                 <img src="<%= option.image %>" style="background-image: url('../assets/images/<%=character.rarity.value%>.webp');" alt="variants">
-                            <% }); %>
-                        <% } %>
-                    <% }); %>
-                <% } else { %>
+                                <% 
+                                counter++;
+                            }); 
+                        } 
+                    }); 
+                } else { 
+                    %>
                     <p>Geen varianten beschikbaar</p>
-                <% } %>
+                    <% 
+                } 
+                %>
             </div>
-
             </div>
         </article>
     </div>
