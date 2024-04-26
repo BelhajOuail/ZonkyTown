@@ -38,10 +38,10 @@
                 let counter = 0;
                 if (character.variants && character.variants.length > 0) { 
                     character.variants.forEach(variant => { 
-                        if (counter >= 12) return;
+                        if (counter >= 4) return;
                         if (variant.options && variant.options.length > 0) { 
                             variant.options.forEach(option => { 
-                                if (counter >= 12) return;
+                                if (counter >= 4) return;
                                 %>
                                 <img src="<%= option.image %>" style="background-image: url('../assets/images/<%=character.rarity.value%>.webp');" alt="variants">
                                 <% 

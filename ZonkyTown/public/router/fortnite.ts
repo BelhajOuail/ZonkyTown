@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { Character } from '../types/character';
 import { Collection, MongoClient } from "mongodb";
-import { connect, getCharacters, loadCharactersFromApi } from '../../mongoDB';
+import { connect, getCharacters, loadCharactersFromApi, loadBackpacksFromApi, loadPickaxesFromApi } from '../../mongoDB';
 import dotenv from "dotenv";
 
 dotenv.config(); // zorg dat je .evn kan uitlezen
@@ -11,6 +11,8 @@ const client = new MongoClient(uri);
 const collection: Collection<Character> = client.db("ZonkyTown").collection<Character>("Fortnite");
 
 let fortniteData: Character[] = [];
+
+let avatars: any[] = [];// Deze array kan aangepast worden, zodat we gebruik maken van api collection.
 
 
 async function exit() {
