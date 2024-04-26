@@ -1,26 +1,26 @@
 import { ObjectId } from "mongodb";
 
 export interface Character {
-    _id: ObjectId;
-    id: string;
-    name: string;
-    description: string;
+    _id: ObjectId,
+    id: string,
+    name: string,
+    description: string,
     type: {
-        value: string;
-        displayValue: string;
-    };
+        value: string,
+        displayValue: string,
+    },
     images: {
-        icon: string | null;
-        featured: string | null;
-    };
+        icon: string | null,
+        featured: string | null,
+    },
     rarity: {
-        value: string;
-    };
+        value: string,
+    },
     introduction: {
-        chapter: string | null;
-        season: string;
+        chapter: string | null,
+        season: string,
 
     }
-    added: string;
-    variants: string | null;
+    added: string,
+    variants: string | null,
 }

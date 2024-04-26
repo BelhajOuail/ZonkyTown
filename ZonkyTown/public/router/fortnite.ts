@@ -1,10 +1,11 @@
 import { Router } from 'express';
 import { Character } from '../types/character';
+import { User } from '../types/user';
 import { Collection, MongoClient } from "mongodb";
-import { connect, getCharacters, loadCharactersFromApi, loadBackpacksFromApi, loadPickaxesFromApi } from '../../mongoDB';
+import { getRandomOutfits,getCharacters, getUserById, updateUser, loadPickaxesFromApi } from '../../mongoDB';
 import dotenv from "dotenv";
 
-dotenv.config(); // zorg dat je .evn kan uitlezen
+dotenv.config();
 
 const uri = process.env.URI || "mongodb+srv://ZonkyTown:123@zonkytown.iqttvfb.mongodb.net/";
 const client = new MongoClient(uri);
@@ -13,7 +14,7 @@ const collection: Collection<Character> = client.db("ZonkyTown").collection<Char
 let fortniteData: Character[] = [];
 
 let avatars: any[] = [];// Deze array kan aangepast worden, zodat we gebruik maken van api collection.
-
+const router = Router();
 
 async function exit() {
     try {
@@ -25,38 +26,15 @@ async function exit() {
     process.exit(0);
 }
 
-async function selectRandomSkins(count: number): Promise<Character[]> {
+router.get("/index", async (req, res) => {
+    const randomSkins = await getRandomOutfits(50);
+    res.render("index", { fortnite: randomSkins });
+});
 
-    const characters: Character[] = await getCharacters();
-
-    const validSkins = characters.filter(character =>
-        character.name !== "TBD" &&
-        character.name !== null &&
-        character.name !== "NPC" &&
-        character.name !== "Agent Jonesy" &&
-        character.images.featured !== null &&
-        character.images.icon !== null);
-
-    const selectedSkins: Character[] = [];
-    const totalSkins = validSkins.length;
-    const maxCount = Math.min(totalSkins, count);
-
-    for (let i = 0; i < maxCount; i++) {
-        const randomIndex = Math.floor(Math.random() * validSkins.length);
-        selectedSkins.push(validSkins[randomIndex]);
-        validSkins.splice(randomIndex, 1);
-    }
-    return selectedSkins;
-}
-
-
-
-const router = Router();
 router.get("/", (req, res) => {
     const fortnite = fortniteData;
     res.render("landingspagina", { fortnite });
 });
-
 
 router.get("/registreer", async (req, res) => {
     res.render("registreer", { fortnite: fortniteData });
@@ -123,26 +101,54 @@ router.post('/login', async (req, res) => {
     }
 });
 
-
-router.get("/index", async (req, res) => {
-    const randomSkins = await selectRandomSkins(50);
-    res.render("index", { fortnite: randomSkins });
-});
-
 router.get("/characters/:id", async (req, res) => {
     const fortniteId = req.params.id;
+    const image = req.body.avatar;
+
     const characters: Character[] = await getCharacters();
 
     const featured = characters.find((character) => character.id === fortniteId);
-
     if (!featured) {
         return res.status(404).send("Character niet gevonden");
     }
     res.render("cards", { character: featured });
 });
+// Route voor het bijwerken van de avatar
+router.post("/users/:id/update-avatar", async (req, res) => {
+    const userId = parseInt(req.params.id);
+    const avatarImage = req.body.avatar;
+
+    try {
+        // Update de gebruiker met de nieuwe avatar
+        const updatedUser = await updateUser(userId, avatarImage);
+        if (!updatedUser) {
+            return res.status(404).send('Gebruiker niet gevonden.');
+        }
+        res.redirect("/users");
+    } catch (error) {
+        console.error("Er is een fout opgetreden bij het bijwerken van de gebruiker:", error);
+        res.status(500).send("Er is een fout opgetreden bij het bijwerken van de gebruiker.");
+    }
+});
+
+// Route voor het weergeven van de gebruikersavatar
+router.get("/users/:id/update", async(req, res) => {
+    if (isNaN(parseInt(req.params.id))) {
+        res.redirect("/users");
+        return;
+    }
+
+    const user = await getUserById(parseInt(req.params.id));
+    if (!user) {
+        res.redirect("/users");
+        return;
+    }
+    
+    res.render("header", { user:user });
+});
 
 router.get("/favoritepagina", async (req, res) => {
-    const randomSkins = await selectRandomSkins(5);
+    const randomSkins = await getRandomOutfits(5);
     res.render("favoritepagina", { fortnite: randomSkins });
 });
 
@@ -159,12 +165,8 @@ router.get("/detailpagina/:id", async (req, res) => {
 });
 
 router.get("/blacklist", async (req, res) => {
-    const randomSkins = await selectRandomSkins(5);
+    const randomSkins = await getRandomOutfits(5);
     res.render("blacklist", { fortnite: randomSkins });
 });
-
-// router.get("/detailpagina", async (req, res) => {
-//     res.render("detailpagina", { fortnite: fortniteData });
-// });
 
 export default router;
