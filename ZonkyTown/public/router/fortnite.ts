@@ -9,7 +9,7 @@ dotenv.config();
 
 const uri = process.env.URI || "mongodb+srv://ZonkyTown:123@zonkytown.iqttvfb.mongodb.net/";
 const client = new MongoClient(uri);
-const collection: Collection<Character> = client.db("ZonkyTown").collection<Character>("Fortnite");
+const collection: Collection<Character> = client.db("ZonkyTown").collection<Character>("Characters");
 
 let fortniteData: Character[] = [];
 
@@ -103,7 +103,7 @@ router.post('/login', async (req, res) => {
 
 router.get("/characters/:id", async (req, res) => {
     const fortniteId = req.params.id;
-    const image = req.body.avatar;
+    // const image = req.body.avatar;
 
     const characters: Character[] = await getCharacters();
 
@@ -113,39 +113,38 @@ router.get("/characters/:id", async (req, res) => {
     }
     res.render("cards", { character: featured });
 });
-// Route voor het bijwerken van de avatar
-router.post("/users/:id/update-avatar", async (req, res) => {
-    const userId = parseInt(req.params.id);
-    const avatarImage = req.body.avatar;
+
+router.post("/characters/:id", async (req, res) => {
+    const fortniteId = req.params.id;
 
     try {
-        // Update de gebruiker met de nieuwe avatar
-        const updatedUser = await updateUser(userId, avatarImage);
-        if (!updatedUser) {
-            return res.status(404).send('Gebruiker niet gevonden.');
+
+        const characters: Character[] = await getCharacters();
+        const avatar = characters.find((character) => character.id === fortniteId);
+
+        if (!avatar) {
+            return res.status(404).json({ error: "Character niet gevonden" });
         }
-        res.redirect("/users");
+
+        // Voeg de avatar van het karakter toe aan de array avatars
+        if (avatar.images && avatar.images.icon) {
+            avatars.push(avatar.images.icon);
+            avatars.forEach(avatar => {
+                console.log(avatar);
+            });
+        } else {
+            console.error('Kan avatar niet toevoegen: avatar ontbreekt voor het gekozen karakter');
+        }
+
+        res.render("cards", { character: avatar, avatarUrl: avatar.images.icon});
     } catch (error) {
-        console.error("Er is een fout opgetreden bij het bijwerken van de gebruiker:", error);
-        res.status(500).send("Er is een fout opgetreden bij het bijwerken van de gebruiker.");
+        console.error("Er is een fout opgetreden bij het verwerken van het verzoek:", error);
+    }
+    finally {
+        await client.close();
     }
 });
 
-// Route voor het weergeven van de gebruikersavatar
-router.get("/users/:id/update", async(req, res) => {
-    if (isNaN(parseInt(req.params.id))) {
-        res.redirect("/users");
-        return;
-    }
-
-    const user = await getUserById(parseInt(req.params.id));
-    if (!user) {
-        res.redirect("/users");
-        return;
-    }
-    
-    res.render("header", { user:user });
-});
 
 router.get("/favoritepagina", async (req, res) => {
     const randomSkins = await getRandomOutfits(5);

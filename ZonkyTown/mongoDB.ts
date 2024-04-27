@@ -1,7 +1,7 @@
 import { Collection, MongoClient } from "mongodb";
 import { Character } from "./public/types/character";
 import { User } from "./public/types/user";
-import dotenv from "dotenv"; 
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -34,30 +34,35 @@ export async function getRandomOutfits(count: number): Promise<Character[]> {
     return randomOutfits;
 }
 export async function loadCharactersFromApi() {
-    console.log("Database is leeg, characters uit API halen nu...");
-    const response = await fetch("https://fortnite-api.com/v2/cosmetics/br");
-    const apiResponse: { data: Character[] } = await response.json();
+    const characters: Character[] = await getCharacters();
 
-    const outfitsFromApi: Character[] = apiResponse.data.filter(character =>
-        character.type.value === "outfit" &&
-        ["TBD", null, "NPC", "Agent Jonesy"].includes(character.name) === false &&
-        character.images.featured !== null &&
-        character.images.icon !== null
-    );
+    if (characters.length == 0) {
+        console.log("Database is leeg, characters uit API halen nu...");
+        const response = await fetch("https://fortnite-api.com/v2/cosmetics/br");
+        const apiResponse: { data: Character[] } = await response.json();
 
-    // Invoegen van alle outfits in de database
-    await collectionCharacters.insertMany(outfitsFromApi);
+        const outfitsFromApi: Character[] = apiResponse.data.filter(character =>
+            character.type.value === "outfit" &&
+            ["TBD", null, "NPC", "Agent Jonesy"].includes(character.name) === false &&
+            character.images.featured !== null &&
+            character.images.icon !== null
+        );
 
-    console.log("Outfits zijn toegevoegd aan de database.");
+        // Invoegen van alle outfits in de database
+        await collectionCharacters.insertMany(outfitsFromApi);
+
+        console.log("Outfits zijn toegevoegd aan de database.");
+    }
+
 }
 //users
 export async function getUsers() {
     return await collectionUsers.find({}).toArray();
 }
 export async function updateUser(id: number, avatarImage: User) {
-    return await collectionUsers.updateOne({$oid: id}, {$set: avatarImage})
+    return await collectionUsers.updateOne({ $oid: id }, { $set: avatarImage })
 }
-export async function getUserById(id: number):Promise<User|null>{
+export async function getUserById(id: number): Promise<User | null> {
     return await collectionUsers.findOne({ $oid: id });
 }
 //backpacks
@@ -76,7 +81,7 @@ export async function loadBackpacksFromApi() {
 
         const filteredBackpacks: Character[] = backpacks.data.filter(backpacks =>
             backpacks.type.value === "backpack");
-        
+
         console.log(filteredBackpacks);
         await collectionBackpacks.insertMany(filteredBackpacks);
     }
@@ -97,7 +102,7 @@ export async function loadPickaxesFromApi() {
 
         const filteredPickaxes: Character[] = pickaxes.data.filter(pickaxes =>
             pickaxes.type.value === "pickaxe");
-        
+
         console.log(filteredPickaxes);
         await collectionPickaxes.insertMany(filteredPickaxes);
     }
