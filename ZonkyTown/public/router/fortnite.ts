@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { Character } from '../types/character';
 import { User } from '../types/user';
 import { Collection, MongoClient } from "mongodb";
-import { getRandomOutfits,getCharacters, loginUser, registerUser, updateAvatar,getUserByUsername } from '../../mongoDB';
+import { getRandomOutfits,getCharacters, loginUser, registerUser, updateAvatar,getUserByUsername,copyCharacterToUser,deleteCharacterFromUser } from '../../mongoDB';
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -84,21 +84,39 @@ router.get("/characters/:id", async (req, res) => {
     res.render("cards", { character: featured, profile:profile });
 });
 
-router.post('/characters/:id', async (req, res) => {
+router.post('/avatar/:id', async (req, res) => {
+    const fortniteId = req.params.id;
+    const avatar = req.body.avatar;
     const favorite = req.body.favorite;
     const blacklist = req.body.blacklist;
-    const avatar = req.body.avatar;
-    updateAvatar(avatar);
- 
+
+    console.log(avatar)
+    if (avatar !== undefined) {
+        updateAvatar(avatar);
+    }
+    else if(favorite !== undefined) {
+        copyCharacterToUser(favorite)
+    }
+    else if(blacklist !== undefined) {
+
+    }
+    // Herlaad de pagina
+    res.redirect(`/characters/${fortniteId}`);
 });
 
 router.get("/favoritepagina", async (req, res) => {
-    const randomSkins = await getRandomOutfits(5);
     const profile = await getUserByUsername();
-    res.render("favoritepagina", { fortnite: randomSkins, profile:profile });
+    res.render("favoritepagina", { profile:profile });
+});
+router.post("/delete/:id", async (req, res) => {
+    const deleteCharacter = req.body.delete;
+    console.log(deleteCharacter)
+    deleteCharacterFromUser(deleteCharacter)
+    res.redirect("/favoritepagina");
 });
 
 router.get("/detailpagina/:id", async (req, res) => {
+    const profile = await getUserByUsername();
     const fortniteId = req.params.id;
     const characters: Character[] = await getCharacters();
 
@@ -107,7 +125,7 @@ router.get("/detailpagina/:id", async (req, res) => {
     if (!featured) {
         return res.status(404).send("Character niet gevonden");
     }
-    res.render("detailpagina", { character: featured });
+    res.render("detailpagina", { character: featured, profile:profile});
 });
 
 router.get("/blacklist", async (req, res) => {

@@ -60,7 +60,7 @@ export async function getUsers() {
     return await collectionUsers.find({}).toArray();
 }
 export async function getUserByUsername(){
-    return await collectionUsers.findOne({ username:"ali" });
+    return await collectionUsers.findOne({ username:"mohammed" });
 }
 export async function updateUser(id: number, avatarImage: User) {
     return await collectionUsers.updateOne({ $oid: id }, { $set: avatarImage })
@@ -82,8 +82,46 @@ export async function registerUser(username: string, password: string) {
     await collectionUsers.insertOne({ username, password, profileImage});
 }
 export async function updateAvatar(imageAvatar: string) {
-    collectionUsers.updateOne({username: "alia"}, {$set: {profileImage: imageAvatar}})
+    collectionUsers.updateOne({username: "mohammed"}, {$set: {profileImage: imageAvatar}})
 }
+//favorite
+
+export async function copyCharacterToUser(characterId: string) {
+    try {
+        // Zoek het karakterobject op basis van de opgegeven id in collectionCharacters
+        const character = await collectionCharacters.findOne({ id: characterId });
+
+        // Controleer of het karakterobject is gevonden
+        if (!character) {
+            console.error("Karakter niet gevonden");
+            return; // Stop hier als het karakter niet is gevonden
+        }
+
+        // Voeg het gevonden karakterobject toe aan de gebruiker in collectionUsers
+        await collectionUsers.updateOne(
+            { username: "mohammed" }, 
+            { $addToSet: { favoriteCharacter: character } }
+        );
+
+        console.log("Karakter succesvol gekopieerd naar de gebruiker!");
+    } catch (error) {
+        console.error("Er is een fout opgetreden bij het kopiëren van het karakter naar de gebruiker:", error);
+        // Handel de fout af
+    }
+}
+import { ObjectId } from 'mongodb';
+
+export async function deleteCharacterFromUser(characterId: string) {
+        // Maak een ObjectId van de karakterId
+        // Verwijder het karakter met de gegeven ID uit de favoriteCharacters array van de gebruiker
+        await collectionUsers.updateOne(
+            { username: "mohammed" },
+            { $pull: { favoriteCharacter: { id: characterId } } }
+        );
+
+}
+
+
 //backpacks
 export async function getBackpacks() {
     return await collectionBackpacks.find({}).toArray();
