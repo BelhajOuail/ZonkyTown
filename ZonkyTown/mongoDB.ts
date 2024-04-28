@@ -11,7 +11,7 @@ const client = new MongoClient(uri);
 const collectionCharacters: Collection<Character> = client.db("ZonkyTown").collection<Character>("Characters");
 const collectionBackpacks: Collection<Character> = client.db("ZonkyTown").collection<Character>("Backpacks");
 const collectionPickaxes: Collection<Character> = client.db("ZonkyTown").collection<Character>("Pickaxe");
-const collectionUsers: Collection<User> = client.db("ZonkyTown").collection<User>("Users");
+export const collectionUsers: Collection<User> = client.db("ZonkyTown").collection<User>("users");
 
 async function exit() {
     try {
@@ -59,11 +59,30 @@ export async function loadCharactersFromApi() {
 export async function getUsers() {
     return await collectionUsers.find({}).toArray();
 }
+export async function getUserByUsername(){
+    return await collectionUsers.findOne({ username:"ali" });
+}
 export async function updateUser(id: number, avatarImage: User) {
     return await collectionUsers.updateOne({ $oid: id }, { $set: avatarImage })
 }
 export async function getUserById(id: number): Promise<User | null> {
     return await collectionUsers.findOne({ $oid: id });
+}
+export async function loginUser(username: string, password: string) {
+    const user = await collectionUsers.findOne({username:username});
+    return user !== null && username === user.username && password === user.password;
+}
+export async function registerUser(username: string, password: string) {
+    const existingUser = await collectionUsers.findOne({ username });
+
+    if (existingUser) {
+        throw new Error('Gebruikersnaam is al in gebruik.');
+    }
+    const profileImage : string = "/assets/icons/questionpf.png"
+    await collectionUsers.insertOne({ username, password, profileImage});
+}
+export async function updateAvatar(imageAvatar: string) {
+    collectionUsers.updateOne({username: "alia"}, {$set: {profileImage: imageAvatar}})
 }
 //backpacks
 export async function getBackpacks() {

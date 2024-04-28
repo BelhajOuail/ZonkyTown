@@ -1,8 +1,10 @@
 import express from "express";
 import router from "./public/router/fortnite";
 import { connect } from './mongoDB';
+import cookieParser from "cookie-parser";
 
 const app = express();
+
 app.set("port", 3001);
 app.set("view engine", "ejs")
 app.use(express.static("public"));

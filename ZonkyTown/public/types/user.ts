@@ -1,8 +1,7 @@
 import { ObjectId } from "mongodb";
 
 export interface User {
-      _id: ObjectId,
       username: string,
       password: string,
-      avatarImage: string|null
+      profileImage:string|null
 }

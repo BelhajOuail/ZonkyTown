@@ -218,9 +218,7 @@ header nav a:hover {
 
 .profile-picture img {
     margin-left: 1rem;
-    width: 2.5rem;
     height: auto;
-
 }
 
 .search-container {
@@ -600,13 +598,11 @@ select {
     color: #2f3136;
 }
 
-.star,
 .cross,
 .edit {
     display: none;
 }
 
-.card-item:hover .star,
 .card-item:hover .cross,
 .card-item:hover .edit {
     display: inline-block;
