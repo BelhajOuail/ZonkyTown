@@ -1,68 +1,70 @@
 <%-include("partials/header.ejs") %>
-<main>
-    <section class="containerCard" style="background-image: url('../assets/images/background.png');">
-        <a href="/index"><img src="/assets/icons/goback.png" alt="goback"></a>
-        <div class="botharticles">
-        <article>
-            <img src="<%= character.images.featured %>" alt="Skinfoto"
-                style="background-image: url('../assets/images/<%=character.rarity.value%>.webp');" class="rarity">
-           
-        </article>
-        <article>
-            <div class="descriptiondetail">
-                <h1 class="name">
-                    <%= character.name %>
-                </h1>
-                <h1 class="outfitrarity"
-                style="background-image: url('../assets/images/<%= character.rarity.value %>.webp') ;">
-                <%= character.rarity.displayValue %> <span style="color: white;">outfit</span>
-            </h1>
+    <main>
+        <section class="containerCard" style="background-image: url('../assets/images/background.png');">
+            <a href="/index"><img src="/assets/icons/goback.png" alt="goback"></a>
+            <div class="botharticles">
+                <article>
+                    <img src="<%= character.images.featured %>" alt="Skinfoto"
+                        style="background-image: url('../assets/images/<%=character.rarity.value%>.webp');"
+                        class="rarity">
 
-            <div>
-                <p class="descriptionofskin">
-                    <%= character.description %>
-                </p>
-                <p class="introducedin">
-                  Geïntroduceerd in: Chapter
-                     <%= character.introduction.chapter %>, Seizoen <%= character.introduction.season %>.
-                </p>
-            </div>
-            <form action="/avatar/<%= character.id %>" method="post">
-                <button class="button-48" type="submit" name="avatar" value="<%= character.images.icon %>"><span class="text">Gebruik als avatar</span></button> 
-                <button class="button-48" type="submit" name="favorite" value="<%= character.id %>"><span class="text">Zet in favorieten</span></button>
-                <button class="button-48" type="submit" name="blacklist" value="<%= character.id %>"><span class="text">Zet in blacklist</span></button>
-        
-            </form>
+                </article>
+                <article>
+                    <div class="descriptiondetail">
+                        <h1 class="name">
+                            <%= character.name %>
+                        </h1>
+                        <h1 class="outfitrarity"
+                            style="background-image: url('../assets/images/<%= character.rarity.value %>.webp') ;">
+                            <%= character.rarity.displayValue %> <span style="color: white;">outfit</span>
+                        </h1>
+
+                        <div>
+                            <p class="descriptionofskin">
+                                <%= character.description %>
+                            </p>
+                            <p class="introducedin">
+                                Geïntroduceerd in: Chapter
+                                <%= character.introduction.chapter %>, Seizoen <%= character.introduction.season %>.
+                            </p>
+                        </div>
+                        <form action="/avatar/<%= character.id %>" method="post">
+                            <button class="button-48" type="submit" name="avatar"
+                                value="<%= character.images.icon %>"><span class="text">Gebruik als
+                                    avatar</span></button>
+                            <button class="button-48" type="submit" name="favorite" value="<%= character.id %>"><span
+                                    class="text">Zet in favorieten</span></button>
+                        </form>
 
 
-            
-            <div class="variants">
-                <p>Varianten</p>
-                <% 
-                let counter = 0;
-                if (character.variants && character.variants.length > 0) { 
-                    character.variants.forEach(variant => { 
-                        if (counter >= 4) return;
-                        if (variant.options && variant.options.length > 0) { 
-                            variant.options.forEach(option => { 
+                        <form action="/avatar/<%= character.id %>" method="post">
+                            <input type="text" name="reason" placeholder="Reden voor blacklist">
+                            <button class="button-48" type="submit" name="blacklist" value="<%= character.id %>">
+                                <span class="text">Zet in blacklist</span>
+                            </button>
+                        </form>
+
+
+
+                        <div class="variants">
+                            <p>Varianten</p>
+                            <% let counter=0; if (character.variants && character.variants.length> 0) {
+                                character.variants.forEach(variant => {
+                                if (counter >= 4) return;
+                                if (variant.options && variant.options.length > 0) {
+                                variant.options.forEach(option => {
                                 if (counter >= 4) return;
                                 %>
-                                <img src="<%= option.image %>" style="background-image: url('../assets/images/<%=character.rarity.value%>.webp');" alt="variants">
-                                <% 
-                                counter++;
-                            }); 
-                        } 
-                    }); 
-                } else { 
-                    %>
-                    <p>Geen varianten beschikbaar</p>
-                    <% 
-                } 
-                %>
+                                <img src="<%= option.image %>"
+                                    style="background-image: url('../assets/images/<%=character.rarity.value%>.webp');"
+                                    alt="variants">
+                                <% counter++; }); } }); } else { %>
+                                    <p>Geen varianten beschikbaar</p>
+                                    <% } %>
+                        </div>
+                    </div>
+                </article>
             </div>
-            </div>
-        </article>
-    </div>
-    </section>
-</main>
-<%- include("partials/footer.ejs") %>
+        </section>
+    </main>
+    <%- include("partials/footer.ejs") %>

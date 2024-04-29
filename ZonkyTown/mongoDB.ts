@@ -132,14 +132,20 @@ export async function deleteCharacterFromFavorite(characterId: string) {
     }
 }
 
-// Favorietengerelateerde bewerkingen
-export async function addCharacterToBlacklist(characterId: string) {
+// Blacklistedgerelateerde  bewerkingen
+export async function addCharacterToBlacklist(characterId: string, reason:string) {
     try {
         const character = await collectionCharacters.findOne({ id: characterId });
 
         await collectionUsers.updateOne(
-            { username: "miaw" }, 
-            { $addToSet: { blacklistCharacter: character } }
+            { username: "miaw"},  // Controleer of het karakter niet al op de zwarte lijst staat,
+            { 
+                $addToSet: { 
+                    blacklistCharacter: { 
+                        $each: [{ ...character, reason: reason }] // Voeg het karakter toe met de reden
+                    } 
+                }
+            }
         );
 
     } catch (error) {

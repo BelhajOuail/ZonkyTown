@@ -106,7 +106,7 @@ router.post('/avatar/:id', async (req, res) => {
         deleteCharacterFromBlacklist(favorite) // als die in blacklist zat wordt die er uit gehaald, anders heb je dezelfde skin in favoriet en blacklist
 
     } else if (blacklist !== undefined) {
-        addCharacterToBlacklist(blacklist)
+        addCharacterToBlacklist(blacklist, reason)
         deleteCharacterFromFavorite(blacklist) // als die in blacklist zat wordt die er uit gehaald, anders heb je dezelfde skin in favoriet en blacklist
     }
 

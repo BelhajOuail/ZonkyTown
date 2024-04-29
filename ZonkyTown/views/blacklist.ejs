@@ -6,7 +6,7 @@
     <h1 class="bio">Bekijk je geblackliste Fortnite-avatars!</h1>
 
     <%- include('partials/sortfunctions.ejs') %>
-        <%if(profile.favoriteCharacter !==null){%>
+        <%if(profile.blacklistCharacter !==undefined){%>
 
             <section class="characters-list">
 
@@ -16,7 +16,14 @@
 
 
                         <div class="card-item">
-                            <p class="reason">Reason</p>
+                            <p class="reason">
+                                <% if (character.reason) { %>
+                                  <%= character.reason %>
+                                <% } else { %>
+                                  Geen reden
+                                <% } %>
+                              </p>
+                              
                             <div class="card_photo">
                                 <img src="<%= character.images.icon %>" alt="Skinfoto"
                                     style="background-image: url('../assets/images/<%= character.rarity.value %>.webp');">
