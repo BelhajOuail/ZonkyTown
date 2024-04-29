@@ -137,16 +137,39 @@ export async function addCharacterToBlacklist(characterId: string, reason:string
     try {
         const character = await collectionCharacters.findOne({ id: characterId });
 
-        await collectionUsers.updateOne(
-            { username: "miaw"},  // Controleer of het karakter niet al op de zwarte lijst staat,
-            { 
-                $addToSet: { 
-                    blacklistCharacter: { 
-                        $each: [{ ...character, reason: reason }] // Voeg het karakter toe met de reden
-                    } 
-                }
+        if (character) {
+            const user = await collectionUsers.findOne({ username: "miaw", "blacklistCharacter.id": character.id });
+        
+            if (user) {
+                await collectionUsers.updateOne(
+                    { 
+                        username: "miaw", 
+                        "blacklistCharacter.id": character.id 
+                    }, 
+                    { 
+                        $set: { 
+                            "blacklistCharacter.$.reason": reason 
+                        }
+                    }
+                );
+            } else {
+                await collectionUsers.updateOne(
+                    { username: "miaw" }, 
+                    { 
+                        $addToSet: { 
+                            blacklistCharacter: { 
+                                $each: [{ ...character, reason: reason }] 
+                            } 
+                        }
+                    }
+                );
             }
-        );
+        } else {
+            console.error("Karakter niet gevonden");
+        }
+        
+
+        
 
     } catch (error) {
         console.error("Er is een fout opgetreden bij het blacklisten van het karakter:", error);
