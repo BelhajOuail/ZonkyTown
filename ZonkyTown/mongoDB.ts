@@ -75,7 +75,7 @@ export async function getUsers() {
 }
 
 export async function getUserByUsername(){
-    return await collectionUsers.findOne({ username:"mohammed" });
+    return await collectionUsers.findOne({ username:"miaw" });
 }
 
 export async function updateUser(id: number, avatarImage: User) {
@@ -102,7 +102,7 @@ export async function registerUser(username: string, password: string) {
 }
 
 export async function updateAvatar(imageAvatar: string) {
-    collectionUsers.updateOne({username: "mohammed"}, {$set: {profileImage: imageAvatar}})
+    collectionUsers.updateOne({username: "miaw"}, {$set: {profileImage: imageAvatar}})
 }
 
 // Favorietengerelateerde bewerkingen
@@ -119,7 +119,7 @@ export async function copyCharacterToUser(characterId: string) {
 
         // Voeg het gevonden karakterobject toe aan de gebruiker in collectionUsers
         await collectionUsers.updateOne(
-            { username: "mohammed" }, 
+            { username: "miaw" }, 
             { $addToSet: { favoriteCharacter: character } }
         );
 
@@ -134,7 +134,7 @@ export async function deleteCharacterFromUser(characterId: string) {
     try {
         // Zoek de gebruiker op basis van de opgegeven gebruikersnaam
         await collectionUsers.updateOne(
-            { username: "mohammed" },
+            { username: "miaw" },
             { $pull: { favoriteCharacter: { id: characterId } } }
         );
 
