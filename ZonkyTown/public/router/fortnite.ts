@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { Character } from '../types/character';
 import { User } from '../types/user';
-import { getRandomOutfits, loginUser, registerUser, updateAvatar, getUserByUsername, addCharacterToUser, deleteCharacterFromUser, findCharacterById } from '../../mongoDB';
+import { getRandomOutfits, loginUser, registerUser, updateAvatar, getUserByUsername, addCharacterToFavorite, deleteCharacterFromFavorite, addCharacterToBlacklist, findCharacterById, deleteCharacterFromBlacklist } from '../../mongoDB';
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -95,15 +95,19 @@ router.post('/avatar/:id', async (req, res) => {
     const avatar = req.body.avatar;
     const favorite = req.body.favorite;
     const blacklist = req.body.blacklist;
+    const reason = req.body.reason;
 
     console.log(avatar)
     if (avatar !== undefined) {
         updateAvatar(avatar);
     } 
     else if (favorite !== undefined) {
-        addCharacterToUser(favorite)
+        addCharacterToFavorite(favorite)
+        deleteCharacterFromBlacklist(favorite) // als die in blacklist zat wordt die er uit gehaald, anders heb je dezelfde skin in favoriet en blacklist
 
     } else if (blacklist !== undefined) {
+        addCharacterToBlacklist(blacklist)
+        deleteCharacterFromFavorite(blacklist) // als die in blacklist zat wordt die er uit gehaald, anders heb je dezelfde skin in favoriet en blacklist
     }
 
     res.redirect(`/characters/${fortniteId}`);
@@ -116,9 +120,9 @@ router.get("/favoritepagina", async (req, res) => {
 });
 
 
-router.post("/delete/:id", async (req, res) => {
-    const deleteCharacter = req.body.delete;
-    deleteCharacterFromUser(deleteCharacter)
+router.post("/deletefavorite/:id", async (req, res) => {
+    const deleteCharacter = req.body.deletefavorite;
+    deleteCharacterFromFavorite(deleteCharacter)
     res.redirect("/favoritepagina");
 });
 
@@ -143,9 +147,15 @@ router.get("/detailpagina/:id", async (req, res) => {
 
 
 router.get("/blacklist", async (req, res) => {
-    const randomSkins = await getRandomOutfits(5);
     const profile = await getUserByUsername();
-    res.render("blacklist", { fortnite: randomSkins, profile: profile });
+    res.render("blacklist", { profile: profile });
+});
+
+router.post("/deleteblacklist/:id", async (req, res) => {
+    const reason = req.body.reason;
+    const deleteCharacter = req.body.deleteblacklist;
+    deleteCharacterFromBlacklist(deleteCharacter)
+    res.redirect("/blacklist");
 });
 
 export default router;

@@ -21,8 +21,8 @@
                             <div class="card_name">
                                 <p>
                                     <%= character.name %> <br>
-                                    <form action="/delete/<%= character.id %>" method="post">
-                                        <button name="delete" value="<%= character.id%>" class="cross" style="color: red;">
+                                    <form action="/deletefavorite/<%= character.id %>" method="post">
+                                        <button name="deletefavorite" value="<%= character.id%>" class="cross" style="color: red;">
                                             ✖
                                         </button>
                                     </form>

@@ -105,7 +105,7 @@ export async function updateAvatar(imageAvatar: string) {
 }
 
 // Favorietengerelateerde bewerkingen
-export async function addCharacterToUser(characterId: string) {
+export async function addCharacterToFavorite(characterId: string) {
     try {
         const character = await collectionCharacters.findOne({ id: characterId });
 
@@ -115,11 +115,11 @@ export async function addCharacterToUser(characterId: string) {
         );
 
     } catch (error) {
-        console.error("Er is een fout opgetreden bij het kopiëren van het karakter naar de gebruiker:", error);
+        console.error("Er is een fout opgetreden bij het toeveogen van het karakter naar favorieten:", error);
     }
 }
 
-export async function deleteCharacterFromUser(characterId: string) {
+export async function deleteCharacterFromFavorite(characterId: string) {
     try {
         await collectionUsers.updateOne(
             { username: "miaw" },
@@ -127,10 +127,40 @@ export async function deleteCharacterFromUser(characterId: string) {
         );
 
     } catch (error) {
-        console.error("Er is een fout opgetreden bij het verwijderen van het karakter van de gebruiker:", error);
+        console.error("Er is een fout opgetreden bij het verwijderen van het karakter:", error);
      
     }
 }
+
+// Favorietengerelateerde bewerkingen
+export async function addCharacterToBlacklist(characterId: string) {
+    try {
+        const character = await collectionCharacters.findOne({ id: characterId });
+
+        await collectionUsers.updateOne(
+            { username: "miaw" }, 
+            { $addToSet: { blacklistCharacter: character } }
+        );
+
+    } catch (error) {
+        console.error("Er is een fout opgetreden bij het blacklisten van het karakter:", error);
+    }
+}
+
+export async function deleteCharacterFromBlacklist(characterId: string) {
+    try {
+        const character = await collectionCharacters.findOne({ id: characterId });
+
+        await collectionUsers.updateOne(
+            { username: "miaw" }, 
+            { $pull: { blacklistCharacter: { id: characterId } } }
+        );
+
+    } catch (error) {
+        console.error("Er is een fout opgetreden bij het verwijderen van de geblackliste karakter:", error);
+    }
+}
+
 
 // Backpack-gerelateerde bewerkingen
 export async function getBackpacks() {

@@ -28,10 +28,14 @@
                 </p>
             </div>
             <form action="/avatar/<%= character.id %>" method="post">
-                <button class="button-48" type="submit" name="avatar" value="<%= character.images.icon %>"><span class="text">Gebruik als avatar</span></button>
+                <button class="button-48" type="submit" name="avatar" value="<%= character.images.icon %>"><span class="text">Gebruik als avatar</span></button> 
                 <button class="button-48" type="submit" name="favorite" value="<%= character.id %>"><span class="text">Zet in favorieten</span></button>
-                <button class="button-48" name="blacklist" value="<%= character.images.icon %>"><span class="text">Zet in blacklist</span></button>
+                <button class="button-48" type="submit" name="blacklist" value="<%= character.id %>"><span class="text">Zet in blacklist</span></button>
+        
             </form>
+
+
+            
             <div class="variants">
                 <p>Varianten</p>
                 <% 
