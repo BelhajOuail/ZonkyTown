@@ -7,12 +7,13 @@ dotenv.config();
 
 const uri = process.env.URI || "mongodb+srv://ZonkyTown:123@zonkytown.iqttvfb.mongodb.net/";
 const client = new MongoClient(uri);
-//collections
+// Collections
 const collectionCharacters: Collection<Character> = client.db("ZonkyTown").collection<Character>("Characters");
 const collectionBackpacks: Collection<Character> = client.db("ZonkyTown").collection<Character>("Backpacks");
 const collectionPickaxes: Collection<Character> = client.db("ZonkyTown").collection<Character>("Pickaxe");
 export const collectionUsers: Collection<User> = client.db("ZonkyTown").collection<User>("users");
 
+// Functie om de MongoDB-verbinding te sluiten
 async function exit() {
     try {
         await client.close();
@@ -22,10 +23,22 @@ async function exit() {
     }
     process.exit(0);
 }
-//characters
+
+// Karaktergerelateerde bewerkingen
 export async function getCharacters() {
     return await collectionCharacters.find({}).toArray();
 }
+
+export async function findCharacterById(characterId: string): Promise<Character | null> {
+    try {
+        const character = await collectionCharacters.findOne({ id: characterId });
+        return character;
+    } catch (error) {
+        console.error("Er is een fout opgetreden bij het zoeken naar het karakter:", error);
+        return null;
+    }
+}
+
 export async function getRandomOutfits(count: number): Promise<Character[]> {
     const randomOutfits: Character[] = await collectionCharacters.aggregate<Character>([
         { $sample: { size: count } }
@@ -33,6 +46,7 @@ export async function getRandomOutfits(count: number): Promise<Character[]> {
 
     return randomOutfits;
 }
+
 export async function loadCharactersFromApi() {
     const characters: Character[] = await getCharacters();
 
@@ -53,25 +67,30 @@ export async function loadCharactersFromApi() {
 
         console.log("Outfits zijn toegevoegd aan de database.");
     }
-
 }
-//users
+
+// Gebruikersgerelateerde bewerkingen
 export async function getUsers() {
     return await collectionUsers.find({}).toArray();
 }
+
 export async function getUserByUsername(){
     return await collectionUsers.findOne({ username:"mohammed" });
 }
+
 export async function updateUser(id: number, avatarImage: User) {
     return await collectionUsers.updateOne({ $oid: id }, { $set: avatarImage })
 }
+
 export async function getUserById(id: number): Promise<User | null> {
     return await collectionUsers.findOne({ $oid: id });
 }
+
 export async function loginUser(username: string, password: string) {
     const user = await collectionUsers.findOne({username:username});
     return user !== null && username === user.username && password === user.password;
 }
+
 export async function registerUser(username: string, password: string) {
     const existingUser = await collectionUsers.findOne({ username });
 
@@ -81,11 +100,12 @@ export async function registerUser(username: string, password: string) {
     const profileImage : string = "/assets/icons/questionpf.png"
     await collectionUsers.insertOne({ username, password, profileImage});
 }
+
 export async function updateAvatar(imageAvatar: string) {
     collectionUsers.updateOne({username: "mohammed"}, {$set: {profileImage: imageAvatar}})
 }
-//favorite
 
+// Favorietengerelateerde bewerkingen
 export async function copyCharacterToUser(characterId: string) {
     try {
         // Zoek het karakterobject op basis van de opgegeven id in collectionCharacters
@@ -109,20 +129,23 @@ export async function copyCharacterToUser(characterId: string) {
         // Handel de fout af
     }
 }
-import { ObjectId } from 'mongodb';
 
 export async function deleteCharacterFromUser(characterId: string) {
-        // Maak een ObjectId van de karakterId
-        // Verwijder het karakter met de gegeven ID uit de favoriteCharacters array van de gebruiker
+    try {
+        // Zoek de gebruiker op basis van de opgegeven gebruikersnaam
         await collectionUsers.updateOne(
             { username: "mohammed" },
             { $pull: { favoriteCharacter: { id: characterId } } }
         );
 
+        console.log("Karakter succesvol verwijderd van de gebruiker!");
+    } catch (error) {
+        console.error("Er is een fout opgetreden bij het verwijderen van het karakter van de gebruiker:", error);
+        // Handel de fout af
+    }
 }
 
-
-//backpacks
+// Backpack-gerelateerde bewerkingen
 export async function getBackpacks() {
     return await collectionBackpacks.find({}).toArray();
 }
@@ -131,7 +154,6 @@ export async function loadBackpacksFromApi() {
     const backpacks: Character[] = await getBackpacks();
 
     if (backpacks.length == 0) {
-
         console.log("Database is leeg, backpacks uit API halen nu...")
         const response = await fetch("https://fortnite-api.com/v2/cosmetics/br");
         const backpacks: { data: Character[] } = await response.json();
@@ -144,15 +166,15 @@ export async function loadBackpacksFromApi() {
     }
 }
 
-//pickaxes
+// Pickaxe-gerelateerde bewerkingen
 export async function getPickaxes() {
     return await collectionPickaxes.find({}).toArray();
 }
+
 export async function loadPickaxesFromApi() {
     const pickaxes: Character[] = await getPickaxes();
 
     if (pickaxes.length == 0) {
-
         console.log("Database is leeg, pickaxes uit API halen nu...")
         const response = await fetch("https://fortnite-api.com/v2/cosmetics/br");
         const pickaxes: { data: Character[] } = await response.json();
@@ -165,7 +187,7 @@ export async function loadPickaxesFromApi() {
     }
 }
 
-
+// Verbinding maken met de database
 export async function connect() {
     try {
         await client.connect();
