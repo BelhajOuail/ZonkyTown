@@ -1,36 +1,33 @@
 import { Router } from 'express';
 import { Character } from '../types/character';
 import { User } from '../types/user';
-import { getRandomOutfits, getCharacters, loginUser, registerUser, updateAvatar, getUserByUsername, copyCharacterToUser, deleteCharacterFromUser, findCharacterById } from '../../mongoDB';
+import { getRandomOutfits, loginUser, registerUser, updateAvatar, getUserByUsername, addCharacterToUser, deleteCharacterFromUser, findCharacterById } from '../../mongoDB';
 import dotenv from "dotenv";
 
 dotenv.config();
 
 let fortniteData: Character[] = [];
-
-let avatars: any[] = []; // Deze array kan aangepast worden, zodat we gebruik maken van api collection.
 const router = Router();
 
-// Route voor de startpagina
+
 router.get("/", (req, res) => {
     const fortnite = fortniteData;
     res.render("landingspagina", { fortnite });
 });
 
-// Route voor de indexpagina
+
 router.get("/index", async (req, res) => {
-    // Het verkrijgen van willekeurige outfits en gebruikersprofiel
     const randomSkins = await getRandomOutfits(50);
     const profile = await getUserByUsername();
     res.render("index", { fortnite: randomSkins, profile: profile });
 });
 
-// Route voor de registratiepagina
+
 router.get("/registreer", async (req, res) => {
     res.render("registreer", { fortnite: fortniteData });
 });
 
-// Route voor het verwerken van registratieverzoeken
+
 router.post('/registreer', async (req, res) => {
     const { name, password, confirmPassword } = req.body;
 
@@ -51,13 +48,13 @@ router.post('/registreer', async (req, res) => {
     }
 });
 
-// Route voor de inlogpagina
+
 router.get("/login", async (req, res) => {
     const fortnite = fortniteData;
     res.render("login", { fortnite: fortnite });
 });
 
-// Route voor het verwerken van inlogverzoeken
+
 router.post('/login', async (req, res) => {
     const { name, password } = req.body;
     try {
@@ -74,7 +71,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// Route voor het weergeven van een karakterkaart
+
 router.get("/characters/:id", async (req, res) => {
     const fortniteId = req.params.id;
     const profile = await getUserByUsername();
@@ -92,50 +89,40 @@ router.get("/characters/:id", async (req, res) => {
     }
 });
 
-// Route voor het verwerken van verzoeken om avatar- of favorietkarakterinformatie bij te werken
+
 router.post('/avatar/:id', async (req, res) => {
     const fortniteId = req.params.id;
     const avatar = req.body.avatar;
     const favorite = req.body.favorite;
     const blacklist = req.body.blacklist;
-    console.log("1_")
 
     console.log(avatar)
     if (avatar !== undefined) {
-    console.log("2_")
-
         updateAvatar(avatar);
-    console.log("3_")
-
-    } else if (favorite !== undefined) {
-    console.log("4_")
-
-        copyCharacterToUser(favorite)
-    console.log("5_")
+    } 
+    else if (favorite !== undefined) {
+        addCharacterToUser(favorite)
 
     } else if (blacklist !== undefined) {
-        // Handel blacklist-bewerking af indien nodig
     }
-    console.log("6_")
 
-    // Herlaad de pagina
     res.redirect(`/characters/${fortniteId}`);
 });
 
-// Route voor het weergeven van de favorietenpagina
+
 router.get("/favoritepagina", async (req, res) => {
     const profile = await getUserByUsername();
     res.render("favoritepagina", { profile: profile });
 });
 
-// Route voor het verwerken van verzoeken om karakters te verwijderen van de favorietenlijst
+
 router.post("/delete/:id", async (req, res) => {
     const deleteCharacter = req.body.delete;
     deleteCharacterFromUser(deleteCharacter)
     res.redirect("/favoritepagina");
 });
 
-// Route voor het weergeven van de detailpagina van een karakter
+
 router.get("/detailpagina/:id", async (req, res) => {
     const profile = await getUserByUsername();
     const fortniteId = req.params.id;
@@ -154,7 +141,7 @@ router.get("/detailpagina/:id", async (req, res) => {
     }
 });
 
-// Route voor het weergeven van de blacklistpagina
+
 router.get("/blacklist", async (req, res) => {
     const randomSkins = await getRandomOutfits(5);
     const profile = await getUserByUsername();

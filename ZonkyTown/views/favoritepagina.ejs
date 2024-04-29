@@ -6,7 +6,7 @@
   <h1 class="bio">Verken je favoriete Fortnite-avatars. <br> Bekijk ze van dichtbij!</h1>
 
   <%- include('partials/sortfunctions.ejs') %>
-  <%if(profile.favoriteCharacter ==! null){%>
+  <%if(profile.favoriteCharacter !== null){%>
         <section class="characters-list">
             
             <% for (let character of profile.favoriteCharacter) { %>

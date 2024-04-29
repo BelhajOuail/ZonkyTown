@@ -7,6 +7,7 @@ dotenv.config();
 
 const uri = process.env.URI || "mongodb+srv://ZonkyTown:123@zonkytown.iqttvfb.mongodb.net/";
 const client = new MongoClient(uri);
+
 // Collections
 const collectionCharacters: Collection<Character> = client.db("ZonkyTown").collection<Character>("Characters");
 const collectionBackpacks: Collection<Character> = client.db("ZonkyTown").collection<Character>("Backpacks");
@@ -29,7 +30,7 @@ export async function getCharacters() {
     return await collectionCharacters.find({}).toArray();
 }
 
-export async function findCharacterById(characterId: string): Promise<Character | null> {
+export async function findCharacterById(characterId: string){
     try {
         const character = await collectionCharacters.findOne({ id: characterId });
         return character;
@@ -39,7 +40,7 @@ export async function findCharacterById(characterId: string): Promise<Character 
     }
 }
 
-export async function getRandomOutfits(count: number): Promise<Character[]> {
+export async function getRandomOutfits(count: number){
     const randomOutfits: Character[] = await collectionCharacters.aggregate<Character>([
         { $sample: { size: count } }
     ]).toArray();
@@ -62,14 +63,12 @@ export async function loadCharactersFromApi() {
             character.images.icon !== null
         );
 
-        // Invoegen van alle outfits in de database
         await collectionCharacters.insertMany(outfitsFromApi);
 
         console.log("Outfits zijn toegevoegd aan de database.");
     }
 }
 
-// Gebruikersgerelateerde bewerkingen
 export async function getUsers() {
     return await collectionUsers.find({}).toArray();
 }
@@ -82,7 +81,7 @@ export async function updateUser(id: number, avatarImage: User) {
     return await collectionUsers.updateOne({ $oid: id }, { $set: avatarImage })
 }
 
-export async function getUserById(id: number): Promise<User | null> {
+export async function getUserById(id: number){
     return await collectionUsers.findOne({ $oid: id });
 }
 
@@ -106,42 +105,30 @@ export async function updateAvatar(imageAvatar: string) {
 }
 
 // Favorietengerelateerde bewerkingen
-export async function copyCharacterToUser(characterId: string) {
+export async function addCharacterToUser(characterId: string) {
     try {
-        // Zoek het karakterobject op basis van de opgegeven id in collectionCharacters
         const character = await collectionCharacters.findOne({ id: characterId });
 
-        // Controleer of het karakterobject is gevonden
-        if (!character) {
-            console.error("Karakter niet gevonden");
-            return; // Stop hier als het karakter niet is gevonden
-        }
-
-        // Voeg het gevonden karakterobject toe aan de gebruiker in collectionUsers
         await collectionUsers.updateOne(
             { username: "miaw" }, 
             { $addToSet: { favoriteCharacter: character } }
         );
 
-        console.log("Karakter succesvol gekopieerd naar de gebruiker!");
     } catch (error) {
         console.error("Er is een fout opgetreden bij het kopiëren van het karakter naar de gebruiker:", error);
-        // Handel de fout af
     }
 }
 
 export async function deleteCharacterFromUser(characterId: string) {
     try {
-        // Zoek de gebruiker op basis van de opgegeven gebruikersnaam
         await collectionUsers.updateOne(
             { username: "miaw" },
             { $pull: { favoriteCharacter: { id: characterId } } }
         );
 
-        console.log("Karakter succesvol verwijderd van de gebruiker!");
     } catch (error) {
         console.error("Er is een fout opgetreden bij het verwijderen van het karakter van de gebruiker:", error);
-        // Handel de fout af
+     
     }
 }
 
