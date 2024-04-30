@@ -15,13 +15,11 @@ router.get("/", (req, res) => {
     res.render("landingspagina", { fortnite });
 });
 
-
 router.get("/index", async (req, res) => {
     const randomSkins = await getRandomOutfits(50);
     const profile = await getUserByUsername();
     res.render("index", { fortnite: randomSkins, profile: profile });
 });
-
 
 router.get("/registreer", async (req, res) => {
     res.render("registreer", { fortnite: fortniteData });
