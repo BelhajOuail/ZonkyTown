@@ -1,4 +1,5 @@
 <%- include('partials/header.ejs') %>
+<script src="/js/changeScore.js" defer></script>
     <h1 class="bio">Verken je favoriete Fortnite-avatars. <br> Bekijk ze van dichtbij!</h1>
 
 
@@ -33,18 +34,18 @@
             <div class="row scoreboard">
                 <div class="score">
                     <p>Gewonnen</p>
-                    <p>9</p>
+                    <p id="winCount">0</p>
                     <div class="row">
-                        <img src="/assets/icons/circle-plus-solid.svg" alt="AddWin" class="add">
-                        <img src="/assets/icons/circle-minus-solid.svg" alt="AddLoss" class="add">
+                        <img src="/assets/icons/circle-plus-solid.svg" alt="AddWin" class="add" onclick="addWin()">
+                        <img src="/assets/icons/circle-minus-solid.svg" alt="AddLoss" class="add" onclick="removeWin()">
                     </div>
                 </div>
                 <div class="score">
                     <p>Verloren</p>
-                    <p>5</p>
+                    <p id="lossCount">0</p>
                     <div class="row">
-                        <img src="/assets/icons/circle-plus-solid.svg" alt="AddWin" class="add">
-                        <img src="/assets/icons/circle-minus-solid.svg" alt="AddLoss" class="add">
+                        <img src="/assets/icons/circle-plus-solid.svg" alt="AddWin" class="add" onclick="addLoss()">
+                        <img src="/assets/icons/circle-minus-solid.svg" alt="AddLoss" class="add" onclick="removeLoss()">
                     </div>
                 </div>
             </div>
