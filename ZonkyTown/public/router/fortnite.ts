@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { Character } from '../types/character';
 import { User } from '../types/user';
-import { getRandomOutfits, loginUser, registerUser, updateAvatar, getUserByUsername, addCharacterToFavorite, deleteCharacterFromFavorite, addCharacterToBlacklist, findCharacterById, deleteCharacterFromBlacklist } from '../../mongoDB';
+import { getRandomOutfits, loginUser, registerUser, updateAvatar, getUserByUsername, addCharacterToFavorite, deleteCharacterFromFavorite, addCharacterToBlacklist, findCharacterById, deleteCharacterFromBlacklist, getRandomBackpacks } from '../../mongoDB';
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -135,8 +135,8 @@ router.get("/detailpagina/:id", async (req, res) => {
         if (!featured) {
             return res.status(404).send("Character niet gevonden");
         }
-
-        res.render("detailpagina", { character: featured, profile: profile });
+        const backpacks = await getRandomBackpacks(1);
+        res.render("detailpagina", { character: featured, profile: profile, backpacks : backpacks});
     } catch (error) {
         console.error("Er is een fout opgetreden bij het laden van de karaktergegevens:", error);
         res.status(500).send("Er is een interne serverfout opgetreden");

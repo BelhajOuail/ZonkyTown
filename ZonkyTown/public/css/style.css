@@ -723,6 +723,8 @@ select {
     justify-content: space-between;
 }
 
+
+
 .container p {
     font-size: 150%;
 }
@@ -738,9 +740,15 @@ select {
 }
 
 
-.container article:nth-child(3) img {
+.container .item {
+    width: 70%;
+}
+
+.container .add {
     width: 20%;
 }
+
+
 .variants img:hover,
 .rarity:hover {
     transform: scale(1.03);

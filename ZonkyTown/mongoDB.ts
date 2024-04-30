@@ -167,10 +167,6 @@ export async function addCharacterToBlacklist(characterId: string, reason:string
         } else {
             console.error("Karakter niet gevonden");
         }
-        
-
-        
-
     } catch (error) {
         console.error("Er is een fout opgetreden bij het blacklisten van het karakter:", error);
     }
@@ -210,6 +206,13 @@ export async function loadBackpacksFromApi() {
         console.log(filteredBackpacks);
         await collectionBackpacks.insertMany(filteredBackpacks);
     }
+}
+
+export async function getRandomBackpacks(count: number){
+    const randomOutfits: Character[] = await collectionBackpacks.aggregate<Character>([
+        { $sample: { size: count } }
+    ]).toArray();
+    return randomOutfits[0];
 }
 
 // Pickaxe-gerelateerde bewerkingen

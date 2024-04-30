@@ -35,17 +35,12 @@
                             <button class="button-48" type="submit" name="favorite" value="<%= character.id %>"><span
                                     class="text">Zet in favorieten</span></button>
                         </form>
-
-
                         <form action="/avatar/<%= character.id %>" method="post">
                             <input type="text" name="reason" placeholder="Reden voor blacklist">
                             <button class="button-48" type="submit" name="blacklist" value="<%= character.id %>">
                                 <span class="text">Zet in blacklist</span>
                             </button>
                         </form>
-
-
-
                         <div class="variants">
                             <p>Varianten</p>
                             <% let counter=0; if (character.variants && character.variants.length> 0) {
