@@ -122,7 +122,9 @@ router.get("/favoritepagina", async (req, res) => {
 router.post("/deletefavorite/:id", async (req, res) => {
     const deleteCharacter = req.body.deletefavorite;
     deleteCharacterFromFavorite(deleteCharacter)
-    res.redirect("/favoritepagina");
+    setTimeout(() => {
+        res.redirect("/favoritepagina");
+    }, 250); 
 });
 
 
@@ -153,9 +155,6 @@ router.post("/detailpagina/:id", async (req, res) => {
     // Controleer of req.body.lossCount een numerieke waarde is voordat je parseFloat gebruikt
     const lossCount = req.body.lossCount;
     
-    console.log(winCount)
-    console.log(lossCount)
-
     const featured = await findFavoriteSkinByUser(fortniteId);
     updateCharacterScores(fortniteId, winCount, lossCount);
     setTimeout(() => {
@@ -173,7 +172,9 @@ router.post("/deleteblacklist/:id", async (req, res) => {
     const reason = req.body.reason;
     const deleteCharacter = req.body.deleteblacklist;
     deleteCharacterFromBlacklist(deleteCharacter)
-    res.redirect("/blacklist");
+    setTimeout(() => {
+        res.redirect("/blacklist");
+    }, 250); 
 });
 
 export default router;
