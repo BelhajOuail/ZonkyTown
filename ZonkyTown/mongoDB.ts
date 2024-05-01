@@ -279,7 +279,8 @@ export async function updateCharacterScores(characterId: string, winCount: numbe
     try {
         if (winCount !== undefined && lossCount !== undefined) { // Controleer of winCount en lossCount niet leeg zijn
             const user = await collectionUsers.findOne({ username: "miaw", "favoriteCharacter.id": characterId });
-
+            console.log(winCount )
+            console.log(lossCount )
             if (user) {
                 await collectionUsers.updateOne(
                     { username: "miaw", "favoriteCharacter.id": characterId },

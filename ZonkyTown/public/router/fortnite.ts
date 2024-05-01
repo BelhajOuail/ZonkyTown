@@ -147,19 +147,22 @@ router.get("/detailpagina/:id", async (req, res) => {
 router.post("/detailpagina/:id", async (req, res) => {
 
     const fortniteId = req.params.id;
-    const winCount = parseFloat(req.body.winCount);
-    const lossCount = parseFloat(req.body.lossCount);
+    // Controleer of req.body.winCount een numerieke waarde is voordat je parseFloat gebruikt
+    const winCount = req.body.winCount;
 
+    // Controleer of req.body.lossCount een numerieke waarde is voordat je parseFloat gebruikt
+    const lossCount = req.body.lossCount;
+    
     console.log(winCount)
     console.log(lossCount)
 
-
     const featured = await findFavoriteSkinByUser(fortniteId);
     updateCharacterScores(fortniteId, winCount, lossCount);
-    
-    res.redirect(`/detailpagina/${fortniteId}`);
+    setTimeout(() => {
+        // Stuur een redirect-reactie terug naar de client
+        res.redirect(`/detailpagina/${fortniteId}`);
+    }, 10); 
 });
-
 
 router.get("/blacklist", async (req, res) => {
     const profile = await getUserByUsername();

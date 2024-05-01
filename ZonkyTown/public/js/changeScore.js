@@ -1,40 +1,34 @@
 function addWin() {
-    var winCountElement = document.getElementById("winCount");
-    var currentCount = parseInt(winCountElement.textContent);
-    winCountElement.textContent = currentCount + 1;
-    document.getElementById("winCountInput").value = currentCount + 1; // Update de waarde van winCountInput
+    var input = document.getElementById("winCount");
+    input.value = parseInt(input.value) + 1;
 }
 
 function removeWin() {
-    var winCountElement = document.getElementById("winCount");
-    var currentCount = parseInt(winCountElement.textContent);
-    if (currentCount > 0) {
-        winCountElement.textContent = currentCount - 1;
-        document.getElementById("winCountInput").value = currentCount - 1; // Update de waarde van winCountInput
+    var input = document.getElementById("winCount");
+    if (parseInt(input.value) > 0) {
+        input.value = parseInt(input.value) - 1;
     }
 }
 
 function addLoss() {
-    var lossCountElement = document.getElementById("lossCount");
-    var currentCount = parseInt(lossCountElement.textContent);
-    lossCountElement.textContent = currentCount + 1;
-    document.getElementById("lossCountInput").value = currentCount + 1; // Update de waarde van lossCountInput
+    var input = document.getElementById("lossCount");
+    input.value = parseInt(input.value) + 1;
 }
 
 function removeLoss() {
-    var lossCountElement = document.getElementById("lossCount");
-    var currentCount = parseInt(lossCountElement.textContent);
-    if (currentCount > 0) {
-        lossCountElement.textContent = currentCount - 1;
-        document.getElementById("lossCountInput").value = currentCount - 1; // Update de waarde van lossCountInput
+    var input = document.getElementById("lossCount");
+    if (parseInt(input.value) > 0) {
+        input.value = parseInt(input.value) - 1;
     }
 }
-
 function saveScore() {
-    let winCount = document.getElementById("winCount").textContent;
-    let lossCount = document.getElementById("lossCount").textContent;
+    const winCount = document.getElementById("winCount").value;
+    const lossCount = document.getElementById("lossCount").value;
 
-    document.getElementById("winCountInput").value = winCount;
-    document.getElementById("lossCountInput").value = lossCount;
+    // Werk de waarden van de verborgen invoervelden bij
+    document.getElementById("winCountInput").setAttribute("value", winCount);
+    document.getElementById("lossCountInput").setAttribute("value", lossCount);
+
+    // Verzend het formulier
+    document.getElementById("scoreForm").submit();
 }
-

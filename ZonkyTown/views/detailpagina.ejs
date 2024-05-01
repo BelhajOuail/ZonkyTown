@@ -34,34 +34,32 @@
             <h2>Scoreboard</h2>
             <div class="row scoreboard">
                 <div class="score">
-                    <p>Gewonnen</p>
-                    <p id="winCount">
-                        <%= character.wins %>
-                    </p>
-                    <div class="row">
-                        <img src="/assets/icons/circle-plus-solid.svg" alt="AddWin" class="add" onclick="addWin()">
-                        <img src="/assets/icons/circle-minus-solid.svg" alt="AddLoss" class="add" onclick="removeWin()">
+                <p>Gewonnen</p>
+                    <div class="count-container">
+                        <input type="number" name="winCount" id="winCount" value="<%= character.wins || 0 %>" readonly>
+                        <div class="btn-container">
+                            <button class="btn plus" onclick="addWin()"></button>
+                            <button class="btn minus" onclick="removeWin()"></button>
+                        </div>
                     </div>
                 </div>
                 <div class="score">
-                    <p>Verloren</p>
-                    <p id="lossCount">
-                        <%= character.losses %>
-                    </p>
-                    <div class="row">
-                        <img src="/assets/icons/circle-plus-solid.svg" alt="AddWin" class="add" onclick="addLoss()">
-                        <img src="/assets/icons/circle-minus-solid.svg" alt="AddLoss" class="add"
-                            onclick="removeLoss()">
+                <p>Verloren</p>
+                    <div class="count-container">
+                        <input type="number" name="lossCount" id="lossCount" value="<%= character.losses || 0 %>" readonly>
+                        <div class="btn-container">
+                            <button class="btn plus" onclick="addLoss()"></button>
+                            <button class="btn minus" onclick="removeLoss()"></button>
+                        </div>
                     </div>
-
                 </div>
-
+                
             </div>
-            <form action="/detailpagina/<%= character.id %>" method="post">
-                <input type="hidden" id="winCountInput" name="winCount" >
-                <input type="hidden" id="lossCountInput" name="lossCount">
-                <button class="button-48" role="button"><span class="text">Opslaan</span></button>
+            <form id="scoreForm" action="/detailpagina/<%= character.id %>" method="post" style="display: none;">
+                <input type="hidden" id="winCountInput" name="winCount" value="<%= character.wins || 0 %>">
+                <input type="hidden" id="lossCountInput" name="lossCount" value="<%= character.losses || 0 %>">
             </form>
+            <button class="button-48" role="button" onclick="saveScore()"><span class="text">Opslaan</span></button>
 
 
             <h2>Kies je uitrusting</h2>

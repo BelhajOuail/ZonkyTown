@@ -444,6 +444,59 @@ footer a {
 footer a:hover {
     color: yellow;
 }
+span {cursor:pointer; }
+
+.score {
+    margin-bottom: 20px;
+}
+
+.count-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px; /* Voeg wat ruimte toe tussen de cijfers en de knoppen */
+    gap: 2rem;
+}
+
+input[type="number"] {
+    width: 60px;
+    padding: 10px;
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold; /* Dikgedrukt */
+    color: white; /* Witte tekstkleur */
+    border: none;
+    background-color: transparent;
+}
+
+.btn-container button {
+    width: 132px;
+    height: 30px;
+    margin: 0 5px;
+    border: none;
+    background-color: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.btn.plus {
+    background-image: url('/assets/icons/circle-plus-solid.svg');
+    background-size: 100%;
+}
+
+.btn.minus {
+    background-image: url('/assets/icons/circle-minus-solid.svg');
+    background-size: 100%;
+}
 
 
 .set-profile-button,
@@ -763,7 +816,7 @@ select {
 }
 
 .row div {
-    width: 50%;
+    width: 60%;
 }
 
 .score {
