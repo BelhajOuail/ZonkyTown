@@ -1,8 +1,9 @@
 import { Router } from 'express';
 import { Character } from '../types/character';
 import { User } from '../types/user';
-import { getRandomOutfits, loginUser, registerUser, updateAvatar, getUserByUsername, addCharacterToFavorite, deleteCharacterFromFavorite, addCharacterToBlacklist, findCharacterById, deleteCharacterFromBlacklist, getRandomBackpacks } from '../../mongoDB';
+import { getRandomOutfits, loginUser, registerUser, updateAvatar, getUserByUsername, addCharacterToFavorite, deleteCharacterFromFavorite, addCharacterToBlacklist, findCharacterById, deleteCharacterFromBlacklist, getRandomBackpack, findFavoriteSkinByUser, updateCharacterScores } from '../../mongoDB';
 import dotenv from "dotenv";
+import { render } from 'ejs';
 
 dotenv.config();
 
@@ -98,7 +99,7 @@ router.post('/avatar/:id', async (req, res) => {
     console.log(avatar)
     if (avatar !== undefined) {
         updateAvatar(avatar);
-    } 
+    }
     else if (favorite !== undefined) {
         addCharacterToFavorite(favorite)
         deleteCharacterFromBlacklist(favorite) // als die in blacklist zat wordt die er uit gehaald, anders heb je dezelfde skin in favoriet en blacklist
@@ -130,17 +131,33 @@ router.get("/detailpagina/:id", async (req, res) => {
     const fortniteId = req.params.id;
 
     try {
-        const featured = await findCharacterById(fortniteId);
+        const featured = await findFavoriteSkinByUser(fortniteId);
 
         if (!featured) {
             return res.status(404).send("Character niet gevonden");
         }
-        const backpacks = await getRandomBackpacks(1);
-        res.render("detailpagina", { character: featured, profile: profile, backpacks : backpacks});
+
+        res.render("detailpagina", { character: featured, profile: profile });
     } catch (error) {
         console.error("Er is een fout opgetreden bij het laden van de karaktergegevens:", error);
         res.status(500).send("Er is een interne serverfout opgetreden");
     }
+});
+
+router.post("/detailpagina/:id", async (req, res) => {
+
+    const fortniteId = req.params.id;
+    const winCount = parseFloat(req.body.winCount);
+    const lossCount = parseFloat(req.body.lossCount);
+
+    console.log(winCount)
+    console.log(lossCount)
+
+
+    const featured = await findFavoriteSkinByUser(fortniteId);
+    updateCharacterScores(fortniteId, winCount, lossCount);
+    
+    res.redirect(`/detailpagina/${fortniteId}`);
 });
 
 

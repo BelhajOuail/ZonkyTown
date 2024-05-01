@@ -1,5 +1,5 @@
 <%- include('partials/header.ejs') %>
-<script src="/js/changeScore.js" defer></script>
+    <script src="/js/changeScore.js" defer></script>
     <h1 class="bio">Verken je favoriete Fortnite-avatars. <br> Bekijk ze van dichtbij!</h1>
 
 
@@ -20,7 +20,8 @@
                     <%= character.description %>
                 </h3>
                 <h3>
-                    Geïntroduceerd in Chapter <%= character.introduction.chapter %>, Seizoen <%= character.introduction.season %>.
+                    Geïntroduceerd in Chapter <%= character.introduction.chapter %>, Seizoen <%=
+                            character.introduction.season %>
                 </h3>
             </div>
 
@@ -34,7 +35,9 @@
             <div class="row scoreboard">
                 <div class="score">
                     <p>Gewonnen</p>
-                    <p id="winCount">0</p>
+                    <p id="winCount">
+                        <%= character.wins %>
+                    </p>
                     <div class="row">
                         <img src="/assets/icons/circle-plus-solid.svg" alt="AddWin" class="add" onclick="addWin()">
                         <img src="/assets/icons/circle-minus-solid.svg" alt="AddLoss" class="add" onclick="removeWin()">
@@ -42,21 +45,33 @@
                 </div>
                 <div class="score">
                     <p>Verloren</p>
-                    <p id="lossCount">0</p>
+                    <p id="lossCount">
+                        <%= character.losses %>
+                    </p>
                     <div class="row">
                         <img src="/assets/icons/circle-plus-solid.svg" alt="AddWin" class="add" onclick="addLoss()">
-                        <img src="/assets/icons/circle-minus-solid.svg" alt="AddLoss" class="add" onclick="removeLoss()">
+                        <img src="/assets/icons/circle-minus-solid.svg" alt="AddLoss" class="add"
+                            onclick="removeLoss()">
                     </div>
+
                 </div>
+
             </div>
+            <form action="/detailpagina/<%= character.id %>" method="post">
+                <input type="hidden" id="winCountInput" name="winCount" >
+                <input type="hidden" id="lossCountInput" name="lossCount">
+                <button class="button-48" role="button"><span class="text">Opslaan</span></button>
+            </form>
+
+
             <h2>Kies je uitrusting</h2>
             <div class="row">
                 <div class="score">
-                    <img src="<%= backpacks.images.icon %>" alt="emote" class="item">
+                    <img src="<%= character.pickaxe %>" alt="emote" class="item">
                     <button class="button-48" role="button"><span class="text">Kies wapen</span></button>
                 </div>
                 <div class="score">
-                    <img src="/assets/images/mysteryitem.webp" alt="pump" class="item">
+                    <img src="<%= character.backpack %>" alt="pump" class="item">
                     <button class="button-48" role="button"><span class="text">Kies rugzak</span></button>
                 </div>
             </div>

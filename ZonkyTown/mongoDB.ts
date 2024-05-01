@@ -105,19 +105,54 @@ export async function updateAvatar(imageAvatar: string) {
 }
 
 // Favorietengerelateerde bewerkingen
+
+export async function findFavoriteSkinByUser(characterId: string) {
+    const user = await collectionUsers.findOne({ username: "miaw", "favoriteCharacter.id": characterId });
+ 
+    const favoriteCharacter = (user as any).favoriteCharacter;
+
+    if (favoriteCharacter) {
+        const character = favoriteCharacter.find((char: any) => char.id === characterId);
+        return character;
+    } else {
+        return null;
+    }
+}
+
+
 export async function addCharacterToFavorite(characterId: string) {
     try {
         const character = await collectionCharacters.findOne({ id: characterId });
 
-        await collectionUsers.updateOne(
-            { username: "miaw" }, 
-            { $addToSet: { favoriteCharacter: character } }
-        );
+        if (!character) {
+            console.error("Karakter niet gevonden");
+            return;
+        }
 
+        const user = await collectionUsers.findOne({ username: "miaw", "favoriteCharacter.id": character.id });
+
+        const wins = 0;
+        const losses = 0; 
+        const pickaxe = "/assets/images/mysteryitem.webp"; 
+        const backpack = "/assets/images/mysteryitem.webp"; 
+        const comment = ""; // Standaardwaardes voor favoritecharacter
+
+        if (user) {
+            await collectionUsers.updateOne(
+                { username: "miaw", "favoriteCharacter.id": character.id },
+                { $set: { "favoriteCharacter.$.wins": wins, "favoriteCharacter.$.losses": losses, "favoriteCharacter.$.pickaxe": pickaxe, "favoriteCharacter.$.backpack": backpack, "favoriteCharacter.$.comment": comment } }
+            );
+        } else {
+            await collectionUsers.updateOne(
+                { username: "miaw" },
+                { $addToSet: { favoriteCharacter: { $each: [{ ...character, wins, losses, pickaxe, backpack, comment }] } } }
+            );
+        }
     } catch (error) {
-        console.error("Er is een fout opgetreden bij het toeveogen van het karakter naar favorieten:", error);
+        console.error("Er is een fout opgetreden bij het toevoegen van het karakter aan favorieten:", error);
     }
 }
+
 
 export async function deleteCharacterFromFavorite(characterId: string) {
     try {
@@ -208,12 +243,13 @@ export async function loadBackpacksFromApi() {
     }
 }
 
-export async function getRandomBackpacks(count: number){
-    const randomOutfits: Character[] = await collectionBackpacks.aggregate<Character>([
-        { $sample: { size: count } }
-    ]).toArray();
-    return randomOutfits[0];
+export async function getRandomBackpack() {
+    const randomBackpack = await collectionBackpacks.aggregate([
+        { $sample: { size: 1 } }
+    ]).next();
+    return randomBackpack;
 }
+
 
 // Pickaxe-gerelateerde bewerkingen
 export async function getPickaxes() {
@@ -235,6 +271,36 @@ export async function loadPickaxesFromApi() {
         await collectionPickaxes.insertMany(filteredPickaxes);
     }
 }
+
+//Score-gerelateerde bewerkingen
+
+// Functie om wins en losses van een favoriet personage bij te werken
+export async function updateCharacterScores(characterId: string, winCount: number, lossCount:number) {
+    try {
+        if (winCount !== undefined && lossCount !== undefined) { // Controleer of winCount en lossCount niet leeg zijn
+            const user = await collectionUsers.findOne({ username: "miaw", "favoriteCharacter.id": characterId });
+
+            if (user) {
+                await collectionUsers.updateOne(
+                    { username: "miaw", "favoriteCharacter.id": characterId },
+                    { $set: { "favoriteCharacter.$.wins": winCount, "favoriteCharacter.$.losses": lossCount }  }
+                );
+                
+            
+            } else {
+                console.error("Gebruiker niet gevonden of karakter niet in favorietenlijst");
+        
+            }
+        } else {
+            console.error("winCount of lossCount is leeg.");
+        }
+    } catch (error) {
+        console.error("Er is een fout opgetreden bij het bijwerken van de karaktergegevens:", error);
+    }
+}
+
+
+
 
 // Verbinding maken met de database
 export async function connect() {
