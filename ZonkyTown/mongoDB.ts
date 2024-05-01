@@ -250,7 +250,12 @@ export async function getRandomBackpack() {
     return randomBackpack;
 }
 
-
+export async function getRandomPickaxe() {
+    const randomPickaxe = await collectionPickaxes.aggregate([
+        { $sample: { size: 1 } }
+    ]).next();
+    return randomPickaxe;
+}
 // Pickaxe-gerelateerde bewerkingen
 export async function getPickaxes() {
     return await collectionPickaxes.find({}).toArray();
