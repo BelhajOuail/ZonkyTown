@@ -5,6 +5,7 @@ import { getRandomOutfits, loginUser, registerUser, updateAvatar, getUserByUsern
 import dotenv from "dotenv";
 import { render } from 'ejs';
 import { userInfo } from 'os';
+import session from 'express-session';
 
 dotenv.config();
 
@@ -60,6 +61,7 @@ router.post('/login', async (req, res) => {
     try {
         const loggedIn = await loginUser(username, password);
         req.session.user = {username, password};
+            
         if (!loggedIn) {
             return res.render('login', {
                 message: 'Foute gebruikersnaam of wachtwoord!',

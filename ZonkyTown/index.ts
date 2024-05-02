@@ -2,16 +2,17 @@ import express from "express";
 import router from "./public/router/fortnite";
 import { connect } from './mongoDB';
 import { errorHandler } from "./public/middleware/middleware"
+import session from "./public/sessions/session";
 
 const app = express();
 
-app.set("port", 3000);
+app.set("port", 3001);
 app.set("view engine", "ejs")
 app.use(express.static("public"));
 
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true }));
-
+app.use(session)
 app.use("/", router); 
 
 app.use(errorHandler(404, "The page you were trying to find does not exists"))
