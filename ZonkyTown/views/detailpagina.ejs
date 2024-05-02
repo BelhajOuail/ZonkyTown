@@ -67,38 +67,36 @@
             <div class="row">
                 <div class="score">
                     <img src="<%= character.pickaxe %>" alt="emote" class="item">
-
                     <form action="/pickaxe/<%= character.id %>/" method="post">
-                        <button class="button-48" name="pickaxe" value="<%= character.pickaxe %>" role="button"><span
-                                class="text">Kies wapen</span></button>
+                        <button class="button-48" name="pickaxe" value="<%= character.pickaxe %>" role="button">
+                            <span class="text">Kies wapen</span>
+                        </button>
                     </form>
-
-                    <% if (character.pickaxe !=='/assets/images/mysteryitem.webp' ) { %>
+                    <% if (character.pickaxe !== '/assets/images/mysteryitem.webp') { %>
                         <form action="/deletepickaxe/<%= character.id %>/" method="post">
                             <button name="deletepickaxe" value="<%= character.pickaxe %>" class="cross" style="color: red;">
                                 ✖
                             </button>
+                        </form>
                     <% } %>
-
                 </div>
                 <div class="score">
                     <img src="<%= character.backpack %>" alt="pump" class="item">
-
                     <form action="/backpack/<%= character.id %>/" method="post">
-                        <button class="button-48" name="backpack" value="<%= character.backpack %>" role="button"><span
-                                class="text">Kies rugzak</span></button>
+                        <button class="button-48" name="backpack" value="<%= character.backpack %>" role="button">
+                            <span class="text">Kies rugzak</span>
+                        </button>
                     </form>
-
-                    <% if (character.backpack !=='/assets/images/mysteryitem.webp' ) { %>
+                    <% if (character.backpack !== '/assets/images/mysteryitem.webp') { %>
                         <form action="/deletebackpack/<%= character.id %>/" method="post">
                             <button name="deletebackpack" value="<%= character.backpack %>" class="cross" style="color: red;">
                                 ✖
                             </button>
+                        </form>
                     <% } %>
-
-
                 </div>
             </div>
+            
         </article>
     </section>
     <%- include('partials/footer.ejs') %>
