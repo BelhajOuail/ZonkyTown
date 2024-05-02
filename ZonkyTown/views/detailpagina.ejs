@@ -23,12 +23,29 @@
                     Geïntroduceerd in Chapter <%= character.introduction.chapter %>, Seizoen <%=
                             character.introduction.season %>
                 </h3>
+                <% if (character.comment && character.comment !=="" ) { %>
+                    <h3> <br> <br>
+                        Notitie: <%= character.comment %>
+
+                            <form action="/deletecomment/<%= character.id %>/" method="post">
+                                <button name="deletecomment" value="<%= character.deletecomment %>" class="cross"
+                                    style="color: red;">
+                                    ✖
+                                </button>
+                            </form>
+
+                    </h3>
+                    <% } %>
             </div>
 
-            <form class="comment-form">
-                <textarea name="comment" placeholder="Voeg commentaar toe aan je favoriete skin..."></textarea>
-                <button class="button-48" role="button"><span class="text">Voeg toe</span></button>
-            </form>
+            <% if (!character.comment || character.comment === "") { %>
+                <form class="comment-form" action="/comment/<%= character.id %>" method="post">
+                    <textarea name="comment" placeholder="Voeg commentaar toe aan je favoriete skin..."></textarea>
+                    <button type="submit" class="button-48" role="button"><span class="text">Voeg toe</span></button>
+                </form>
+            <% } %>
+            
+
         </article>
         <article>
             <h2>Scoreboard</h2>
@@ -72,13 +89,14 @@
                             <span class="text">Kies wapen</span>
                         </button>
                     </form>
-                    <% if (character.pickaxe !== '/assets/images/mysteryitem.webp') { %>
+                    <% if (character.pickaxe !=='/assets/images/mysteryitem.webp' ) { %>
                         <form action="/deletepickaxe/<%= character.id %>/" method="post">
-                            <button name="deletepickaxe" value="<%= character.pickaxe %>" class="cross" style="color: red;">
+                            <button name="deletepickaxe" value="<%= character.pickaxe %>" class="cross"
+                                style="color: red;">
                                 ✖
                             </button>
                         </form>
-                    <% } %>
+                        <% } %>
                 </div>
                 <div class="score">
                     <img src="<%= character.backpack %>" alt="pump" class="item">
@@ -87,16 +105,17 @@
                             <span class="text">Kies rugzak</span>
                         </button>
                     </form>
-                    <% if (character.backpack !== '/assets/images/mysteryitem.webp') { %>
+                    <% if (character.backpack !=='/assets/images/mysteryitem.webp' ) { %>
                         <form action="/deletebackpack/<%= character.id %>/" method="post">
-                            <button name="deletebackpack" value="<%= character.backpack %>" class="cross" style="color: red;">
+                            <button name="deletebackpack" value="<%= character.backpack %>" class="cross"
+                                style="color: red;">
                                 ✖
                             </button>
                         </form>
-                    <% } %>
+                        <% } %>
                 </div>
             </div>
-            
+
         </article>
     </section>
     <%- include('partials/footer.ejs') %>

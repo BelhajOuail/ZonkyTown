@@ -369,6 +369,39 @@ export async function updateCharacterScores(characterId: string, winCount: numbe
     }
 }
 
+//Comment-gerelateerde bewerkingen
+
+export async function updateCommentIntoFavorite(characterId: string, comment: string) {
+
+    const character = await collectionCharacters.findOne({ id: characterId });
+
+    if (character) {
+        const user = await collectionUsers.findOne({ username: "miaw", "favoriteCharacter.id": character.id });
+
+        if (user) {
+            await collectionUsers.updateOne(
+                { username: "miaw", "favoriteCharacter.id": character.id },
+                { $set: { "favoriteCharacter.$.comment": comment } }
+            );
+        }
+    }
+}
+
+export async function deleteCommentFromFavorite(characterId: string) {
+
+    const character = await collectionCharacters.findOne({ id: characterId });
+
+    if (character) {
+        const user = await collectionUsers.findOne({ username: "miaw", "favoriteCharacter.id": character.id });
+
+        if (user) {
+            await collectionUsers.updateOne(
+                { username: "miaw", "favoriteCharacter.id": character.id },
+                { $set: { "favoriteCharacter.$.comment":  ''} }
+            );
+        }
+    }
+}
 
 
 

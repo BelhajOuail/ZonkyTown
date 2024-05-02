@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { Character } from '../types/character';
 import { User } from '../types/user';
-import { getRandomOutfits, loginUser, registerUser, updateAvatar, getUserByUsername, addCharacterToFavorite, deleteCharacterFromFavorite, addCharacterToBlacklist, findCharacterById, deleteCharacterFromBlacklist, getRandomBackpack, findFavoriteSkinByUser, updateCharacterScores,getRandomPickaxe, updateBackpackIntoFavorite, deleteBackpackFromFavorite,  updatePickaxeIntoFavorite, deletePickaxeFromFavorite } from '../../mongoDB';
+import { getRandomOutfits, loginUser, registerUser, updateAvatar, getUserByUsername, addCharacterToFavorite, deleteCharacterFromFavorite, addCharacterToBlacklist, findCharacterById, deleteCharacterFromBlacklist, getRandomBackpack, findFavoriteSkinByUser, updateCharacterScores,getRandomPickaxe, updateBackpackIntoFavorite, deleteBackpackFromFavorite,  updatePickaxeIntoFavorite, deletePickaxeFromFavorite, updateCommentIntoFavorite, deleteCommentFromFavorite } from '../../mongoDB';
 import dotenv from "dotenv";
 import { render } from 'ejs';
 
@@ -214,6 +214,29 @@ router.post("/deletepickaxe/:id/", async (req, res) => {
     }, 150); 
 });
 
+
+router.post('/comment/:id', async(req, res) => {
+
+    const fortniteId = req.params.id;
+    const comment = req.body.comment;
+
+    updateCommentIntoFavorite(fortniteId, comment)
+
+    setTimeout(() => {
+        res.redirect(`/detailpagina/${fortniteId}`);
+    }, 150); 
+});
+
+router.post('/deletecomment/:id', async(req, res) => {
+
+    const fortniteId = req.params.id;
+    
+    deleteCommentFromFavorite(fortniteId)
+
+    setTimeout(() => {
+        res.redirect(`/detailpagina/${fortniteId}`);
+    }, 150); 
+});
 
 router.get("/blacklist", async (req, res) => {
     const profile = await getUserByUsername();
