@@ -4,6 +4,7 @@ import { User } from '../types/user';
 import { getRandomOutfits, loginUser, registerUser, updateAvatar, getUserByUsername, addCharacterToFavorite, deleteCharacterFromFavorite, addCharacterToBlacklist, findCharacterById, deleteCharacterFromBlacklist, getRandomBackpack, findFavoriteSkinByUser, updateCharacterScores,getRandomPickaxe, updateBackpackIntoFavorite, deleteBackpackFromFavorite,  updatePickaxeIntoFavorite, deletePickaxeFromFavorite, updateCommentIntoFavorite, deleteCommentFromFavorite } from '../../mongoDB';
 import dotenv from "dotenv";
 import { render } from 'ejs';
+import { userInfo } from 'os';
 
 dotenv.config();
 
@@ -55,9 +56,10 @@ router.get("/login", async (req, res) => {
 
 
 router.post('/login', async (req, res) => {
-    const { name, password } = req.body;
+    const { username, password } = req.body;
     try {
-        const loggedIn = await loginUser(name, password);
+        const loggedIn = await loginUser(username, password);
+        req.session.user = {username, password};
         if (!loggedIn) {
             return res.render('login', {
                 message: 'Foute gebruikersnaam of wachtwoord!',

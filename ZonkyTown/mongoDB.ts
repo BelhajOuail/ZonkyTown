@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const uri = process.env.URI || "mongodb+srv://ZonkyTown:123@zonkytown.iqttvfb.mongodb.net/";
+export const uri = process.env.URI || "mongodb+srv://ZonkyTown:123@zonkytown.iqttvfb.mongodb.net/";
 const client = new MongoClient(uri);
 
 // Collections
@@ -74,7 +74,7 @@ export async function getUsers() {
 }
 
 export async function getUserByUsername() {
-    return await collectionUsers.findOne({ username: "miaw" });
+    return await collectionUsers.findOne({ username: "miaw"});//&& password
 }
 
 export async function updateUser(id: number, avatarImage: User) {
@@ -97,7 +97,7 @@ export async function registerUser(username: string, password: string) {
         throw new Error('Gebruikersnaam is al in gebruik.');
     }
     const profileImage: string = "/assets/icons/questionpf.png"
-    await collectionUsers.insertOne({ username, password, profileImage });
+    await collectionUsers.insertOne({ username, password});
 }
 
 export async function updateAvatar(imageAvatar: string) {
