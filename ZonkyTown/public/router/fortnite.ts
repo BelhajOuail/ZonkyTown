@@ -123,7 +123,7 @@ router.post("/deletefavorite/:id", async (req, res) => {
     deleteCharacterFromFavorite(deleteCharacter)
     setTimeout(() => {
         res.redirect("/favoritepagina");
-    }, 150); 
+    }, 200); 
 });
 
 
@@ -151,13 +151,30 @@ router.post("/detailpagina/:id", async (req, res) => {
     const fortniteId = req.params.id;
     const winCount = req.body.winCount;
     const lossCount = req.body.lossCount;
-    
-    const featured = await findFavoriteSkinByUser(fortniteId);
-    updateCharacterScores(fortniteId, winCount, lossCount);
-    setTimeout(() => {
-        // Stuur een redirect-reactie terug naar de client
-        res.redirect(`/detailpagina/${fortniteId}`);
-    }, 150); 
+
+    if (winCount > 0 || lossCount >= 3) {
+        if (lossCount > 3 * winCount ) {
+            addCharacterToBlacklist(fortniteId, "personage trekt op niets");
+            deleteCharacterFromFavorite(fortniteId);
+            setTimeout(() => {
+                res.redirect(`/blacklist`);
+            }, 200); 
+        }
+        else{
+            await findFavoriteSkinByUser(fortniteId);
+            setTimeout(() => {
+                res.redirect(`/detailpagina/${fortniteId}`);
+                updateCharacterScores(fortniteId, winCount, lossCount);
+            }, 250); 
+        }
+    }
+    else{
+        await findFavoriteSkinByUser(fortniteId);
+        setTimeout(() => {
+            res.redirect(`/detailpagina/${fortniteId}`);
+            updateCharacterScores(fortniteId, winCount, lossCount);
+        }, 250); 
+    }
 });
 
 router.post("/backpack/:id/", async (req, res) => {
@@ -171,7 +188,7 @@ router.post("/backpack/:id/", async (req, res) => {
 
     setTimeout(() => {
         res.redirect(`/detailpagina/${fortniteId}`);
-    }, 150); 
+    }, 200); 
 });
 
 router.post("/deletebackpack/:id/", async (req, res) => {
@@ -183,9 +200,8 @@ router.post("/deletebackpack/:id/", async (req, res) => {
 
     setTimeout(() => {
         res.redirect(`/detailpagina/${fortniteId}`);
-    }, 150); 
+    }, 200); 
 });
-
 
 router.post("/pickaxe/:id/", async (req, res) => {
 
@@ -195,10 +211,9 @@ router.post("/pickaxe/:id/", async (req, res) => {
     const randomPickaxe = await getRandomPickaxe();
     updatePickaxeIntoFavorite(fortniteId, randomPickaxe);
     
-
     setTimeout(() => {
         res.redirect(`/detailpagina/${fortniteId}`);
-    }, 150); 
+    }, 200); 
 });
 
 
@@ -211,7 +226,7 @@ router.post("/deletepickaxe/:id/", async (req, res) => {
 
     setTimeout(() => {
         res.redirect(`/detailpagina/${fortniteId}`);
-    }, 150); 
+    }, 200); 
 });
 
 
@@ -224,7 +239,7 @@ router.post('/comment/:id', async(req, res) => {
 
     setTimeout(() => {
         res.redirect(`/detailpagina/${fortniteId}`);
-    }, 150); 
+    }, 200); 
 });
 
 router.post('/deletecomment/:id', async(req, res) => {
@@ -235,7 +250,7 @@ router.post('/deletecomment/:id', async(req, res) => {
 
     setTimeout(() => {
         res.redirect(`/detailpagina/${fortniteId}`);
-    }, 150); 
+    }, 200); 
 });
 
 router.get("/blacklist", async (req, res) => {
@@ -249,7 +264,7 @@ router.post("/deleteblacklist/:id", async (req, res) => {
     deleteCharacterFromBlacklist(deleteCharacter)
     setTimeout(() => {
         res.redirect("/blacklist");
-    }, 150); 
+    }, 200); 
 });
 
 export default router;
