@@ -34,7 +34,7 @@
             <h2>Scoreboard</h2>
             <div class="row scoreboard">
                 <div class="score">
-                <p>Gewonnen</p>
+                    <p>Gewonnen</p>
                     <div class="count-container">
                         <input type="number" name="winCount" id="winCount" value="<%= character.wins || 0 %>" readonly>
                         <div class="btn-container">
@@ -44,16 +44,17 @@
                     </div>
                 </div>
                 <div class="score">
-                <p>Verloren</p>
+                    <p>Verloren</p>
                     <div class="count-container">
-                        <input type="number" name="lossCount" id="lossCount" value="<%= character.losses || 0 %>" readonly>
+                        <input type="number" name="lossCount" id="lossCount" value="<%= character.losses || 0 %>"
+                            readonly>
                         <div class="btn-container">
                             <button class="btn plus" onclick="addLoss()"></button>
                             <button class="btn minus" onclick="removeLoss()"></button>
                         </div>
                     </div>
                 </div>
-                
+
             </div>
             <form id="scoreForm" action="/detailpagina/<%= character.id %>" method="post" style="display: none;">
                 <input type="hidden" id="winCountInput" name="winCount" value="<%= character.wins || 0 %>">
@@ -66,11 +67,36 @@
             <div class="row">
                 <div class="score">
                     <img src="<%= character.pickaxe %>" alt="emote" class="item">
-                    <button class="button-48" role="button"><span class="text">Kies wapen</span></button>
+
+                    <form action="/pickaxe/<%= character.id %>/" method="post">
+                        <button class="button-48" name="pickaxe" value="<%= character.pickaxe %>" role="button"><span
+                                class="text">Kies wapen</span></button>
+                    </form>
+
+                    <% if (character.pickaxe !=='/assets/images/mysteryitem.webp' ) { %>
+                        <form action="/deletepickaxe/<%= character.id %>/" method="post">
+                            <button name="deletepickaxe" value="<%= character.pickaxe %>" class="cross" style="color: red;">
+                                ✖
+                            </button>
+                    <% } %>
+
                 </div>
                 <div class="score">
                     <img src="<%= character.backpack %>" alt="pump" class="item">
-                    <button class="button-48" role="button"><span class="text">Kies rugzak</span></button>
+
+                    <form action="/backpack/<%= character.id %>/" method="post">
+                        <button class="button-48" name="backpack" value="<%= character.backpack %>" role="button"><span
+                                class="text">Kies rugzak</span></button>
+                    </form>
+
+                    <% if (character.backpack !=='/assets/images/mysteryitem.webp' ) { %>
+                        <form action="/deletebackpack/<%= character.id %>/" method="post">
+                            <button name="deletebackpack" value="<%= character.backpack %>" class="cross" style="color: red;">
+                                ✖
+                            </button>
+                    <% } %>
+
+
                 </div>
             </div>
         </article>

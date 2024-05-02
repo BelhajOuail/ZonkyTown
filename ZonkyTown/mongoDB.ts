@@ -30,7 +30,7 @@ export async function getCharacters() {
     return await collectionCharacters.find({}).toArray();
 }
 
-export async function findCharacterById(characterId: string){
+export async function findCharacterById(characterId: string) {
     try {
         const character = await collectionCharacters.findOne({ id: characterId });
         return character;
@@ -40,7 +40,7 @@ export async function findCharacterById(characterId: string){
     }
 }
 
-export async function getRandomOutfits(count: number){
+export async function getRandomOutfits(count: number) {
     const randomOutfits: Character[] = await collectionCharacters.aggregate<Character>([
         { $sample: { size: count } }
     ]).toArray();
@@ -73,20 +73,20 @@ export async function getUsers() {
     return await collectionUsers.find({}).toArray();
 }
 
-export async function getUserByUsername(){
-    return await collectionUsers.findOne({ username:"miaw" });
+export async function getUserByUsername() {
+    return await collectionUsers.findOne({ username: "miaw" });
 }
 
 export async function updateUser(id: number, avatarImage: User) {
     return await collectionUsers.updateOne({ $oid: id }, { $set: avatarImage })
 }
 
-export async function getUserById(id: number){
+export async function getUserById(id: number) {
     return await collectionUsers.findOne({ $oid: id });
 }
 
 export async function loginUser(username: string, password: string) {
-    const user = await collectionUsers.findOne({username:username});
+    const user = await collectionUsers.findOne({ username: username });
     return user !== null && username === user.username && password === user.password;
 }
 
@@ -96,19 +96,19 @@ export async function registerUser(username: string, password: string) {
     if (existingUser) {
         throw new Error('Gebruikersnaam is al in gebruik.');
     }
-    const profileImage : string = "/assets/icons/questionpf.png"
-    await collectionUsers.insertOne({ username, password, profileImage});
+    const profileImage: string = "/assets/icons/questionpf.png"
+    await collectionUsers.insertOne({ username, password, profileImage });
 }
 
 export async function updateAvatar(imageAvatar: string) {
-    collectionUsers.updateOne({username: "miaw"}, {$set: {profileImage: imageAvatar}})
+    collectionUsers.updateOne({ username: "miaw" }, { $set: { profileImage: imageAvatar } })
 }
 
 // Favorietengerelateerde bewerkingen
 
 export async function findFavoriteSkinByUser(characterId: string) {
     const user = await collectionUsers.findOne({ username: "miaw", "favoriteCharacter.id": characterId });
- 
+
     const favoriteCharacter = (user as any).favoriteCharacter;
 
     if (favoriteCharacter) {
@@ -132,9 +132,9 @@ export async function addCharacterToFavorite(characterId: string) {
         const user = await collectionUsers.findOne({ username: "miaw", "favoriteCharacter.id": character.id });
 
         const wins = 0;
-        const losses = 0; 
-        const pickaxe = "/assets/images/mysteryitem.webp"; 
-        const backpack = "/assets/images/mysteryitem.webp"; 
+        const losses = 0;
+        const pickaxe = "/assets/images/mysteryitem.webp";
+        const backpack = "/assets/images/mysteryitem.webp";
         const comment = ""; // Standaardwaardes voor favoritecharacter
 
         if (user) {
@@ -163,40 +163,26 @@ export async function deleteCharacterFromFavorite(characterId: string) {
 
     } catch (error) {
         console.error("Er is een fout opgetreden bij het verwijderen van het karakter:", error);
-     
+
     }
 }
 
 // Blacklistedgerelateerde  bewerkingen
-export async function addCharacterToBlacklist(characterId: string, reason:string) {
+export async function addCharacterToBlacklist(characterId: string, reason: string) {
     try {
         const character = await collectionCharacters.findOne({ id: characterId });
 
         if (character) {
             const user = await collectionUsers.findOne({ username: "miaw", "blacklistCharacter.id": character.id });
-        
+
             if (user) {
                 await collectionUsers.updateOne(
-                    { 
-                        username: "miaw", 
-                        "blacklistCharacter.id": character.id 
-                    }, 
-                    { 
-                        $set: { 
-                            "blacklistCharacter.$.reason": reason 
-                        }
-                    }
+                    { username: "miaw", "blacklistCharacter.id": character.id },
+                    { $set: { "blacklistCharacter.$.reason": reason } }
                 );
             } else {
                 await collectionUsers.updateOne(
-                    { username: "miaw" }, 
-                    { 
-                        $addToSet: { 
-                            blacklistCharacter: { 
-                                $each: [{ ...character, reason: reason }] 
-                            } 
-                        }
-                    }
+                    { username: "miaw" }, { $addToSet: { blacklistCharacter: { $each: [{ ...character, reason: reason }] } } }
                 );
             }
         } else {
@@ -212,7 +198,7 @@ export async function deleteCharacterFromBlacklist(characterId: string) {
         const character = await collectionCharacters.findOne({ id: characterId });
 
         await collectionUsers.updateOne(
-            { username: "miaw" }, 
+            { username: "miaw" },
             { $pull: { blacklistCharacter: { id: characterId } } }
         );
 
@@ -247,16 +233,95 @@ export async function getRandomBackpack() {
     const randomBackpack = await collectionBackpacks.aggregate([
         { $sample: { size: 1 } }
     ]).next();
-    return randomBackpack;
+
+
+    if (randomBackpack && randomBackpack.images && randomBackpack.images.icon) {
+        return randomBackpack.images.icon;
+    } else {
+        return '/assets/images/mysteryitem.webp';
+    }
 }
 
+export async function updateBackpackIntoFavorite(characterId: string, backpackUrl: string) {
+
+    const character = await collectionCharacters.findOne({ id: characterId });
+
+    if (character) {
+        const user = await collectionUsers.findOne({ username: "miaw", "favoriteCharacter.id": character.id });
+
+        if (user) {
+            await collectionUsers.updateOne(
+                { username: "miaw", "favoriteCharacter.id": character.id },
+                { $set: { "favoriteCharacter.$.backpack": backpackUrl } }
+            );
+        }
+    }
+}
+
+export async function deleteBackpackFromFavorite(characterId: string) {
+
+    const character = await collectionCharacters.findOne({ id: characterId });
+
+    if (character) {
+        const user = await collectionUsers.findOne({ username: "miaw", "favoriteCharacter.id": character.id });
+
+        if (user) {
+            await collectionUsers.updateOne(
+                { username: "miaw", "favoriteCharacter.id": character.id },
+                { $set: { "favoriteCharacter.$.backpack":  '/assets/images/mysteryitem.webp'} }
+            );
+        }
+    }
+}
+
+
+
+// Pickaxe-gerelateerde bewerkingen
 export async function getRandomPickaxe() {
     const randomPickaxe = await collectionPickaxes.aggregate([
         { $sample: { size: 1 } }
     ]).next();
-    return randomPickaxe;
+
+
+    if (randomPickaxe && randomPickaxe.images && randomPickaxe.images.icon) {
+        return randomPickaxe.images.icon;
+    } else {
+        return '/assets/images/mysteryitem.webp';
+    }
 }
-// Pickaxe-gerelateerde bewerkingen
+
+export async function updatePickaxeIntoFavorite(characterId: string, pickaxeUrl: string) {
+
+    const character = await collectionCharacters.findOne({ id: characterId });
+
+    if (character) {
+        const user = await collectionUsers.findOne({ username: "miaw", "favoriteCharacter.id": character.id });
+
+        if (user) {
+            await collectionUsers.updateOne(
+                { username: "miaw", "favoriteCharacter.id": character.id },
+                { $set: { "favoriteCharacter.$.pickaxe": pickaxeUrl } }
+            );
+        }
+    }
+}
+
+export async function deletePickaxeFromFavorite(characterId: string) {
+
+    const character = await collectionCharacters.findOne({ id: characterId });
+
+    if (character) {
+        const user = await collectionUsers.findOne({ username: "miaw", "favoriteCharacter.id": character.id });
+
+        if (user) {
+            await collectionUsers.updateOne(
+                { username: "miaw", "favoriteCharacter.id": character.id },
+                { $set: { "favoriteCharacter.$.pickaxe":  '/assets/images/mysteryitem.webp'} }
+            );
+        }
+    }
+}
+
 export async function getPickaxes() {
     return await collectionPickaxes.find({}).toArray();
 }
@@ -279,23 +344,22 @@ export async function loadPickaxesFromApi() {
 
 //Score-gerelateerde bewerkingen
 
-// Functie om wins en losses van een favoriet personage bij te werken
-export async function updateCharacterScores(characterId: string, winCount: number, lossCount:number) {
+export async function updateCharacterScores(characterId: string, winCount: number, lossCount: number) {
     try {
-        if (winCount !== undefined && lossCount !== undefined) { // Controleer of winCount en lossCount niet leeg zijn
+        if (winCount !== undefined && lossCount !== undefined) {
             const user = await collectionUsers.findOne({ username: "miaw", "favoriteCharacter.id": characterId });
-            console.log(winCount )
-            console.log(lossCount )
+            console.log(winCount)
+            console.log(lossCount)
             if (user) {
                 await collectionUsers.updateOne(
                     { username: "miaw", "favoriteCharacter.id": characterId },
-                    { $set: { "favoriteCharacter.$.wins": winCount, "favoriteCharacter.$.losses": lossCount }  }
+                    { $set: { "favoriteCharacter.$.wins": winCount, "favoriteCharacter.$.losses": lossCount } }
                 );
-                
-            
+
+
             } else {
                 console.error("Gebruiker niet gevonden of karakter niet in favorietenlijst");
-        
+
             }
         } else {
             console.error("winCount of lossCount is leeg.");

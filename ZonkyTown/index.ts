@@ -5,7 +5,7 @@ import { errorHandler } from "./public/middleware/middleware"
 
 const app = express();
 
-app.set("port", 3002);
+app.set("port", 3000);
 app.set("view engine", "ejs")
 app.use(express.static("public"));
 
