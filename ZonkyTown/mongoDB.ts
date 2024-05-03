@@ -2,12 +2,13 @@ import { Collection, MongoClient } from "mongodb";
 import { Character } from "./public/types/character";
 import { User } from "./public/types/user";
 import dotenv from "dotenv";
+import bcrypt from "bcrypt";
 
 dotenv.config();
 
 export const uri = process.env.URI || "mongodb+srv://ZonkyTown:123@zonkytown.iqttvfb.mongodb.net/";
 const client = new MongoClient(uri);
-
+const saltRounds : number = 10;
 // Collections
 const collectionCharacters: Collection<Character> = client.db("ZonkyTown").collection<Character>("Characters");
 const collectionBackpacks: Collection<Character> = client.db("ZonkyTown").collection<Character>("Backpacks");
@@ -73,8 +74,8 @@ export async function getUsers() {
     return await collectionUsers.find({}).toArray();
 }
 
-export async function getUserByUsername() {
-    return await collectionUsers.findOne({ username: "miaw"});//&& password
+export async function getUserByUsername(username : string) {
+    return await collectionUsers.findOne({ username: username});//&& password
 }
 
 export async function updateUser(id: number, avatarImage: User) {
@@ -86,8 +87,19 @@ export async function getUserById(id: number) {
 }
 
 export async function loginUser(username: string, password: string) {
-    const user = await collectionUsers.findOne({ username: username });
-    return user !== null && username === user.username && password === user.password;
+    if (username === "" || password === "") {
+        throw new Error("Email and password required");
+    }
+    let user : User | null = await collectionUsers.findOne<User>({username: username});
+    if (user) {
+        if (await bcrypt.compare(password, user.password!)) {
+            return user;
+        } else {
+            throw new Error("Password incorrect");
+        }
+    } else {
+        throw new Error("User not found");
+    }
 }
 
 export async function registerUser(username: string, password: string) {
@@ -96,18 +108,17 @@ export async function registerUser(username: string, password: string) {
     if (existingUser) {
         throw new Error('Gebruikersnaam is al in gebruik.');
     }
-    const profileImage: string = "/assets/icons/questionpf.png"
     await collectionUsers.insertOne({ username, password});
 }
 
-export async function updateAvatar(imageAvatar: string) {
-    collectionUsers.updateOne({ username: "miaw" }, { $set: { profileImage: imageAvatar } })
+export async function updateAvatar(imageAvatar: string, username : string) {
+    collectionUsers.updateOne({ username: username }, { $set: { profileImage: imageAvatar } })
 }
 
 // Favorietengerelateerde bewerkingen
 
-export async function findFavoriteSkinByUser(characterId: string) {
-    const user = await collectionUsers.findOne({ username: "miaw", "favoriteCharacter.id": characterId });
+export async function findFavoriteSkinByUser(characterId: string,username : string) {
+    const user = await collectionUsers.findOne({ username: username, "favoriteCharacter.id": characterId });
 
     const favoriteCharacter = (user as any).favoriteCharacter;
 
@@ -120,7 +131,7 @@ export async function findFavoriteSkinByUser(characterId: string) {
 }
 
 
-export async function addCharacterToFavorite(characterId: string) {
+export async function addCharacterToFavorite(characterId: string, username : string) {
     try {
         const character = await collectionCharacters.findOne({ id: characterId });
 
@@ -129,7 +140,7 @@ export async function addCharacterToFavorite(characterId: string) {
             return;
         }
 
-        const user = await collectionUsers.findOne({ username: "miaw", "favoriteCharacter.id": character.id });
+        const user = await collectionUsers.findOne({ "favoriteCharacter.id": character.id, username });
 
         const wins = 0;
         const losses = 0;
@@ -139,12 +150,12 @@ export async function addCharacterToFavorite(characterId: string) {
 
         if (user) {
             await collectionUsers.updateOne(
-                { username: "miaw", "favoriteCharacter.id": character.id },
+                { username: username, "favoriteCharacter.id": character.id },
                 { $set: { "favoriteCharacter.$.wins": wins, "favoriteCharacter.$.losses": losses, "favoriteCharacter.$.pickaxe": pickaxe, "favoriteCharacter.$.backpack": backpack, "favoriteCharacter.$.comment": comment } }
             );
         } else {
             await collectionUsers.updateOne(
-                { username: "miaw" },
+                { username: username },
                 { $addToSet: { favoriteCharacter: { $each: [{ ...character, wins, losses, pickaxe, backpack, comment }] } } }
             );
         }
@@ -154,10 +165,10 @@ export async function addCharacterToFavorite(characterId: string) {
 }
 
 
-export async function deleteCharacterFromFavorite(characterId: string) {
+export async function deleteCharacterFromFavorite(characterId: string, username : string) {
     try {
         await collectionUsers.updateOne(
-            { username: "miaw" },
+            { username: username },
             { $pull: { favoriteCharacter: { id: characterId } } }
         );
 
@@ -168,21 +179,21 @@ export async function deleteCharacterFromFavorite(characterId: string) {
 }
 
 // Blacklistedgerelateerde  bewerkingen
-export async function addCharacterToBlacklist(characterId: string, reason: string) {
+export async function addCharacterToBlacklist(characterId: string, reason: string, username : string) {
     try {
         const character = await collectionCharacters.findOne({ id: characterId });
 
         if (character) {
-            const user = await collectionUsers.findOne({ username: "miaw", "blacklistCharacter.id": character.id });
+            const user = await collectionUsers.findOne({ username: username, "blacklistCharacter.id": character.id });
 
             if (user) {
                 await collectionUsers.updateOne(
-                    { username: "miaw", "blacklistCharacter.id": character.id },
+                    { username: username, "blacklistCharacter.id": character.id },
                     { $set: { "blacklistCharacter.$.reason": reason } }
                 );
             } else {
                 await collectionUsers.updateOne(
-                    { username: "miaw" }, { $addToSet: { blacklistCharacter: { $each: [{ ...character, reason: reason }] } } }
+                    { username: username }, { $addToSet: { blacklistCharacter: { $each: [{ ...character, reason: reason }] } } }
                 );
             }
         } else {
@@ -193,12 +204,12 @@ export async function addCharacterToBlacklist(characterId: string, reason: strin
     }
 }
 
-export async function deleteCharacterFromBlacklist(characterId: string) {
+export async function deleteCharacterFromBlacklist(characterId: string, username : string) {
     try {
         const character = await collectionCharacters.findOne({ id: characterId });
 
         await collectionUsers.updateOne(
-            { username: "miaw" },
+            { username: username },
             { $pull: { blacklistCharacter: { id: characterId } } }
         );
 
@@ -242,32 +253,32 @@ export async function getRandomBackpack() {
     }
 }
 
-export async function updateBackpackIntoFavorite(characterId: string, backpackUrl: string) {
+export async function updateBackpackIntoFavorite(characterId: string, backpackUrl: string, username : string) {
 
     const character = await collectionCharacters.findOne({ id: characterId });
 
     if (character) {
-        const user = await collectionUsers.findOne({ username: "miaw", "favoriteCharacter.id": character.id });
+        const user = await collectionUsers.findOne({ username: username, "favoriteCharacter.id": character.id });
 
         if (user) {
             await collectionUsers.updateOne(
-                { username: "miaw", "favoriteCharacter.id": character.id },
+                { username: username, "favoriteCharacter.id": character.id },
                 { $set: { "favoriteCharacter.$.backpack": backpackUrl } }
             );
         }
     }
 }
 
-export async function deleteBackpackFromFavorite(characterId: string) {
+export async function deleteBackpackFromFavorite(characterId: string, username : string) {
 
     const character = await collectionCharacters.findOne({ id: characterId });
 
     if (character) {
-        const user = await collectionUsers.findOne({ username: "miaw", "favoriteCharacter.id": character.id });
+        const user = await collectionUsers.findOne({ username: username, "favoriteCharacter.id": character.id });
 
         if (user) {
             await collectionUsers.updateOne(
-                { username: "miaw", "favoriteCharacter.id": character.id },
+                { username: username, "favoriteCharacter.id": character.id },
                 { $set: { "favoriteCharacter.$.backpack":  '/assets/images/mysteryitem.webp'} }
             );
         }
@@ -290,32 +301,32 @@ export async function getRandomPickaxe() {
     }
 }
 
-export async function updatePickaxeIntoFavorite(characterId: string, pickaxeUrl: string) {
+export async function updatePickaxeIntoFavorite(characterId: string, pickaxeUrl: string, username : string) {
 
     const character = await collectionCharacters.findOne({ id: characterId });
 
     if (character) {
-        const user = await collectionUsers.findOne({ username: "miaw", "favoriteCharacter.id": character.id });
+        const user = await collectionUsers.findOne({ username: username, "favoriteCharacter.id": character.id });
 
         if (user) {
             await collectionUsers.updateOne(
-                { username: "miaw", "favoriteCharacter.id": character.id },
+                { username: username, "favoriteCharacter.id": character.id },
                 { $set: { "favoriteCharacter.$.pickaxe": pickaxeUrl } }
             );
         }
     }
 }
 
-export async function deletePickaxeFromFavorite(characterId: string) {
+export async function deletePickaxeFromFavorite(characterId: string, username : string) {
 
     const character = await collectionCharacters.findOne({ id: characterId });
 
     if (character) {
-        const user = await collectionUsers.findOne({ username: "miaw", "favoriteCharacter.id": character.id });
+        const user = await collectionUsers.findOne({ username: username, "favoriteCharacter.id": character.id });
 
         if (user) {
             await collectionUsers.updateOne(
-                { username: "miaw", "favoriteCharacter.id": character.id },
+                { username: username, "favoriteCharacter.id": character.id },
                 { $set: { "favoriteCharacter.$.pickaxe":  '/assets/images/mysteryitem.webp'} }
             );
         }
@@ -344,15 +355,15 @@ export async function loadPickaxesFromApi() {
 
 //Score-gerelateerde bewerkingen
 
-export async function updateCharacterScores(characterId: string, winCount: number, lossCount: number) {
+export async function updateCharacterScores(characterId: string, winCount: number, lossCount: number, username : string) {
     try {
         if (winCount !== undefined && lossCount !== undefined) {
-            const user = await collectionUsers.findOne({ username: "miaw", "favoriteCharacter.id": characterId });
+            const user = await collectionUsers.findOne({ username: username, "favoriteCharacter.id": characterId });
             console.log(winCount)
             console.log(lossCount)
             if (user) {
                 await collectionUsers.updateOne(
-                    { username: "miaw", "favoriteCharacter.id": characterId },
+                    { username: username, "favoriteCharacter.id": characterId },
                     { $set: { "favoriteCharacter.$.wins": winCount, "favoriteCharacter.$.losses": lossCount } }
                 );
 
@@ -371,38 +382,50 @@ export async function updateCharacterScores(characterId: string, winCount: numbe
 
 //Comment-gerelateerde bewerkingen
 
-export async function updateCommentIntoFavorite(characterId: string, comment: string) {
+export async function updateCommentIntoFavorite(characterId: string, comment: string, username : string) {
 
     const character = await collectionCharacters.findOne({ id: characterId });
 
     if (character) {
-        const user = await collectionUsers.findOne({ username: "miaw", "favoriteCharacter.id": character.id });
+        const user = await collectionUsers.findOne({ username: username, "favoriteCharacter.id": character.id });
 
         if (user) {
             await collectionUsers.updateOne(
-                { username: "miaw", "favoriteCharacter.id": character.id },
+                { username: username, "favoriteCharacter.id": character.id },
                 { $set: { "favoriteCharacter.$.comment": comment } }
             );
         }
     }
 }
 
-export async function deleteCommentFromFavorite(characterId: string) {
+export async function deleteCommentFromFavorite(characterId: string, username : string) {
 
     const character = await collectionCharacters.findOne({ id: characterId });
 
     if (character) {
-        const user = await collectionUsers.findOne({ username: "miaw", "favoriteCharacter.id": character.id });
+        const user = await collectionUsers.findOne({ username: username, "favoriteCharacter.id": character.id });
 
         if (user) {
             await collectionUsers.updateOne(
-                { username: "miaw", "favoriteCharacter.id": character.id },
+                { username: username, "favoriteCharacter.id": character.id },
                 { $set: { "favoriteCharacter.$.comment":  ''} }
             );
         }
     }
 }
 
+//password hashing
+export async function createUser(username :string | undefined, password : string | undefined) {
+    const profileImage: string = "/assets/icons/questionpf.png"
+    if (username === undefined || password === undefined) {
+        throw new Error("ADMIN_EMAIL and ADMIN_PASSWORD must be set in environment");
+    }
+    await collectionUsers.insertOne({
+        username: username,
+        password: await bcrypt.hash(password, saltRounds)
+    });
+    collectionUsers.updateOne({ username: username }, { $set: { profileImage: profileImage } })
+}
 
 
 // Verbinding maken met de database

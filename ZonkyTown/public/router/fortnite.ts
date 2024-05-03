@@ -1,17 +1,17 @@
 import { Router } from 'express';
 import { Character } from '../types/character';
 import { User } from '../types/user';
-import { getRandomOutfits, loginUser, registerUser, updateAvatar, getUserByUsername, addCharacterToFavorite, deleteCharacterFromFavorite, addCharacterToBlacklist, findCharacterById, deleteCharacterFromBlacklist, getRandomBackpack, findFavoriteSkinByUser, updateCharacterScores,getRandomPickaxe, updateBackpackIntoFavorite, deleteBackpackFromFavorite,  updatePickaxeIntoFavorite, deletePickaxeFromFavorite, updateCommentIntoFavorite, deleteCommentFromFavorite } from '../../mongoDB';
+import { getRandomOutfits, loginUser, registerUser, updateAvatar, getUserByUsername, addCharacterToFavorite, deleteCharacterFromFavorite, addCharacterToBlacklist, findCharacterById, deleteCharacterFromBlacklist, getRandomBackpack, findFavoriteSkinByUser, updateCharacterScores,getRandomPickaxe, updateBackpackIntoFavorite, deleteBackpackFromFavorite,  updatePickaxeIntoFavorite, deletePickaxeFromFavorite, updateCommentIntoFavorite, deleteCommentFromFavorite, createUser } from '../../mongoDB';
 import dotenv from "dotenv";
 import { render } from 'ejs';
 import { userInfo } from 'os';
 import session from 'express-session';
+import { createSecureServer } from 'http2';
 
 dotenv.config();
 
 let fortniteData: Character[] = [];
 const router = Router();
-
 
 router.get("/", (req, res) => {
     const fortnite = fortniteData;
@@ -19,8 +19,9 @@ router.get("/", (req, res) => {
 });
 
 router.get("/index", async (req, res) => {
+    const sessionUser = req.session.user;
     const randomSkins = await getRandomOutfits(50);
-    const profile = await getUserByUsername();
+    const profile = await getUserByUsername(sessionUser!.username);
     res.render("index", { fortnite: randomSkins, profile: profile });
 });
 
@@ -38,8 +39,7 @@ router.post('/registreer', async (req, res) => {
                 message: 'Wachtwoorden komen niet overeen.'
             });
         }
-
-        await registerUser(name, password);
+        await createUser(name, password);
         res.redirect('/login');
     } catch (error) {
         console.error('Er is een fout opgetreden tijdens het registreren:', error);
@@ -55,13 +55,11 @@ router.get("/login", async (req, res) => {
     res.render("login", { fortnite: fortnite });
 });
 
-
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
     try {
         const loggedIn = await loginUser(username, password);
         req.session.user = {username, password};
-            
         if (!loggedIn) {
             return res.render('login', {
                 message: 'Foute gebruikersnaam of wachtwoord!',
@@ -73,11 +71,21 @@ router.post('/login', async (req, res) => {
         return res.redirect('/login');
     }
 });
+router.get("/logout", async(req, res) => {
+    req.session.destroy(() => {
+        res.redirect("/login");
+    });
+});
 
-
+router.post("/logout", async (req, res) => {
+    req.session.destroy(() => {
+        res.redirect("/login");
+    });
+});
 router.get("/characters/:id", async (req, res) => {
     const fortniteId = req.params.id;
-    const profile = await getUserByUsername();
+    const sessionUser = req.session.user;
+    const profile = await getUserByUsername(sessionUser!.username);
     try {
         const featured = await findCharacterById(fortniteId);
 
@@ -99,17 +107,18 @@ router.post('/avatar/:id', async (req, res) => {
     const favorite = req.body.favorite;
     const blacklist = req.body.blacklist;
     const reason = req.body.reason;
+    const sessionUser = req.session.user;
 
     if (avatar !== undefined) {
-        updateAvatar(avatar);
+        updateAvatar(avatar, sessionUser!.username);
     }
     else if (favorite !== undefined) {
-        addCharacterToFavorite(favorite)
-        deleteCharacterFromBlacklist(favorite) // als die in blacklist zat wordt die er uit gehaald, anders heb je dezelfde skin in favoriet en blacklist
+        addCharacterToFavorite(favorite, sessionUser!.username)
+        deleteCharacterFromBlacklist(favorite, sessionUser!.username) // als die in blacklist zat wordt die er uit gehaald, anders heb je dezelfde skin in favoriet en blacklist
 
     } else if (blacklist !== undefined) {
-        addCharacterToBlacklist(blacklist, reason)
-        deleteCharacterFromFavorite(blacklist) // als die in blacklist zat wordt die er uit gehaald, anders heb je dezelfde skin in favoriet en blacklist
+        addCharacterToBlacklist(blacklist, reason, sessionUser!.username)
+        deleteCharacterFromFavorite(blacklist, sessionUser!.username) // als die in blacklist zat wordt die er uit gehaald, anders heb je dezelfde skin in favoriet en blacklist
     }
 
     res.redirect(`/characters/${fortniteId}`);
@@ -117,14 +126,16 @@ router.post('/avatar/:id', async (req, res) => {
 
 
 router.get("/favoritepagina", async (req, res) => {
-    const profile = await getUserByUsername();
+    const sessionUser = req.session.user;
+    const profile = await getUserByUsername(sessionUser!.username);
     res.render("favoritepagina", { profile: profile });
 });
 
 
 router.post("/deletefavorite/:id", async (req, res) => {
+    const sessionUser = req.session.user;
     const deleteCharacter = req.body.deletefavorite;
-    deleteCharacterFromFavorite(deleteCharacter)
+    deleteCharacterFromFavorite(deleteCharacter, sessionUser!.username)
     setTimeout(() => {
         res.redirect("/favoritepagina");
     }, 200); 
@@ -132,11 +143,12 @@ router.post("/deletefavorite/:id", async (req, res) => {
 
 
 router.get("/detailpagina/:id", async (req, res) => {
-    const profile = await getUserByUsername();
+    const sessionUser = req.session.user;
+    const profile = await getUserByUsername(sessionUser!.username);
     const fortniteId = req.params.id;
 
     try {
-        const featured = await findFavoriteSkinByUser(fortniteId);
+        const featured = await findFavoriteSkinByUser(fortniteId, sessionUser!.username);
 
         if (!featured) {
             return res.status(404).send("Character niet gevonden");
@@ -155,28 +167,28 @@ router.post("/detailpagina/:id", async (req, res) => {
     const fortniteId = req.params.id;
     const winCount = req.body.winCount;
     const lossCount = req.body.lossCount;
-
+    const sessionUser = req.session.user;
     if (winCount > 0 || lossCount >= 3) {
         if (lossCount > 3 * winCount ) {
-            addCharacterToBlacklist(fortniteId, "personage trekt op niets");
-            deleteCharacterFromFavorite(fortniteId);
+            addCharacterToBlacklist(fortniteId, "personage trekt op niets", sessionUser!.username);
+            deleteCharacterFromFavorite(fortniteId,sessionUser!.username);
             setTimeout(() => {
                 res.redirect(`/blacklist`);
             }, 200); 
         }
         else{
-            await findFavoriteSkinByUser(fortniteId);
+            await findFavoriteSkinByUser(fortniteId,sessionUser!.username);
             setTimeout(() => {
                 res.redirect(`/detailpagina/${fortniteId}`);
-                updateCharacterScores(fortniteId, winCount, lossCount);
+                updateCharacterScores(fortniteId, winCount, lossCount, sessionUser!.username);
             }, 250); 
         }
     }
     else{
-        await findFavoriteSkinByUser(fortniteId);
+        await findFavoriteSkinByUser(fortniteId, sessionUser!.username);
         setTimeout(() => {
             res.redirect(`/detailpagina/${fortniteId}`);
-            updateCharacterScores(fortniteId, winCount, lossCount);
+            updateCharacterScores(fortniteId, winCount, lossCount, sessionUser!.username);
         }, 250); 
     }
 });
@@ -185,9 +197,10 @@ router.post("/backpack/:id/", async (req, res) => {
 
     const fortniteId = req.params.id;
     const backpack = req.body.backpack
+    const sessionUser = req.session.user;
 
     const randomBackpack = await getRandomBackpack();
-    updateBackpackIntoFavorite(fortniteId, randomBackpack);
+    updateBackpackIntoFavorite(fortniteId, randomBackpack, sessionUser!.username);
     
 
     setTimeout(() => {
@@ -199,8 +212,9 @@ router.post("/deletebackpack/:id/", async (req, res) => {
 
     const fortniteId = req.params.id;
     const deletebackpack = req.body.deletebackpack
+    const sessionUser = req.session.user;
    
-    deleteBackpackFromFavorite(fortniteId);
+    deleteBackpackFromFavorite(fortniteId, sessionUser!.username);
 
     setTimeout(() => {
         res.redirect(`/detailpagina/${fortniteId}`);
@@ -211,9 +225,10 @@ router.post("/pickaxe/:id/", async (req, res) => {
 
     const fortniteId = req.params.id;
     const pickaxe = req.body.pickaxe
+    const sessionUser = req.session.user;
 
     const randomPickaxe = await getRandomPickaxe();
-    updatePickaxeIntoFavorite(fortniteId, randomPickaxe);
+    updatePickaxeIntoFavorite(fortniteId, randomPickaxe, sessionUser!.username);
     
     setTimeout(() => {
         res.redirect(`/detailpagina/${fortniteId}`);
@@ -225,8 +240,9 @@ router.post("/deletepickaxe/:id/", async (req, res) => {
 
     const fortniteId = req.params.id;
     const deletepickaxe = req.body.deletepickaxe
+    const sessionUser = req.session.user;
    
-    deletePickaxeFromFavorite(fortniteId);
+    deletePickaxeFromFavorite(fortniteId, sessionUser!.username);
 
     setTimeout(() => {
         res.redirect(`/detailpagina/${fortniteId}`);
@@ -238,8 +254,9 @@ router.post('/comment/:id', async(req, res) => {
 
     const fortniteId = req.params.id;
     const comment = req.body.comment;
+    const sessionUser = req.session.user;
 
-    updateCommentIntoFavorite(fortniteId, comment)
+    updateCommentIntoFavorite(fortniteId, comment, sessionUser!.username)
 
     setTimeout(() => {
         res.redirect(`/detailpagina/${fortniteId}`);
@@ -249,8 +266,9 @@ router.post('/comment/:id', async(req, res) => {
 router.post('/deletecomment/:id', async(req, res) => {
 
     const fortniteId = req.params.id;
+    const sessionUser = req.session.user;
     
-    deleteCommentFromFavorite(fortniteId)
+    deleteCommentFromFavorite(fortniteId, sessionUser!.username)
 
     setTimeout(() => {
         res.redirect(`/detailpagina/${fortniteId}`);
@@ -258,14 +276,17 @@ router.post('/deletecomment/:id', async(req, res) => {
 });
 
 router.get("/blacklist", async (req, res) => {
-    const profile = await getUserByUsername();
+    const sessionUser = req.session.user;
+
+    const profile = await getUserByUsername(sessionUser!.username);
     res.render("blacklist", { profile: profile });
 });
 
 router.post("/deleteblacklist/:id", async (req, res) => {
     const reason = req.body.reason;
     const deleteCharacter = req.body.deleteblacklist;
-    deleteCharacterFromBlacklist(deleteCharacter)
+    const sessionUser = req.session.user;
+    deleteCharacterFromBlacklist(deleteCharacter, sessionUser!.username)
     setTimeout(() => {
         res.redirect("/blacklist");
     }, 200); 

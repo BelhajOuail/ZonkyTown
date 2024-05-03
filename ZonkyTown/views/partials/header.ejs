@@ -22,9 +22,9 @@
                         <button class="dropbtn">
                             <img src="<%= profile.profileImage %>" alt="profile-picture" width="80">
                         </button>
-                        <section class="dropdown-content">
-                            <a href="/login">Loguit</a>
-                        </section>
+                        <form action="/logout" method="post" class="dropdown-content">
+                            <a href="/login" type="submit">Loguit</a>
+                        </form>
                     </section>
                 </section>
             </ul>
