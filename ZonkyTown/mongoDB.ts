@@ -219,6 +219,22 @@ export async function deleteCharacterFromBlacklist(characterId: string, username
     }
 }
 
+export async function updateReasonBlacklist(characterId: string, newreason: string, username : string) {
+
+    const character = await collectionCharacters.findOne({ id: characterId });
+
+    if (character) {
+        const user = await collectionUsers.findOne({ username: username, "blacklistCharacter.id": character.id });
+
+        if (user) {
+            await collectionUsers.updateOne(
+                { username: username, "blacklistCharacter.id": character.id },
+                { $set: { "blacklistCharacter.$.reason": newreason } }
+            );
+        }
+    }
+}
+
 // Backpack-gerelateerde bewerkingen
 export async function getBackpacks() {
     return await collectionBackpacks.find({}).toArray();

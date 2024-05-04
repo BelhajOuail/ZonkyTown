@@ -36,7 +36,7 @@
                                     class="text">Zet in favorieten</span></button>
                         </form>
                         <form action="/avatar/<%= character.id %>" method="post">
-                            <input type="text" name="reason" placeholder="Reden voor blacklist">
+                            <input type="text" name="reason" placeholder="Reden voor blacklist" required>
                             <button class="button-48" type="submit" name="blacklist" value="<%= character.id %>">
                                 <span class="text">Zet in blacklist</span>
                             </button>

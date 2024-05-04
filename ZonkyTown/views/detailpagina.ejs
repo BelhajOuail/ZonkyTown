@@ -86,7 +86,7 @@
                     <img src="<%= character.pickaxe %>" alt="emote" class="item">
                     <form action="/pickaxe/<%= character.id %>/" method="post">
                         <button class="button-48" name="pickaxe" value="<%= character.pickaxe %>" role="button">
-                            <span class="text">Kies wapen</span>
+                            <span class="text">Genereer wapen</span>
                         </button>
                     </form>
                     <% if (character.pickaxe !=='/assets/images/mysteryitem.webp' ) { %>
@@ -102,7 +102,7 @@
                     <img src="<%= character.backpack %>" alt="pump" class="item">
                     <form action="/backpack/<%= character.id %>/" method="post">
                         <button class="button-48" name="backpack" value="<%= character.backpack %>" role="button">
-                            <span class="text">Kies rugzak</span>
+                            <span class="text">Genereer rugzak</span>
                         </button>
                     </form>
                     <% if (character.backpack !=='/assets/images/mysteryitem.webp' ) { %>

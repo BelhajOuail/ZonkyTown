@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { Character } from '../types/character';
-import { getRandomOutfits, loginUser, updateAvatar, getUserByUsername, addCharacterToFavorite, deleteCharacterFromFavorite, addCharacterToBlacklist, findCharacterById, deleteCharacterFromBlacklist, getRandomBackpack, findFavoriteSkinByUser, updateCharacterScores,getRandomPickaxe, updateBackpackIntoFavorite, deleteBackpackFromFavorite,  updatePickaxeIntoFavorite, deletePickaxeFromFavorite, updateCommentIntoFavorite, deleteCommentFromFavorite, createUser } from '../../mongoDB';
+import { getRandomOutfits, loginUser, updateAvatar, getUserByUsername, addCharacterToFavorite, deleteCharacterFromFavorite, addCharacterToBlacklist, findCharacterById, deleteCharacterFromBlacklist, getRandomBackpack, findFavoriteSkinByUser, updateCharacterScores, getRandomPickaxe, updateBackpackIntoFavorite, deleteBackpackFromFavorite, updatePickaxeIntoFavorite, deletePickaxeFromFavorite, updateCommentIntoFavorite, deleteCommentFromFavorite, updateReasonBlacklist, createUser } from '../../mongoDB';
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -53,7 +53,7 @@ router.post('/login', async (req, res) => {
     const { username, password } = req.body;
     try {
         const loggedIn = await loginUser(username, password);
-        req.session.user = {username, password};
+        req.session.user = { username, password };
         if (!loggedIn) {
             return res.render('login', {
                 message: 'Foute gebruikersnaam of wachtwoord!',
@@ -65,7 +65,7 @@ router.post('/login', async (req, res) => {
         return res.redirect('/login');
     }
 });
-router.get("/logout", async(req, res) => {
+router.get("/logout", async (req, res) => {
     req.session.destroy(() => {
         res.redirect("/login");
     });
@@ -76,6 +76,7 @@ router.post("/logout", async (req, res) => {
         res.redirect("/login");
     });
 });
+
 router.get("/characters/:id", async (req, res) => {
     const fortniteId = req.params.id;
     const sessionUser = req.session.user;
@@ -132,7 +133,7 @@ router.post("/deletefavorite/:id", async (req, res) => {
     deleteCharacterFromFavorite(deleteCharacter, sessionUser!.username)
     setTimeout(() => {
         res.redirect("/favoritepagina");
-    }, 200); 
+    }, 200);
 });
 
 
@@ -149,7 +150,7 @@ router.get("/detailpagina/:id", async (req, res) => {
         }
         const backpack = getRandomBackpack()
         const pickaxe = getRandomPickaxe()
-        res.render("detailpagina", { character: featured, profile: profile, backpack:backpack, pickaxe:pickaxe});
+        res.render("detailpagina", { character: featured, profile: profile, backpack: backpack, pickaxe: pickaxe });
     } catch (error) {
         console.error("Er is een fout opgetreden bij het laden van de karaktergegevens:", error);
         res.status(500).send("Er is een interne serverfout opgetreden");
@@ -163,27 +164,27 @@ router.post("/detailpagina/:id", async (req, res) => {
     const lossCount = req.body.lossCount;
     const sessionUser = req.session.user;
     if (winCount > 0 || lossCount >= 3) {
-        if (lossCount > 3 * winCount ) {
+        if (lossCount > 3 * winCount) {
             addCharacterToBlacklist(fortniteId, "personage trekt op niets", sessionUser!.username);
-            deleteCharacterFromFavorite(fortniteId,sessionUser!.username);
+            deleteCharacterFromFavorite(fortniteId, sessionUser!.username);
             setTimeout(() => {
                 res.redirect(`/blacklist`);
-            }, 200); 
+            }, 200);
         }
-        else{
-            await findFavoriteSkinByUser(fortniteId,sessionUser!.username);
+        else {
+            await findFavoriteSkinByUser(fortniteId, sessionUser!.username);
             setTimeout(() => {
                 res.redirect(`/detailpagina/${fortniteId}`);
                 updateCharacterScores(fortniteId, winCount, lossCount, sessionUser!.username);
-            }, 250); 
+            }, 250);
         }
     }
-    else{
+    else {
         await findFavoriteSkinByUser(fortniteId, sessionUser!.username);
         setTimeout(() => {
             res.redirect(`/detailpagina/${fortniteId}`);
             updateCharacterScores(fortniteId, winCount, lossCount, sessionUser!.username);
-        }, 250); 
+        }, 250);
     }
 });
 
@@ -195,11 +196,11 @@ router.post("/backpack/:id/", async (req, res) => {
 
     const randomBackpack = await getRandomBackpack();
     updateBackpackIntoFavorite(fortniteId, randomBackpack, sessionUser!.username);
-    
+
 
     setTimeout(() => {
         res.redirect(`/detailpagina/${fortniteId}`);
-    }, 200); 
+    }, 200);
 });
 
 router.post("/deletebackpack/:id/", async (req, res) => {
@@ -207,12 +208,12 @@ router.post("/deletebackpack/:id/", async (req, res) => {
     const fortniteId = req.params.id;
     const deletebackpack = req.body.deletebackpack
     const sessionUser = req.session.user;
-   
+
     deleteBackpackFromFavorite(fortniteId, sessionUser!.username);
 
     setTimeout(() => {
         res.redirect(`/detailpagina/${fortniteId}`);
-    }, 200); 
+    }, 200);
 });
 
 router.post("/pickaxe/:id/", async (req, res) => {
@@ -223,10 +224,10 @@ router.post("/pickaxe/:id/", async (req, res) => {
 
     const randomPickaxe = await getRandomPickaxe();
     updatePickaxeIntoFavorite(fortniteId, randomPickaxe, sessionUser!.username);
-    
+
     setTimeout(() => {
         res.redirect(`/detailpagina/${fortniteId}`);
-    }, 200); 
+    }, 200);
 });
 
 router.post("/deletepickaxe/:id/", async (req, res) => {
@@ -234,15 +235,15 @@ router.post("/deletepickaxe/:id/", async (req, res) => {
     const fortniteId = req.params.id;
     const deletepickaxe = req.body.deletepickaxe
     const sessionUser = req.session.user;
-   
+
     deletePickaxeFromFavorite(fortniteId, sessionUser!.username);
 
     setTimeout(() => {
         res.redirect(`/detailpagina/${fortniteId}`);
-    }, 200); 
+    }, 200);
 });
 
-router.post('/comment/:id', async(req, res) => {
+router.post('/comment/:id', async (req, res) => {
 
     const fortniteId = req.params.id;
     const comment = req.body.comment;
@@ -252,19 +253,19 @@ router.post('/comment/:id', async(req, res) => {
 
     setTimeout(() => {
         res.redirect(`/detailpagina/${fortniteId}`);
-    }, 200); 
+    }, 200);
 });
 
-router.post('/deletecomment/:id', async(req, res) => {
+router.post('/deletecomment/:id', async (req, res) => {
 
     const fortniteId = req.params.id;
     const sessionUser = req.session.user;
-    
+
     deleteCommentFromFavorite(fortniteId, sessionUser!.username)
 
     setTimeout(() => {
         res.redirect(`/detailpagina/${fortniteId}`);
-    }, 200); 
+    }, 200);
 });
 
 router.get("/blacklist", async (req, res) => {
@@ -281,7 +282,21 @@ router.post("/deleteblacklist/:id", async (req, res) => {
     deleteCharacterFromBlacklist(deleteCharacter, sessionUser!.username)
     setTimeout(() => {
         res.redirect("/blacklist");
-    }, 200); 
+    }, 200);
 });
+
+router.post("/changereason/:id", async (req, res) => {
+
+    const fortniteId = req.params.id;
+    const reason = req.body.newreason;
+    const sessionUser = req.session.user;
+
+    updateReasonBlacklist(fortniteId, reason, sessionUser!.username)
+
+    setTimeout(() => {
+        res.redirect("/blacklist");
+    }, 200);
+});
+
 
 export default router;
