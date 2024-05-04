@@ -126,13 +126,12 @@ router.get("/favoritepagina", async (req, res) => {
     res.render("favoritepagina", { profile: profile });
 });
 
-
 router.post("/deletefavorite/:id", async (req, res) => {
     const sessionUser = req.session.user;
     const deleteCharacter = req.body.deletefavorite;
     deleteCharacterFromFavorite(deleteCharacter, sessionUser!.username)
     setTimeout(() => {
-        res.redirect("/favoritepagina");
+        res.redirect("/favoritepagina/#characters");
     }, 200);
 });
 
@@ -168,7 +167,7 @@ router.post("/detailpagina/:id", async (req, res) => {
             addCharacterToBlacklist(fortniteId, "personage trekt op niets", sessionUser!.username);
             deleteCharacterFromFavorite(fortniteId, sessionUser!.username);
             setTimeout(() => {
-                res.redirect(`/blacklist`);
+                res.redirect(`/blacklist/#characters`);
             }, 200);
         }
         else {
@@ -281,22 +280,25 @@ router.post("/deleteblacklist/:id", async (req, res) => {
     const sessionUser = req.session.user;
     deleteCharacterFromBlacklist(deleteCharacter, sessionUser!.username)
     setTimeout(() => {
-        res.redirect("/blacklist");
+        res.redirect("/blacklist/#characters");
     }, 200);
 });
 
 router.post("/changereason/:id", async (req, res) => {
+    try {
+        const fortniteId = req.params.id;
+        const reason = req.body.newreason;
+        const sessionUser = req.session.user;
 
-    const fortniteId = req.params.id;
-    const reason = req.body.newreason;
-    const sessionUser = req.session.user;
+        await updateReasonBlacklist(fortniteId, reason, sessionUser!.username);
 
-    updateReasonBlacklist(fortniteId, reason, sessionUser!.username)
-
-    setTimeout(() => {
-        res.redirect("/blacklist");
-    }, 200);
+        setTimeout(() => {
+            res.redirect("/blacklist/#characters");
+        }, 200);
+    } catch (error) {
+        console.error('Error while updating reason:', error);
+        res.status(500).send('Internal Server Error');
+    }
 });
-
 
 export default router;

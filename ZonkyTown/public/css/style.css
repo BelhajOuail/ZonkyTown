@@ -19,6 +19,20 @@ body {
     color: white;
     letter-spacing: 1px;
     font-size: 1.15rem;
+    display: grid;
+}
+/* CSS */
+/* CSS */
+.change-reason-form {
+    width: 50%;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
 }
 
 

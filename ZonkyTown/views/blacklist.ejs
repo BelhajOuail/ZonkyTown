@@ -1,13 +1,8 @@
 <%- include('partials/header.ejs') %>
-    <script src="js/searchSkin.js" defer></script>
-    <script src="js/filterbyRarity.js" defer></script>
-    <script src="js/sortOptions.js" defer></script>
-    <script src="js/changeReason.js" defer></script>
 
 
-    <h1 class="bio">Bekijk je geblackliste Fortnite-avatars!</h1>
+    <h1 class="bio" id="characters">Bekijk je geblackliste Fortnite-avatars!</h1>
 
-    <%- include('partials/sortfunctions.ejs') %>
         <%if(profile.blacklistCharacter !==undefined){%>
 
             <section class="characters-list">
@@ -33,6 +28,8 @@
                             <div class="card_name">
                                 <p>
                                     <%= character.name %> <br>
+                                </p>
+
                                         <form action="/deleteblacklist/<%= character.id %>" method="post">
                                             <button name="deleteblacklist" value="<%= character.id%>" class="cross"
                                                 style="color: red;">
@@ -44,18 +41,12 @@
                                             <button id="showInputButton"> <img src=" /assets/icons/edit.svg" alt="edit"
                                                     width="25px"></button>
                                             
-                                            <div id="inputContainer" style="display: none;">
-                                                <input type="text" name="newreason" placeholder="Verander reden..."
-                                                required>
+                                            <div id="inputContainer">
+                                                <input type="text" name="newreason" placeholder="Verander reden..." required>
                                             </div>
                                             
                                         </form>
 
-
-
-
-
-                                </p>
                             </div>
                         </div>
                     </article>
