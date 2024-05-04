@@ -28,9 +28,7 @@
 
                         <% profile.favoriteCharacter.forEach(favorite => { %>
                         <% if (favorite.id === character.id) { %>
-                        <button class="star" onclick="changeColor(this)">
-                            ★
-                        </button>
+                            <img src="../public/assets/images/star.webp" alt="star">
                         <% } %>
                         <% }); %>
                     </p>
