@@ -25,12 +25,13 @@
                 <div class="card_name">
                     <p>
                         <%= character.name %> <br> <br>
-
+                        <%if(profile.favoriteCharacter){ %>
                         <% profile.favoriteCharacter.forEach(favorite => { %>
                         <% if (favorite.id === character.id) { %>
-                            <img src="../public/assets/images/star.webp" alt="star">
+                            <img src="assets/icons/star-solid.svg" alt="star" width="30">
                         <% } %>
                         <% }); %>
+                        <% } %>
                     </p>
                 </div>
             </div>
@@ -38,5 +39,4 @@
     </article>
     <% } %>
 </section>
-
 <%- include('partials/footer.ejs') %>

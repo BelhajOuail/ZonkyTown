@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
 
 router.get("/index", async (req, res) => {
     const sessionUser = req.session.user;
-    const randomSkins = await getRandomOutfits(1000);
+    const randomSkins = await getRandomOutfits(150);
     const profile = await getUserByUsername(sessionUser!.username);
     res.render("index", { fortnite: randomSkins, profile: profile });
 });
