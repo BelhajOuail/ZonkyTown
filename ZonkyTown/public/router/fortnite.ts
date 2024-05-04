@@ -1,12 +1,7 @@
 import { Router } from 'express';
 import { Character } from '../types/character';
-import { User } from '../types/user';
-import { getRandomOutfits, loginUser, registerUser, updateAvatar, getUserByUsername, addCharacterToFavorite, deleteCharacterFromFavorite, addCharacterToBlacklist, findCharacterById, deleteCharacterFromBlacklist, getRandomBackpack, findFavoriteSkinByUser, updateCharacterScores,getRandomPickaxe, updateBackpackIntoFavorite, deleteBackpackFromFavorite,  updatePickaxeIntoFavorite, deletePickaxeFromFavorite, updateCommentIntoFavorite, deleteCommentFromFavorite, createUser } from '../../mongoDB';
+import { getRandomOutfits, loginUser, updateAvatar, getUserByUsername, addCharacterToFavorite, deleteCharacterFromFavorite, addCharacterToBlacklist, findCharacterById, deleteCharacterFromBlacklist, getRandomBackpack, findFavoriteSkinByUser, updateCharacterScores,getRandomPickaxe, updateBackpackIntoFavorite, deleteBackpackFromFavorite,  updatePickaxeIntoFavorite, deletePickaxeFromFavorite, updateCommentIntoFavorite, deleteCommentFromFavorite, createUser } from '../../mongoDB';
 import dotenv from "dotenv";
-import { render } from 'ejs';
-import { userInfo } from 'os';
-import session from 'express-session';
-import { createSecureServer } from 'http2';
 
 dotenv.config();
 
@@ -20,7 +15,7 @@ router.get("/", (req, res) => {
 
 router.get("/index", async (req, res) => {
     const sessionUser = req.session.user;
-    const randomSkins = await getRandomOutfits(50);
+    const randomSkins = await getRandomOutfits(1000);
     const profile = await getUserByUsername(sessionUser!.username);
     res.render("index", { fortnite: randomSkins, profile: profile });
 });
@@ -48,7 +43,6 @@ router.post('/registreer', async (req, res) => {
         });
     }
 });
-
 
 router.get("/login", async (req, res) => {
     const fortnite = fortniteData;
@@ -235,7 +229,6 @@ router.post("/pickaxe/:id/", async (req, res) => {
     }, 200); 
 });
 
-
 router.post("/deletepickaxe/:id/", async (req, res) => {
 
     const fortniteId = req.params.id;
@@ -248,7 +241,6 @@ router.post("/deletepickaxe/:id/", async (req, res) => {
         res.redirect(`/detailpagina/${fortniteId}`);
     }, 200); 
 });
-
 
 router.post('/comment/:id', async(req, res) => {
 

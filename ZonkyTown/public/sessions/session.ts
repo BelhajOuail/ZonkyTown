@@ -1,11 +1,13 @@
-import { uri } from "../../mongoDB";
-import session, { MemoryStore } from "express-session";
+import dotenv from "dotenv";
+import session from "express-session";
 import { User } from "../types/user";
 import mongoDbSession from "connect-mongodb-session";
 const MongoDBStore = mongoDbSession(session);
 
+dotenv.config();
+
 const mongoStore = new MongoDBStore({
-    uri: uri,
+    uri: process.env.URI || "mongodb+srv://ZonkyTown:123@zonkytown.iqttvfb.mongodb.net/",
     collection: "sessions",
     databaseName: "login-express",
 });

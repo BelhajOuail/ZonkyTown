@@ -219,7 +219,6 @@ export async function deleteCharacterFromBlacklist(characterId: string, username
     }
 }
 
-
 // Backpack-gerelateerde bewerkingen
 export async function getBackpacks() {
     return await collectionBackpacks.find({}).toArray();
@@ -286,8 +285,6 @@ export async function deleteBackpackFromFavorite(characterId: string, username :
     }
 }
 
-
-
 // Pickaxe-gerelateerde bewerkingen
 export async function getRandomPickaxe() {
     const randomPickaxe = await collectionPickaxes.aggregate([
@@ -353,7 +350,6 @@ export async function loadPickaxesFromApi() {
         await collectionPickaxes.insertMany(filteredPickaxes);
     }
 }
-
 //Score-gerelateerde bewerkingen
 
 export async function updateCharacterScores(characterId: string, winCount: number, lossCount: number, username : string) {
@@ -382,7 +378,6 @@ export async function updateCharacterScores(characterId: string, winCount: numbe
 }
 
 //Comment-gerelateerde bewerkingen
-
 export async function updateCommentIntoFavorite(characterId: string, comment: string, username : string) {
 
     const character = await collectionCharacters.findOne({ id: characterId });
@@ -427,7 +422,6 @@ export async function createUser(username :string | undefined, password : string
     });
     collectionUsers.updateOne({ username: username }, { $set: { profileImage: profileImage } })
 }
-
 
 // Verbinding maken met de database
 export async function connect() {
