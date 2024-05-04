@@ -146,7 +146,8 @@ export async function addCharacterToFavorite(characterId: string, username : str
         const losses = 0;
         const pickaxe = "/assets/images/mysteryitem.webp";
         const backpack = "/assets/images/mysteryitem.webp";
-        const comment = ""; // Standaardwaardes voor favoritecharacter
+        const comment = "";
+        // Standaardwaardes voor favoritecharacter
 
         if (user) {
             await collectionUsers.updateOne(

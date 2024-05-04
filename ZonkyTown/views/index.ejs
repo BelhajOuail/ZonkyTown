@@ -1,39 +1,44 @@
 <%- include('partials/header.ejs') %>
-    <script src="js/searchSkin.js" defer></script>
-    <script src="js/filterbyRarity.js" defer></script>
-    <script src="js/sortOptions.js" defer></script>
-    <section class="frontpageh1">
-        <h1>Fortnite</h1>
-        <h2>De toekomst van Fortnite is hier.</h2> <br>
-        <button>Ontdek hier!</button>
-    </section>
+<script src="js/searchSkin.js" defer></script>
+<script src="js/filterbyRarity.js" defer></script>
+<script src="js/sortOptions.js" defer></script>
+<section class="frontpageh1">
+    <h1>Fortnite</h1>
+    <h2>De toekomst van Fortnite is hier.</h2> <br>
+    <button>Ontdek hier!</button>
+</section>
 
-    <h1 class="bio">Klaar voor de strijd? <br> Kies één van de avatars!</h1>
+<h1 class="bio">Klaar voor de strijd? <br> Kies één van de avatars!</h1>
 
-    <%- include('partials/sortfunctions.ejs') %>
+<%- include('partials/sortfunctions.ejs') %>
 
-        <section class="characters-list">
-            <% for (let character of fortnite) { %>
-                    <article class="cards-list" data-rarity="<%= character.rarity.value %>"
-                        data-added="<%= character.added %>">
-                        <a href="/characters/<%=character.id%>">
-                        <div class="card-item">
-                            <div class="card_photo">
-                                <img src="<%= character.images.icon %>" alt="Skinfoto"
-                                    style="background-image: url('../assets/images/<%= character.rarity.value %>.webp');">
-                            </div>
-                            <div class="card_name">
-                                <p>
-                                    <%= character.name %> <br> <br>
-                                    <button class="star" onclick="changeColor(this)">
-                                        ★
-                                    </button>
-                                </p>
-                            </div>
-                        </div>
-                        </a>
-                    </article>
+<section class="characters-list">
+    <% for (let character of fortnite) { %>
+    <article class="cards-list" data-rarity="<%= character.rarity.value %>"
+        data-added="<%= character.added %>">
+        <a href="/characters/<%=character.id%>">
+            <div class="card-item">
+                <div class="card_photo">
+                    <img src="<%= character.images.icon %>" alt="Skinfoto"
+                        style="background-image: url('../assets/images/<%= character.rarity.value %>.webp');">
+                </div>
+                <div class="card_name">
+                    <p>
+                        <%= character.name %> <br> <br>
+
+                        <% profile.favoriteCharacter.forEach(favorite => { %>
+                        <% if (favorite.id === character.id) { %>
+                        <button class="star" onclick="changeColor(this)">
+                            ★
+                        </button>
                         <% } %>
-        </section>
+                        <% }); %>
+                    </p>
+                </div>
+            </div>
+        </a>
+    </article>
+    <% } %>
+</section>
 
-        <%- include('partials/footer.ejs') %>
+<%- include('partials/footer.ejs') %>
