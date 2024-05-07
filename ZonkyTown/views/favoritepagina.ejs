@@ -2,12 +2,12 @@
   <script src="js/searchSkin.js" defer></script>
   <script src="js/filterbyRarity.js" defer></script>
   <script src="js/sortOptions.js" defer></script>
-  <h1 class="bio" id="characters">Verken je favoriete Fortnite-avatars. <br> Bekijk ze van dichtbij!</h1>
-
-  <%- include('partials/sortfunctions.ejs') %>
-  <%if(profile.favoriteCharacter !== undefined){%>
+  
         <section class="characters-list" >
-            
+            <h1 class="bio" id="characters">Verken je favoriete Fortnite-avatars. <br> Bekijk ze van dichtbij!</h1>
+
+            <%- include('partials/sortfunctions.ejs') %>
+            <%if(profile.favoriteCharacter !== undefined){%>
             <% for (let character of profile.favoriteCharacter) { %>
                     <article class="cards-list" data-rarity="<%= character.rarity.value %>"
                         data-added="<%= character.added %>">
