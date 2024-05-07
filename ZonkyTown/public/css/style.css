@@ -20,6 +20,7 @@ body {
     letter-spacing: 1px;
     font-size: 1.15rem;
     display: grid;
+    grid-template-rows: auto 1fr auto;
 }
 /* CSS */
 /* CSS */
