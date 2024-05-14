@@ -154,7 +154,7 @@ body {
 }
 
 button a {
-    padding: 20px;
+    text-decoration: none;
 }
 
 .landingspagina-main ul li:hover .login_button {
@@ -373,19 +373,8 @@ h1,
 }
 
 .frontpageh1 button {
-    background-color: yellow;
-    color: black;
-    font-family: FortniteFont;
-    font-size: larger;
-    border-radius: 1.5rem;
-    margin-top: 1rem;
     margin-left: 11rem;
     padding: 15px 30px;
-    border: none;
-
-    cursor: pointer;
-    transition: 0.3s ease;
-    text-transform: uppercase;
 }
 
 .frontpageh1 button:hover {
@@ -982,7 +971,7 @@ select {
     background-color: yellow;
 }
 
-.button-48 span {
+.button-48 .text {
     z-index: 1;
     position: relative;
 }
