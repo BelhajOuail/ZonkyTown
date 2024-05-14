@@ -32,7 +32,10 @@
                                     <%= character.name %> <br>
                                 </p>
 
-                                        <form action="/deleteblacklist/<%= character.id %>" method="post">
+                                <div class="blacklistoptions">
+
+                                   
+                                <form action="/deleteblacklist/<%= character.id %>" method="post">
                                             <button name="deleteblacklist" value="<%= character.id%>" class="cross"
                                                 style="color: red;">
                                                 ✖
@@ -40,7 +43,7 @@
                                         </form>
 
                                         <form action="/changereason/<%= character.id %>" method="post">
-                                            <button id="showInputButton"> <img src=" /assets/icons/edit.svg" alt="edit"
+                                            <button id="showInputButton" class="cross"> <img src=" /assets/icons/edit.svg" alt="edit"
                                                     width="25px"></button>
                                             
                                             <div id="inputContainer">
@@ -48,6 +51,7 @@
                                             </div>
                                             
                                         </form>
+                                    </div>     
                             </div>
                         </div>
                     </article>

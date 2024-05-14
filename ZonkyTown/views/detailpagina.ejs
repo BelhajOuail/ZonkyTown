@@ -27,7 +27,7 @@
                         Notitie: <%= character.comment %>
 
                             <form action="/deletecomment/<%= character.id %>/" method="post">
-                                <button name="deletecomment" value="<%= character.deletecomment %>" class="cross"
+                                <button name="deletecomment" value="<%= character.deletecomment %>" class="cros"
                                     style="color: red;">
                                     ✖
                                 </button>
@@ -90,7 +90,7 @@
                     </form>
                     <% if (character.pickaxe !=='/assets/images/mysteryitem.webp' ) { %>
                         <form action="/deletepickaxe/<%= character.id %>/" method="post">
-                            <button name="deletepickaxe" value="<%= character.pickaxe %>" class="cross"
+                            <button name="deletepickaxe" value="<%= character.pickaxe %>" class="cros"
                                 style="color: red;">
                                 ✖
                             </button>
@@ -106,7 +106,7 @@
                     </form>
                     <% if (character.backpack !=='/assets/images/mysteryitem.webp' ) { %>
                         <form action="/deletebackpack/<%= character.id %>/" method="post">
-                            <button name="deletebackpack" value="<%= character.backpack %>" class="cross"
+                            <button name="deletebackpack" value="<%= character.backpack %>" class="cros"
                                 style="color: red;">
                                 ✖
                             </button>

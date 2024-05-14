@@ -595,7 +595,7 @@ input[type="number"] {
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    margin: 0 5.7rem;
+    margin: 0 62.4px;
 
 }
 
@@ -631,9 +631,9 @@ select {
     flex-direction: row;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    gap: 1rem;
-    margin: 2rem;
+    gap: 5rem;
     padding: 2rem;
+    margin-bottom: 4rem;
 }
 
 .characters-list a {
@@ -689,13 +689,16 @@ select {
     color: #2f3136;
 }
 
-.edit {
-    display: none;
+
+.blacklistoptions{
+    display: flex;
+    justify-content: space-between;
+    gap: 6rem;
 }
 
-.container .cross,
-.card-item:hover .cross,
-.card-item:hover .edit {
+.cross, .cros,
+.cards-list:hover .cross,
+.cards-list:hover .edit{
     display: inline-block;
     font-size: 1.6rem;
     cursor: pointer;
@@ -705,6 +708,13 @@ select {
     margin-top: 1rem;
     padding: 0;
     transition: 0.3s ease-in-out;
+}
+.cards-list:hover #inputContainer input {
+    display: inline-block;
+}
+
+.edit, .cross, #inputContainer input{
+    display: none;
 }
 .card-item:hover .star {
     margin-top: 0;
@@ -784,10 +794,10 @@ select {
 }
 
 
-.card_name .cross {
+/* .card_name .cross {
     margin-right: 1rem;
     padding: 1rem;
-}
+} */
 
 
 
