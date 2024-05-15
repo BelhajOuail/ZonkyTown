@@ -47,7 +47,22 @@ body {
     grid-template-rows: auto 1fr auto;
 }
 /* CSS */
-/* CSS */
+header #smallsize {
+    display: none;
+}
+.menu-icon {
+    display: block;
+    width: 30px;
+    height: 22px;
+    cursor: pointer;
+}
+
+.menu-icon div {
+    background-color: yellow;
+    height: 4px;
+    margin: 5px 0;
+    transition: all 0.3s ease-in-out;
+}
 .change-reason-form {
     width: 50%;
 }
@@ -572,11 +587,9 @@ input[type="number"] {
 .searchoptions {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     margin: 0 62.4px;
-
 }
 
 .quicksearch,
@@ -1241,45 +1254,6 @@ select {
 
 }
 
-@media screen and (max-width: 1200px) {
-
-
-    .navbarpart1 {
-        flex-direction: column;
-    }
-
-
-    .frontpageh1 {
-        height: 45vh;
-    }
-
-    .frontpageh1 h1 {
-        font-size: 5rem;
-    }
-
-    .frontpageh1 h2 {
-        font-size: 2rem;
-    }
-
-    .frontpageh1 button {
-        font-size: 1.5rem;
-        margin-top: 0.5rem;
-        margin-left: 5rem;
-    }
-
-    .bio {
-        font-size: 2rem;
-        margin: 2rem 1rem;
-    }
-
-    .sortandfilter {
-        align-items: normal;
-        flex-direction: column;
-    }
-
-
-}
-
 @media screen and (max-width: 1300px) {
     .container {
         flex-direction: column;
@@ -1383,7 +1357,77 @@ select {
 
     }
 }
-
+@media screen and (max-width: 900px) {
+    /*header*/
+    header #bigsize {
+        display: none;
+    }
+    header #smallsize {
+        display: contents;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1rem;
+        background-color: #18181C;
+    }
+    
+    .menu-icon {
+        display: block;
+        width: 30px;
+        height: 22px;
+        cursor: pointer;
+    }
+    
+    .menu-icon div {
+        background-color: yellow;
+        height: 4px;
+        margin: 5px 0;
+        transition: all 0.3s ease-in-out;
+    }
+    
+    #smallsize nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 200px;
+        background-color: black;
+        box-shadow: yellow;
+        
+    }
+    
+    #smallsize nav ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    
+    #smallsize nav li {
+        border-bottom: 1px solid yellow;
+    }
+    
+    #smallsize nav li a {
+        display: block;
+        padding: 10px;
+        color: white;
+        text-decoration: none;
+    }
+    
+    #smallsize nav li a:hover {
+        background-color: yellow;
+    }
+    #menuToggle {
+        display: none;
+    }
+    
+    #menuToggle:checked + .menu-icon + nav {
+        display: block;
+    }
+    /*contact*/
+    .contact {
+        flex-direction: column;
+    }
+}
 @media screen and (max-width: 550px) {
 
     .frontpageh1 {

@@ -9,7 +9,42 @@
 
 <body>
     <header>
-        <nav>
+        <section id="smallsize">
+            <article>
+                <input type="checkbox" id="menuToggle">
+                <label for="menuToggle" class="menu-icon">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </label>
+                <nav>
+                    <ul >
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Favorieten</a></li>
+                        <li><a href="contact.html">Blacklist</a></li>
+                    </ul>
+                </nav>
+                
+            </article>
+            <article class="navbarpart1">
+                <a href="/index" class="bigname">Fortnite</a>
+            </article>
+            <article>
+                <ul class="navbarpart2">
+                    <section class="profile-picture">
+                        <section class="dropdown">
+                            <button class="dropbtn">
+                                <img src="<%= profile.profileImage %>" alt="profile-picture" width="80">
+                            </button>
+                            <form action="/logout" method="post" class="dropdown-content">
+                                <a href="/login" type="submit">Loguit</a>
+                            </form>
+                        </section>
+                    </section>
+                </ul>
+            </article>
+        </section>
+        <nav id="bigsize">
             <ul class="navbarpart1">
                 <a href="/index" class="bigname">Fortnite</a>
                 <a href="/index">Home</a>
