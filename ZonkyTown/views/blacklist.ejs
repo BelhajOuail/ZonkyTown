@@ -3,11 +3,11 @@
 <script src="js/filterbyRarity.js" defer></script>
 <script src="js/sortOptions.js" defer></script>
 <main>
-    <h1 class="bio" id="characters">Bekijk je geblackliste Fortnite-avatars!</h1>
+    <h1 class="bio">Bekijk je geblackliste Fortnite-avatars!</h1>
     <%- include('partials/sortfunctions.ejs') %>
         <%if(profile.blacklistCharacter !==undefined){%>
 
-            <section class="characters-list">
+            <section class="characters-list" id="characters">
 
                 <% for (let character of profile.blacklistCharacter) { %>
                     <article class="cards-list" data-rarity="<%= character.rarity.value %>"

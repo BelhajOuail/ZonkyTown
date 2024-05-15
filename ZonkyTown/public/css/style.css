@@ -126,16 +126,6 @@ body {
     width: 580px;
 }
 
-.login__button {
-    display: none;
-    position: absolute;
-    background-color: #1E1E1E;
-    border: none;
-    border-radius: 1.5rem;
-    padding: 20px;
-
-}
-
 .landingspagina-main ul li:hover .login__button {
     display: flex;
     background-color: yellow;
@@ -151,6 +141,7 @@ body {
     border: none;
     border-radius: 1.5rem;
     cursor: pointer;
+    padding: 13px;
 }
 
 button a {

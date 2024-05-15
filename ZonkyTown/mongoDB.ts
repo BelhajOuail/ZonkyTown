@@ -86,19 +86,19 @@ export async function getUserById(id: number) {
     return await collectionUsers.findOne({ $oid: id });
 }
 
-export async function loginUser(username: string, password: string) {
+export async function loginUser(username: string, password: string): Promise<boolean> {
     if (username === "" || password === "") {
-        throw new Error("Email and password required");
+        throw new Error("Gebruikersnaam en wachtwoord zijn verplicht.");
     }
-    let user : User | null = await collectionUsers.findOne<User>({username: username});
+    let user: User | null = await collectionUsers.findOne<User>({ username: username });
     if (user) {
         if (await bcrypt.compare(password, user.password!)) {
-            return user;
+            return true;
         } else {
-            throw new Error("Password incorrect");
+            return false; 
         }
     } else {
-        throw new Error("User not found");
+        return false; 
     }
 }
 
@@ -427,17 +427,24 @@ export async function deleteCommentFromFavorite(characterId: string, username : 
 }
 
 //password hashing
-export async function createUser(username :string | undefined, password : string | undefined) {
+export async function createUser(username: string | undefined, password: string | undefined): Promise<boolean> {
     const profileImage: string = "/assets/icons/questionpf.png"
     if (username === undefined || password === undefined) {
         throw new Error("ADMIN_EMAIL and ADMIN_PASSWORD must be set in environment");
     }
-    await collectionUsers.insertOne({
-        username: username,
-        password: await bcrypt.hash(password, saltRounds)
-    });
-    collectionUsers.updateOne({ username: username }, { $set: { profileImage: profileImage } })
+    const doubleUsername = await getUserByUsername(username);
+    if (!doubleUsername) {
+        await collectionUsers.insertOne({
+            username: username,
+            password: await bcrypt.hash(password, saltRounds)
+        });
+        collectionUsers.updateOne({ username: username }, { $set: { profileImage: profileImage } });
+        return true; // Gebruiker succesvol toegevoegd
+    } else {
+        return false; // Gebruikersnaam al in gebruik
+    }
 }
+
 
 // Verbinding maken met de database
 export async function connect() {

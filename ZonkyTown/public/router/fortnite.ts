@@ -34,15 +34,22 @@ router.post('/registreer', async (req, res) => {
                 message: 'Wachtwoorden komen niet overeen.'
             });
         }
-        await createUser(name, password);
-        res.redirect('/login');
+        const userAdded = await createUser(name, password);
+        if (userAdded) {
+            res.redirect('/login');
+        } else {
+            res.render('registreer', {
+                message: 'Gebruikersnaam is al in gebruik.'
+            });
+        }
     } catch (error) {
         console.error('Er is een fout opgetreden tijdens het registreren:', error);
         res.render('registreer', {
-            message: 'Gebruikersnaam is al in gebruik.'
+            message: 'Er is een fout opgetreden tijdens het registreren.'
         });
     }
 });
+
 
 router.get("/login", async (req, res) => {
     const fortnite = fortniteData;
@@ -53,16 +60,19 @@ router.post('/login', async (req, res) => {
     const { username, password } = req.body;
     try {
         const loggedIn = await loginUser(username, password);
-        req.session.user = { username, password };
-        if (!loggedIn) {
+        if (loggedIn) {
+            req.session.user = { username, password };
+            return res.redirect('/index');
+        } else {
             return res.render('login', {
                 message: 'Foute gebruikersnaam of wachtwoord!',
             });
         }
-        return res.redirect('/index');
     } catch (error) {
         console.error('Er is een fout opgetreden tijdens het inloggen:', error);
-        return res.redirect('/login');
+        return res.render('login', {
+            message: 'Er is een fout opgetreden tijdens het inloggen.',
+        });
     }
 });
 router.get("/logout", async (req, res) => {
@@ -95,7 +105,6 @@ router.get("/characters/:id", async (req, res) => {
     }
 });
 
-
 router.post('/avatar/:id', async (req, res) => {
     const fortniteId = req.params.id;
     const avatar = req.body.avatar;
@@ -103,21 +112,27 @@ router.post('/avatar/:id', async (req, res) => {
     const blacklist = req.body.blacklist;
     const reason = req.body.reason;
     const sessionUser = req.session.user;
-
-    if (avatar !== undefined) {
-        updateAvatar(avatar, sessionUser!.username);
+    
+    try {
+        if (avatar !== undefined) {
+            await updateAvatar(avatar, sessionUser!.username);
+        } else if (favorite !== undefined) {
+            await addCharacterToFavorite(favorite, sessionUser!.username);
+            await deleteCharacterFromBlacklist(favorite, sessionUser!.username);
+            res.redirect("/favoritepagina");
+        } else if (blacklist !== undefined) {
+            await addCharacterToBlacklist(blacklist, reason, sessionUser!.username);
+            await deleteCharacterFromFavorite(blacklist, sessionUser!.username);
+            res.redirect("/blacklist");
+        } else {
+            res.redirect(`/characters/${fortniteId}`);
+        }
+    } catch (error) {
+        console.error('Er is een fout opgetreden:', error);
+        res.redirect(`/characters/${fortniteId}`);
     }
-    else if (favorite !== undefined) {
-        addCharacterToFavorite(favorite, sessionUser!.username)
-        deleteCharacterFromBlacklist(favorite, sessionUser!.username) // als die in blacklist zat wordt die er uit gehaald, anders heb je dezelfde skin in favoriet en blacklist
-
-    } else if (blacklist !== undefined) {
-        addCharacterToBlacklist(blacklist, reason, sessionUser!.username)
-        deleteCharacterFromFavorite(blacklist, sessionUser!.username) // als die in blacklist zat wordt die er uit gehaald, anders heb je dezelfde skin in favoriet en blacklist
-    }
-
-    res.redirect(`/characters/${fortniteId}`);
 });
+
 
 
 router.get("/favoritepagina", async (req, res) => {
@@ -173,7 +188,7 @@ router.post("/detailpagina/:id", async (req, res) => {
         else {
             await findFavoriteSkinByUser(fortniteId, sessionUser!.username);
             setTimeout(() => {
-                res.redirect(`/detailpagina/${fortniteId}`);
+                res.redirect(`/detailpagina/${fortniteId}/#characters`);
                 updateCharacterScores(fortniteId, winCount, lossCount, sessionUser!.username);
             }, 250);
         }
@@ -181,7 +196,7 @@ router.post("/detailpagina/:id", async (req, res) => {
     else {
         await findFavoriteSkinByUser(fortniteId, sessionUser!.username);
         setTimeout(() => {
-            res.redirect(`/detailpagina/${fortniteId}`);
+            res.redirect(`/detailpagina/${fortniteId}/#characters`);
             updateCharacterScores(fortniteId, winCount, lossCount, sessionUser!.username);
         }, 250);
     }
@@ -198,7 +213,7 @@ router.post("/backpack/:id/", async (req, res) => {
 
 
     setTimeout(() => {
-        res.redirect(`/detailpagina/${fortniteId}`);
+        res.redirect(`/detailpagina/${fortniteId}/#characters`);
     }, 200);
 });
 
@@ -211,7 +226,7 @@ router.post("/deletebackpack/:id/", async (req, res) => {
     deleteBackpackFromFavorite(fortniteId, sessionUser!.username);
 
     setTimeout(() => {
-        res.redirect(`/detailpagina/${fortniteId}`);
+        res.redirect(`/detailpagina/${fortniteId}/#characters`);
     }, 200);
 });
 
@@ -225,7 +240,7 @@ router.post("/pickaxe/:id/", async (req, res) => {
     updatePickaxeIntoFavorite(fortniteId, randomPickaxe, sessionUser!.username);
 
     setTimeout(() => {
-        res.redirect(`/detailpagina/${fortniteId}`);
+        res.redirect(`/detailpagina/${fortniteId}/#characters`);
     }, 200);
 });
 
@@ -238,7 +253,7 @@ router.post("/deletepickaxe/:id/", async (req, res) => {
     deletePickaxeFromFavorite(fortniteId, sessionUser!.username);
 
     setTimeout(() => {
-        res.redirect(`/detailpagina/${fortniteId}`);
+        res.redirect(`/detailpagina/${fortniteId}/#characters`);
     }, 200);
 });
 
@@ -251,7 +266,7 @@ router.post('/comment/:id', async (req, res) => {
     updateCommentIntoFavorite(fortniteId, comment, sessionUser!.username)
 
     setTimeout(() => {
-        res.redirect(`/detailpagina/${fortniteId}`);
+        res.redirect(`/detailpagina/${fortniteId}/#characters`);
     }, 200);
 });
 
@@ -263,7 +278,7 @@ router.post('/deletecomment/:id', async (req, res) => {
     deleteCommentFromFavorite(fortniteId, sessionUser!.username)
 
     setTimeout(() => {
-        res.redirect(`/detailpagina/${fortniteId}`);
+        res.redirect(`/detailpagina/${fortniteId}/#characters`);
     }, 200);
 });
 
