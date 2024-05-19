@@ -12,25 +12,25 @@
 ::-webkit-scrollbar {
     width: 12px;
     border-radius: 30px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
     border-radius: 30px;
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 30px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
     background: #555;
     border-radius: 30px;
-  }
+}
 
 html,
 body {
@@ -46,10 +46,12 @@ body {
     display: grid;
     grid-template-rows: auto 1fr auto;
 }
+
 /* CSS */
 header #smallsize {
     display: none;
 }
+
 .menu-icon {
     display: block;
     width: 30px;
@@ -63,6 +65,7 @@ header #smallsize {
     margin: 5px 0;
     transition: all 0.3s ease-in-out;
 }
+
 .change-reason-form {
     width: 50%;
 }
@@ -477,7 +480,10 @@ footer a {
 footer a:hover {
     color: yellow;
 }
-span {cursor:pointer; }
+
+span {
+    cursor: pointer;
+}
 
 .score {
     margin-bottom: 20px;
@@ -494,7 +500,8 @@ span {cursor:pointer; }
 .btn-container {
     display: flex;
     justify-content: center;
-    margin-top: 10px; /* Voeg wat ruimte toe tussen de cijfers en de knoppen */
+    margin-top: 10px;
+    /* Voeg wat ruimte toe tussen de cijfers en de knoppen */
     gap: 2rem;
 }
 
@@ -503,8 +510,10 @@ input[type="number"] {
     padding: 10px;
     text-align: center;
     font-size: 50px;
-    font-weight: bold; /* Dikgedrukt */
-    color: white; /* Witte tekstkleur */
+    font-weight: bold;
+    /* Dikgedrukt */
+    color: white;
+    /* Witte tekstkleur */
     border: none;
     background-color: transparent;
 }
@@ -683,15 +692,16 @@ select {
 }
 
 
-.blacklistoptions{
+.blacklistoptions {
     display: flex;
     justify-content: space-between;
     gap: 6rem;
 }
 
-.cross, .cros,
+.cross,
+.cros,
 .cards-list:hover .cross,
-.cards-list:hover .edit{
+.cards-list:hover .edit {
     display: inline-block;
     font-size: 1.6rem;
     cursor: pointer;
@@ -702,29 +712,53 @@ select {
     padding: 0;
     transition: 0.3s ease-in-out;
 }
+
 .cards-list:hover #inputContainer input {
     display: inline-block;
 }
 
-.edit, .cross, #inputContainer input{
+.edit,
+.cross,
+#inputContainer input {
     display: none;
 }
+
 .card-item:hover .star {
     margin-top: 0;
 }
 
+#myBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    color: white;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    margin: 1rem;
+    padding: 0;
+    border-radius: 10px;
+}
+
+#myBtn img {
+    transition: 0.3s ease-in-out;
+    width: 1.75rem;
+    height: auto;
+}
+
+
 
 /* detailpagina index */
 
-
-
-.descriptiondetail .name{
+.descriptiondetail .name {
     font-size: 5rem;
     margin: 5rem 0 2.5rem 0;
     text-transform: uppercase;
 }
 
-.outfitrarity{
+.outfitrarity {
     font-size: 2.3rem;
     background-size: 100% 100%;
     margin: 0rem;
@@ -733,32 +767,32 @@ select {
     text-transform: uppercase;
 }
 
-.container .outfitrarity{
+.container .outfitrarity {
     margin-top: 1rem;
 }
 
-.descriptiondetail .descriptionofskin{
+.descriptiondetail .descriptionofskin {
     margin-bottom: 0;
     font-family: FortniteMedium;
     font-style: italic;
 }
 
-.descriptiondetail .introducedin{
+.descriptiondetail .introducedin {
     margin-top: 0;
     font-family: FortniteMedium;
     font-style: italic;
 }
 
-.descriptiondetail .variants{
+.descriptiondetail .variants {
     font-family: FortniteMedium;
 }
 
-.variants img{
+.variants img {
     border-radius: 1rem;
     background-size: 100% 100%;
     background-repeat: no-repeat;
     box-shadow: 5px 5px 30px 15px rgba(0, 0, 0, 0.25),
-    -5px -5px 30px 15px rgba(0, 0, 0, 0.22);
+        -5px -5px 30px 15px rgba(0, 0, 0, 0.22);
     transition: 0.3s ease-in-out;
     margin: 0.5rem;
 }
@@ -812,7 +846,7 @@ select {
     align-items: center;
 }
 
-.container article:nth-of-type(2){
+.container article:nth-of-type(2) {
     display: flex;
     align-self: center;
     justify-content: space-between;
@@ -830,7 +864,7 @@ select {
     background-repeat: no-repeat;
     border-radius: 1rem;
     box-shadow: 5px 5px 30px 15px rgba(0, 0, 0, 0.25),
-    -5px -5px 30px 15px rgba(0, 0, 0, 0.22);
+        -5px -5px 30px 15px rgba(0, 0, 0, 0.22);
     transition: 0.3s ease-in-out;
 }
 
@@ -875,8 +909,8 @@ select {
     border-right: 5px solid yellow;
 }
 
-.scoreboard {
-    margin-bottom: 8rem;
+#save {
+    margin-bottom: 2.5rem;
 }
 
 .comment-form {
@@ -983,10 +1017,11 @@ select {
 /*cards*/
 
 .characters {
-    width: 100%;  
+    width: 100%;
     flex-wrap: wrap;
     gap: 1rem;
 }
+
 .cardCharacter {
     display: flex;
     align-items: center;
@@ -994,15 +1029,17 @@ select {
     transition: 0.3s;
     width: 61%;
     padding-bottom: 2rem;
-    
+
 }
 
 .cardCharacter:hover {
     box-shadow: 0 8px 16px 0 var(--colorRed);
 }
+
 .head {
     width: 100%;
 }
+
 .containerCard {
     align-items: center;
     display: flex;
@@ -1034,7 +1071,7 @@ select {
     font-size: 150%;
 }
 
-.botharticles{
+.botharticles {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -1058,7 +1095,8 @@ select {
     justify-content: center;
     width: 30rem;
     margin: 3rem 0;
-    padding: 50px 0;;
+    padding: 50px 0;
+    ;
     background-color: #18181C;
     border-radius: 1rem;
 
@@ -1248,7 +1286,7 @@ select {
         justify-content: center;
     }
 
-    .registreer-button .login-section{
+    .registreer-button .login-section {
         width: 50%;
     }
 
@@ -1264,11 +1302,11 @@ select {
         width: 100%;
     }
 
-    .containerCard{
+    .containerCard {
         align-items: flex-start;
     }
 
-    .botharticles{
+    .botharticles {
         flex-direction: column;
         align-items: center;
     }
@@ -1276,10 +1314,11 @@ select {
     .botharticles article {
         width: 100%;
     }
-    .rarity{
+
+    .rarity {
         width: 60%;
     }
-    
+
 
 }
 
@@ -1335,14 +1374,14 @@ select {
         align-items: center;
         justify-content: center;
     }
- 
+
     .navbarpart2 {
         margin: 1rem;
         padding: 0;
     }
 
     .dropbtn {
-       margin: 0 1.5rem 1.5rem 0;
+        margin: 0 1.5rem 1.5rem 0;
     }
 
     .searchoptions {
@@ -1350,84 +1389,99 @@ select {
         margin: 0 3rem;
     }
 
-    .quicksearch, select{
-       font-size: 16px; 
-       padding: 10px;
-       height: 2.6rem;
+    .quicksearch,
+    select {
+        font-size: 16px;
+        padding: 10px;
+        height: 2.6rem;
 
     }
 }
+
 @media screen and (max-width: 900px) {
+
     /*header*/
     header #bigsize {
         display: none;
     }
+
     header #smallsize {
         display: contents;
         position: relative;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0 1rem;
+        padding: 2rem 1rem;
         background-color: #18181C;
     }
-    
+
+     header #smallsize .bigname:hover {
+        color: yellow;
+        transition: 0.5s;
+    }
+
+    header nav{
+        padding: 0;
+    }
+
     .menu-icon {
         display: block;
         width: 30px;
         height: 22px;
         cursor: pointer;
     }
-    
+
     .menu-icon div {
-        background-color: yellow;
+        background-color: white;
         height: 4px;
         margin: 5px 0;
         transition: all 0.3s ease-in-out;
     }
-    
+
     #smallsize nav {
         display: none;
         position: absolute;
-        top: 100%;
-        left: 0;
+        top: 58%;
         width: 200px;
-        background-color: black;
-        box-shadow: yellow;
-        
+        background-color: white;
+
     }
-    
+
     #smallsize nav ul {
         list-style-type: none;
         padding: 0;
     }
-    
-    #smallsize nav li {
-        border-bottom: 1px solid yellow;
-    }
-    
+
     #smallsize nav li a {
         display: block;
-        padding: 10px;
-        color: white;
+        padding: 1rem 2rem 1rem 1rem;
+        color: black;
         text-decoration: none;
     }
-    
+
     #smallsize nav li a:hover {
-        background-color: yellow;
+        background-color: #dfdfdf;
     }
+
     #menuToggle {
         display: none;
     }
-    
-    #menuToggle:checked + .menu-icon + nav {
+
+    #menuToggle:checked+.menu-icon+nav {
         display: block;
     }
+
+    .navbarpart2{
+        margin-right: 0;
+    }
+
+
     /*contact*/
     .contact {
         flex-direction: column;
     }
 }
+
 @media screen and (max-width: 550px) {
 
     .frontpageh1 {
@@ -1444,7 +1498,7 @@ select {
     }
 }
 
-@media screen and (max-width: 550px){
+@media screen and (max-width: 550px) {
     footer {
         display: flex;
         flex-direction: row;

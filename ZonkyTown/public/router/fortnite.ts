@@ -112,25 +112,20 @@ router.post('/avatar/:id', async (req, res) => {
     const blacklist = req.body.blacklist;
     const reason = req.body.reason;
     const sessionUser = req.session.user;
-    
-    try {
-        if (avatar !== undefined) {
-            await updateAvatar(avatar, sessionUser!.username);
-        } else if (favorite !== undefined) {
-            await addCharacterToFavorite(favorite, sessionUser!.username);
-            await deleteCharacterFromBlacklist(favorite, sessionUser!.username);
-            res.redirect("/favoritepagina");
-        } else if (blacklist !== undefined) {
-            await addCharacterToBlacklist(blacklist, reason, sessionUser!.username);
-            await deleteCharacterFromFavorite(blacklist, sessionUser!.username);
-            res.redirect("/blacklist");
-        } else {
-            res.redirect(`/characters/${fortniteId}`);
-        }
-    } catch (error) {
-        console.error('Er is een fout opgetreden:', error);
-        res.redirect(`/characters/${fortniteId}`);
+
+    if (avatar !== undefined) {
+        updateAvatar(avatar, sessionUser!.username);
     }
+    else if (favorite !== undefined) {
+        addCharacterToFavorite(favorite, sessionUser!.username)
+        deleteCharacterFromBlacklist(favorite, sessionUser!.username) // als die in blacklist zat wordt die er uit gehaald, anders heb je dezelfde skin in favoriet en blacklist
+
+    } else if (blacklist !== undefined) {
+        addCharacterToBlacklist(blacklist, reason, sessionUser!.username)
+        deleteCharacterFromFavorite(blacklist, sessionUser!.username) // als die in blacklist zat wordt die er uit gehaald, anders heb je dezelfde skin in favoriet en blacklist
+    }
+
+    res.redirect(`/characters/${fortniteId}`);
 });
 
 
