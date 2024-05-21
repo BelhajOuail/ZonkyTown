@@ -172,6 +172,7 @@ router.post("/detailpagina/:id", async (req, res) => {
     const winCount = req.body.winCount;
     const lossCount = req.body.lossCount;
     const sessionUser = req.session.user;
+    
     if (winCount > 0 || lossCount >= 3) {
         if (lossCount > 3 * winCount) {
             addCharacterToBlacklist(fortniteId, "personage trekt op niets", sessionUser!.username);
@@ -208,7 +209,7 @@ router.post("/backpack/:id/", async (req, res) => {
 
 
     setTimeout(() => {
-        res.redirect(`/detailpagina/${fortniteId}`);
+        res.redirect(`/detailpagina/${fortniteId}/#characters`);
     }, 200);
 });
 
@@ -221,7 +222,7 @@ router.post("/deletebackpack/:id/", async (req, res) => {
     deleteBackpackFromFavorite(fortniteId, sessionUser!.username);
 
     setTimeout(() => {
-        res.redirect(`/detailpagina/${fortniteId}`);
+        res.redirect(`/detailpagina/${fortniteId}/#characters`);
     }, 200);
 });
 
@@ -235,7 +236,7 @@ router.post("/pickaxe/:id/", async (req, res) => {
     updatePickaxeIntoFavorite(fortniteId, randomPickaxe, sessionUser!.username);
 
     setTimeout(() => {
-        res.redirect(`/detailpagina/${fortniteId}`);
+        res.redirect(`/detailpagina/${fortniteId}/#characters`);
     }, 200);
 });
 
@@ -248,7 +249,7 @@ router.post("/deletepickaxe/:id/", async (req, res) => {
     deletePickaxeFromFavorite(fortniteId, sessionUser!.username);
 
     setTimeout(() => {
-        res.redirect(`/detailpagina/${fortniteId}`);
+        res.redirect(`/detailpagina/${fortniteId}/#characters`);
     }, 200);
 });
 
@@ -261,7 +262,7 @@ router.post('/comment/:id', async (req, res) => {
     updateCommentIntoFavorite(fortniteId, comment, sessionUser!.username)
 
     setTimeout(() => {
-        res.redirect(`/detailpagina/${fortniteId}`);
+        res.redirect(`/detailpagina/${fortniteId}/#characters`);
     }, 200);
 });
 
@@ -273,7 +274,7 @@ router.post('/deletecomment/:id', async (req, res) => {
     deleteCommentFromFavorite(fortniteId, sessionUser!.username)
 
     setTimeout(() => {
-        res.redirect(`/detailpagina/${fortniteId}`);
+        res.redirect(`/detailpagina/${fortniteId}/#characters`);
     }, 200);
 });
 
