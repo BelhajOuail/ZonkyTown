@@ -1415,6 +1415,10 @@ select {
         background-color: #18181C;
     }
 
+    header #smallsize .bigname {
+        margin-left: 5rem;
+    }
+
      header #smallsize .bigname:hover {
         color: yellow;
         transition: 0.5s;

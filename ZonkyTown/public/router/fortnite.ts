@@ -208,7 +208,7 @@ router.post("/backpack/:id/", async (req, res) => {
 
 
     setTimeout(() => {
-        res.redirect(`/detailpagina/${fortniteId}/#characters`);
+        res.redirect(`/detailpagina/${fortniteId}`);
     }, 200);
 });
 
@@ -221,7 +221,7 @@ router.post("/deletebackpack/:id/", async (req, res) => {
     deleteBackpackFromFavorite(fortniteId, sessionUser!.username);
 
     setTimeout(() => {
-        res.redirect(`/detailpagina/${fortniteId}/#characters`);
+        res.redirect(`/detailpagina/${fortniteId}`);
     }, 200);
 });
 
@@ -235,7 +235,7 @@ router.post("/pickaxe/:id/", async (req, res) => {
     updatePickaxeIntoFavorite(fortniteId, randomPickaxe, sessionUser!.username);
 
     setTimeout(() => {
-        res.redirect(`/detailpagina/${fortniteId}/#characters`);
+        res.redirect(`/detailpagina/${fortniteId}`);
     }, 200);
 });
 
@@ -248,7 +248,7 @@ router.post("/deletepickaxe/:id/", async (req, res) => {
     deletePickaxeFromFavorite(fortniteId, sessionUser!.username);
 
     setTimeout(() => {
-        res.redirect(`/detailpagina/${fortniteId}/#characters`);
+        res.redirect(`/detailpagina/${fortniteId}`);
     }, 200);
 });
 
@@ -261,7 +261,7 @@ router.post('/comment/:id', async (req, res) => {
     updateCommentIntoFavorite(fortniteId, comment, sessionUser!.username)
 
     setTimeout(() => {
-        res.redirect(`/detailpagina/${fortniteId}/#characters`);
+        res.redirect(`/detailpagina/${fortniteId}`);
     }, 200);
 });
 
@@ -273,7 +273,7 @@ router.post('/deletecomment/:id', async (req, res) => {
     deleteCommentFromFavorite(fortniteId, sessionUser!.username)
 
     setTimeout(() => {
-        res.redirect(`/detailpagina/${fortniteId}/#characters`);
+        res.redirect(`/detailpagina/${fortniteId}`);
     }, 200);
 });
 
