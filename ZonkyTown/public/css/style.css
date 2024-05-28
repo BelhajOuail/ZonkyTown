@@ -193,8 +193,6 @@ button a {
     padding: 0;
 }
 
-
-
 header nav {
     display: flex;
     justify-content: space-between;
@@ -202,9 +200,6 @@ header nav {
     background-color: #18181C;
     padding: 2rem 0;
 }
-
-
-
 
 header nav a:hover {
     color: yellow;
@@ -230,7 +225,6 @@ header nav a:hover {
 .smallname{
     font-size: 1.35rem;
 }
-
 
 .navbarpart2 {
     display: flex;
@@ -795,8 +789,9 @@ select {
     font-style: italic;
 }
 
-.descriptiondetail .variants {
+.variants {
     font-family: FortniteMedium;
+    margin-top: 2rem;
 }
 
 .variants img {

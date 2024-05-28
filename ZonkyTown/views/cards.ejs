@@ -49,14 +49,13 @@
                             <button class="button-48" type="submit" name="favorite" value="<%= character.id %>">
                                 <span class="text">Zet in favorieten</span>
                             </button>
+                        </form>
+                        <br>
+                        <form class="comment-form" action="/avatar/<%= character.id %>" method="post">
+                            <textarea name="reason" placeholder="Voeg reden toe om te blacklisten..." required></textarea>
                             <button class="button-48" type="submit" name="blacklist" value="<%= character.id %>">
                                 <span class="text">Zet in blacklist</span>
                             </button>
-                        </form>
-                        
-                        <form class="comment-form" action="/avatar/<%= character.id %>" method="post">
-                            <textarea name="reason" placeholder="Voeg reden toe om te blacklisten..." required></textarea>
-                            
                         </form>
                         
                     </div>
