@@ -227,6 +227,10 @@ header nav a:hover {
     font-size: 3rem;
 }
 
+.smallname{
+    font-size: 1.35rem;
+}
+
 
 .navbarpart2 {
     display: flex;
@@ -744,7 +748,7 @@ select {
 
 #myBtn img {
     transition: 0.3s ease-in-out;
-    width: 1.75rem;
+    width: 2.25rem;
     height: auto;
 }
 
@@ -752,6 +756,13 @@ select {
 
 /* detailpagina index */
 
+
+.descriptiondetail{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .descriptiondetail .name {
     font-size: 5rem;
     margin: 5rem 0 2.5rem 0;
