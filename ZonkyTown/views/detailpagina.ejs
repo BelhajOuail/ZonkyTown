@@ -23,17 +23,18 @@
                             character.introduction.season %>
                 </h3>
                 <% if (character.comment && character.comment !=="" ) { %>
-                    <h3> <br> <br>
-                        Notitie: <%= character.comment %>
+                    <h3 class="comment">
+                        Commentaar: <%= character.comment %>
 
-                            <form action="/deletecomment/<%= character.id %>/" method="post">
-                                <button name="deletecomment" value="<%= character.deletecomment %>" class="cros"
-                                    style="color: red;">
-                                    ✖
-                                </button>
-                            </form>
+                           
 
                     </h3>
+                    <form action="/deletecomment/<%= character.id %>/" method="post">
+                        <button name="deletecomment" value="<%= character.deletecomment %>" class="cros"
+                            style="color: red;">
+                            ✖
+                        </button>
+                    </form>
                     <% } %>
             </div>
 

@@ -607,7 +607,7 @@ select {
     text-transform: uppercase;
     font-size: 20px;
     padding: 1rem;
-    height: 2rem;
+    height: 1.4rem;
     border-radius: 0.5rem;
 }
 
@@ -619,7 +619,6 @@ select {
 
 .sortandfilter {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
 }
@@ -1003,7 +1002,9 @@ select {
     border-radius: 1rem;
 
 }
-
+.textareaB input {
+    padding: 1rem;
+}
 
 .picturecolor {
     font-size: 3rem;
@@ -1018,9 +1019,8 @@ select {
     font-style: italic;
 }
 
-
 .description h3 {
-    margin: 1rem
+    margin: 1rem;
 }
 
 /* CSS */
@@ -1390,7 +1390,17 @@ select {
 
 
 }
+@media screen and (max-width:785px) {
+    .searchoptions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .quicksearch {
+        width: 20rem;
+    }
 
+   
+}
 @media screen and (max-width: 750px) {
 
 
@@ -1453,18 +1463,7 @@ select {
         margin: 0 1.5rem 1.5rem 0;
     }
 
-    .searchoptions {
-        /* flex-direction: column; */
-        margin: 0 3rem;
-    }
-
-    .quicksearch,
-    select {
-        font-size: 16px;
-        padding: 10px;
-        height: 2.6rem;
-
-    }
+ 
 }
 
 @media screen and (max-width: 900px) {
