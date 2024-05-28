@@ -10,51 +10,44 @@
             <section class="characters-list" id="characters">
 
                 <% for (let character of profile.blacklistCharacter) { %>
-                    <article class="cards-list" data-rarity="<%= character.rarity.value %>"
-                        data-added="<%= character.added %>">
-
-
-                        <div class="card-item">
-                            <p class="reason">
-                                <% if (character.reason) { %>
-                                    <%= character.reason %>
-                                        <% } else { %>
-                                            Geen reden
-                                            <% } %>
-                            </p>
-
-                            <div class="card_photo">
-                                <img src="<%= character.images.icon %>" alt="Skinfoto"
-                                    style="background-image: url('../assets/images/<%= character.rarity.value %>.webp');">
+                    <article class="cards-list card-listB" data-rarity="<%= character.rarity.value %>" data-added="<%= character.added %>"
+                        style="margin-top: 3rem;">
+                        <div class="card-item card-itemB"
+                        style="border-radius: 20px;" >
+                            <div class="card_photo card_photoB" style="border-radius: 20px;">
+                                <img src="<%= character.images.icon %>" alt="Skinfoto" class="card-img card-imgB" style="background-image: url('../assets/images/<%= character.rarity.value %>.webp');">
+                                <div class="overlay">
+                                    
+                                    <div class="textB">
+                                        <h1>Reden:</h1>
+                                        <%= character.reason %></div>
+                                </div>
                             </div>
                             <div class="card_name">
                                 <p>
                                     <%= character.name %> <br>
                                 </p>
-
+                    
                                 <div class="blacklistoptions">
-
-                                   
-                                <form action="/deleteblacklist/<%= character.id %>" method="post">
-                                            <button name="deleteblacklist" value="<%= character.id%>" class="cross"
-                                                style="color: red;">
-                                                ✖
+                                    <form action="/deleteblacklist/<%= character.id %>" method="post">
+                                        <button name="deleteblacklist" value="<%= character.id %>" class="cross" style="color: red;">
+                                            ✖
+                                        </button>
+                                    </form>
+                                    <form action="/changereason/<%= character.id %>" method="post">
+                                       
+                                        <div id="inputContainer" class="comment-form">
+                                            <input type="textarea" name="newreason" placeholder="Verander reden..." required >
+                                            <button id="showInputButton" class="cross">
+                                                <img src="/assets/icons/edit.svg" alt="edit" width="25px">
                                             </button>
-                                        </form>
-
-                                        <form action="/changereason/<%= character.id %>" method="post">
-                                            <button id="showInputButton" class="cross"> <img src=" /assets/icons/edit.svg" alt="edit"
-                                                    width="25px"></button>
-                                            
-                                            <div id="inputContainer">
-                                                <input type="text" name="newreason" placeholder="Verander reden..." required>
-                                            </div>
-                                            
-                                        </form>
-                                    </div>     
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </article>
+                    
                     <% } %>
             </section>
         </main>
