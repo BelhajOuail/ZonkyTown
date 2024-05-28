@@ -7,11 +7,22 @@
                     <img src="<%= character.images.featured %>" alt="Skinfoto"
                         style="background-image: url('../assets/images/<%=character.rarity.value%>.webp');"
                         class="rarity">
-                    <form action="/avatar/<%= character.id %>" method="post">
-                        <button class="button-48" type="submit" name="avatar" value="<%= character.images.icon %>">
-                            <span class="text">Gebruik als profielfoto</span>
-                        </button>
-                    </form>
+                        <div class="variants">
+                            <% let counter=0; if (character.variants && character.variants.length> 0) {
+                                character.variants.forEach(variant => {
+                                if (counter >= 4) return;
+                                if (variant.options && variant.options.length > 0) {
+                                variant.options.forEach(option => {
+                                if (counter >= 4) return;
+                                %>
+                                <img src="<%= option.image %>"
+                                    style="background-image: url('../assets/images/<%=character.rarity.value%>.webp');"
+                                    alt="variants">
+                                <% counter++; }); } }); } else { %>
+                                    <p>Geen varianten beschikbaar</p>
+                                    <% } %>
+                        </div>
+                    
                 </article>
                 <article>
                     <div class="descriptiondetail">
@@ -30,32 +41,24 @@
                                     Seizoen <%= character.introduction.season %>.</p>
                         </div>
                         <form action="/avatar/<%= character.id %>" method="post">
+                            <button class="button-48" type="submit" name="avatar" value="<%= character.images.icon %>">
+                                <span class="text">Gebruik als profielfoto</span>
+                            </button>
+                        </form>
+                        <form action="/avatar/<%= character.id %>" method="post">
                             <button class="button-48" type="submit" name="favorite" value="<%= character.id %>">
                                 <span class="text">Zet in favorieten</span>
                             </button>
-                        </form> <br>
-                        <form class="comment-form" action="/avatar/<%= character.id %>" method="post">
-                            <textarea name="reason" placeholder="Voeg reden toe om te blacklisten..." required></textarea>
                             <button class="button-48" type="submit" name="blacklist" value="<%= character.id %>">
                                 <span class="text">Zet in blacklist</span>
                             </button>
                         </form>
-                        <div class="variants">
-                            <p>Varianten</p>
-                            <% let counter=0; if (character.variants && character.variants.length> 0) {
-                                character.variants.forEach(variant => {
-                                if (counter >= 4) return;
-                                if (variant.options && variant.options.length > 0) {
-                                variant.options.forEach(option => {
-                                if (counter >= 4) return;
-                                %>
-                                <img src="<%= option.image %>"
-                                    style="background-image: url('../assets/images/<%=character.rarity.value%>.webp');"
-                                    alt="variants">
-                                <% counter++; }); } }); } else { %>
-                                    <p>Geen varianten beschikbaar</p>
-                                    <% } %>
-                        </div>
+                        
+                        <form class="comment-form" action="/avatar/<%= character.id %>" method="post">
+                            <textarea name="reason" placeholder="Voeg reden toe om te blacklisten..." required></textarea>
+                            
+                        </form>
+                        
                     </div>
                 </article>
             </div>

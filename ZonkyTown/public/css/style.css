@@ -348,7 +348,6 @@ input#search-bar {
 h1,
 .bio {
     text-align: center;
-    margin: 2.5rem 0;
 }
 
 .bio {
@@ -765,8 +764,10 @@ select {
 }
 .descriptiondetail .name {
     font-size: 5rem;
-    margin: 5rem 0 2.5rem 0;
     text-transform: uppercase;
+}
+.name{
+    margin: 0;
 }
 
 .outfitrarity {
@@ -1085,7 +1086,7 @@ select {
 .botharticles {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
 }
 
